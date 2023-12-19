@@ -7,54 +7,58 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #fff;
+            background-color: #121212; /* Black background */
+            color: #ffffff; /* White text */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         header {
-            background-color: #333;
+            background-color: #1e90ff; /* Dodger Blue header */
             padding: 20px;
             text-align: center;
         }
 
         section {
+            padding: 40px;
             margin: 20px;
-            padding: 20px;
-            border: 1px solid #444;
             border-radius: 10px;
+            background-color: #000000; /* Black section background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
-            color: #00f;
-        }
-
-        h3 {
-            color: #0af;
+            color: #1e90ff; /* Dodger Blue heading */
         }
 
         p {
-            line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
 
         li {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
-        footer {
-            background-color: #333;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .education {
+            border-top: 2px solid #1e90ff; /* Dodger Blue border */
+        }
+
+        .work-experience {
+            border-top: 2px solid #1e90ff; /* Dodger Blue border */
+        }
+
+        .certificates {
+            border-top: 2px solid #1e90ff; /* Dodger Blue border */
+        }
+
+        .projects {
+            border-top: 2px solid #1e90ff; /* Dodger Blue border */
         }
     </style>
 </head>
@@ -62,44 +66,44 @@
 
     <header>
         <h1>Your Name</h1>
-        <p>Data Scientist</p>
+        <p>Data Science Professional</p>
     </header>
 
-    <section id="education">
+    <section class="education">
         <h2>Education</h2>
         <ul>
-            <li><h3>Degree in Data Science</h3></li>
-            <li>University Name, Year</li>
+            <li><strong>Degree:</strong> Your Degree</li>
+            <li><strong>University:</strong> Your University</li>
+            <li><strong>Year:</strong> Graduation Year</li>
         </ul>
     </section>
 
-    <section id="experience">
+    <section class="work-experience">
         <h2>Work Experience</h2>
         <ul>
-            <li><h3>Data Scientist</h3></li>
-            <li>Company Name, Year</li>
+            <li><strong>Position:</strong> Your Job Title</li>
+            <li><strong>Company:</strong> Company Name</li>
+            <li><strong>Duration:</strong> Employment Period</li>
         </ul>
     </section>
 
-    <section id="certificates">
+    <section class="certificates">
         <h2>Certificates</h2>
         <ul>
-            <li><h3>Data Science Certificate</h3></li>
-            <li>Provider Name, Year</li>
+            <li><strong>Certificate:</strong> Certificate Name</li>
+            <li><strong>Issuing Authority:</strong> Issuing Authority</li>
+            <li><strong>Date:</strong> Issue Date</li>
         </ul>
     </section>
 
-    <section id="projects">
+    <section class="projects">
         <h2>Projects</h2>
         <ul>
-            <li><h3>Data Analysis Project</h3></li>
-            <li>Project Description</li>
+            <li><strong>Project:</strong> Project Name</li>
+            <li><strong>Description:</strong> Project Description</li>
+            <li><strong>Tools Used:</strong> Tools and Technologies</li>
         </ul>
     </section>
-
-    <footer>
-        <p>Contact: your.email@example.com | LinkedIn: linkedin.com/in/yourname</p>
-    </footer>
 
 </body>
 </html>
