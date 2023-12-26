@@ -14,9 +14,75 @@
             box-sizing: border-box;
         }
 
+        .card-container {
+      display: flex;
+      justify-content: space-around; /* Optional: Adjust as needed */
+      flex-wrap: wrap;
+    }
+	
+
+    .card-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+    }
+		
+    .general {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .general:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    .company-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .position {
+      font-style: italic;
+      color: #555;
+    }
+
+    .project {
+      font-style: italic;
+      color: #3498db;
+    }
+
+    .duration {
+      color: #888;
+    }
+
+    .responsibilities {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .responsibilities li {
+      list-style-type: square;
+      margin-bottom: 5px;
+    }
+
         header {
             background-color: #add8e6; /* Primary Blue header */
-            padding: 20px;
+            padding: 10px;
             text-align: center;
         }
 
@@ -52,12 +118,6 @@
             display: block;
         }
 
-        .card {
-            border: 1px solid #ddd; /* Light gray border */
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
 
         h2 {
             color: #007bff; /* Primary Blue heading */
@@ -74,7 +134,24 @@
 
         li {
             margin-bottom: 10px;
+            text-align: justify;
         }
+
+        .responsibilities {
+      margin-top: 10px;
+    }
+    .card {
+      width: 500px;
+      height: 200px;
+      overflow: hidden;
+      cursor: pointer;
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
     </style>
 </head>
 <body>
@@ -82,31 +159,31 @@
     <header>
         <h1>Aishwarya Bhanage</h1>
         <p>App Development Analyst</p>
+        <p><I>"Data whispers insights, decisions shout success."</I></p>
     </header>
-
+    
     <nav>
         <a href="#education">Education</a>
         <a href="#work-experience">Work Experience</a>
         <a href="#projects">Projects</a>
         <a href="#certificates">Certificates</a>
-        <a href="#resume">Resume</a>
     </nav>
 
     <section id="education" class="active">
         <h2>Education</h2>
-        <div class="card">
+        <div class="general">
         <ul>
             <li><strong>Degree:</strong> Bachelor of Engineering: Computer Engineering</li>
             <li><strong>University:</strong> University of Pune, India</li>
             <li><strong>Year:</strong> 2020</li>
         </ul></div>
-        <div class="card">
+        <div class="general">
         <ul>
             <li><strong>Highschool/12th:</strong> Higher Secondary Certificate</li>
             <li><strong>University/College:</strong> Jai Hind Jr. College, Pune, India</li>
             <li><strong>Year:</strong> 2016</li>
         </ul></div>
-        <div class="card">
+        <div class="general">
         <ul>
             <li><strong>School/10th:</strong> Secondary School Certificate</li>
             <li><strong>University/College:</strong> Modern Highschool & Jr. College, Pune, India</li>
@@ -116,59 +193,98 @@
 
     <section id="work-experience">
         <h2>Work Experience</h2>
-        <div class="card">
-        <ul>
-            <li><strong>Position:</strong> Packaged App Develeopment Analyst</li>
-            <li><strong>Company:</strong> Accenture Solutions Pvt Ltd, Pune, India</li>
-            <li><strong>Duration:</strong> June 2022- Oct 2023</li>
-        </ul></div>
-        <div class="card">
-        <ul>
-            <li><strong>Position:</strong> Associate Software Engineer</li>
-            <li><strong>Company:</strong> Accenture Solutions Pvt Ltd, Pune, India</li>
-            <li><strong>Duration:</strong> Dec 2020- May 2022</li>
-        </ul></div>
+        <div class="general">
+    <div class="company-name">Accenture Solutions Pvt Ltd, Pune, India</div>
+    <div class="position">Packaged App Develeopment Analyst</div>
+    <div class="duration">June 2022- Oct 2023</div>
+    <ul class="responsibilities">
+        <li>Experienced in implementing continuous service improvement strategies, utilizing 
+            dashboards and reports for data-driven insights that significantly enhance overall system performance. </li>
+          <li>Adapted at developing synthetic jobs through scripting for preventive maintenance, 
+            minimizing disruptions. </li>
+          <li>Experienced in gathering and analyzing client requirements, designing insightful dashboards.
+           </li>
+          <li>Experienced in monitoring user behavior and tracking business metrics, contributing 
+            essential data for informed decision-making and continuous productivity improvements. </li>
+          <li>Demonstrated proficiency in ADQ language for querying and generating detailed reports.</li>
+    </ul>
+  </div>
+
+  <div class="general">
+    <div class="company-name">Accenture Solutions Pvt Ltd, Pune, India</div>
+    <div class="position">Associate Software Engineer</div>
+    <div class="duration">Dec 2020- May 2022</div>
+    <ul class="responsibilities">
+        <li>Implemented continuous service improvement strategies, leveraging dashboards and reports for data-driven insights
+            that enhanced overall system performance.</li>
+            <li>Developed and maintained key performance indicators (KPIs) and metrics. Established
+            benchmarks for performance measurement and improvement.</li>
+            <li>Configured and managed alert systems to detect deviations from performance standards and
+            Implemented measures to address potential issues before they impact operations. </li>
+            <li>Prepared and delivered regular performance reports to stakeholders. Interacted findings, 
+            recommendations, and performance insights to technical and non-technical audiences.</li>
+    </ul>
+  </div>
+
     </section>
 
     <section id="projects">
         <h2>Projects</h2>
-        <ul>
-            <li><strong>Project:</strong> Project Name</li>
-            <li><strong>Description:</strong> Project Description</li>
-            <li><strong>Tools Used:</strong> Tools and Technologies</li>
-        </ul>
+        <div class="card-container">
+        <div class="card"><br>
+            <a href="E:\Projects\my github portfolio\DataAnalysis.html" class="card-link">
+            <div class="project"> Data Analysis</div><br>
+            <div class="duration">"Unlock insights. Click to dive into Data Analysis."</div>
+            <ul class="responsibilities">
+                <p>Data analysis is the art of transforming raw information into actionable insights. 
+                    By deciphering patterns and trends, we unveil hidden opportunities and inform strategic
+                     decision-making. </p>
+            </ul></a>
+          </div>
+          <div class="card"><br>
+            <a href="E:\Projects\my github portfolio\DataAnalysis.html" class="card-link">
+            <div class="project"> Data-Driven Application</div><br>
+            <div class="duration">"Click to dive in..."</div>
+            <ul class="responsibilities">
+                <p>Crafting applications with data at the core—where insights drive functionality, innovation, and user-centric experiences </p>
+            </ul></a>
+          </div> 
+          <div class="card"><br>
+            <a href="E:\Projects\my github portfolio\StoryTelling.html" class="card-link">
+            <div class="project"> Story Telling</div><br>
+            <div class="duration">"Stories unfold..."</div>
+            <ul class="responsibilities">
+                <p>Transforming complex data into compelling narratives—unveiling insights that speak a clear and engaging story for better understanding and informed decisions.</p>
+            </ul></a>
+          </div>
+        </div>
     </section>
 
     <section id="certificates">
         <h2>Certificates</h2>
         <ul>
-            <div class="card">
+            <div class="general">
             <li><strong>Data Analytics Essential Certificate | Cisco Networking Academy(Online)</strong>
-                - Certification Body, Dec 2023</li></div>
-            <div class="card">
+                -  Dec 2023 <a href="https://www.credly.com/badges/6d1b59aa-e3c8-4ddd-9fa4-1b7ae29e4f21/public_url">View Badge</a></li></div>
+            <div class="general">
             <li><strong>Forage Certificate - Data Analytics and Visualization | Accenture(Online) </strong>
-                - Certification Body, Dec 2023</li></div>
-            <div class="card">
+                -  Dec 2023</li></div>
+            <div class="general">
             <li><strong>Google Data Analytics Professional Certificate | Coursera (Online)</strong>
-                - Certification Body, Nov 2023</li></div>
-            <div class="card">    
+                -  Nov 2023 <a href="https://www.credly.com/badges/d777b6e1-4f92-406f-82c5-a8c5173769dd/public_url">View Badge</a></li></div>
+            <div class="general">    
             <li><strong>Python Micro Degree Course Certificate | Edyoda (Online)</strong>
-                - Certification Body, Oct 2023</li></div>
-            <div class="card">
+                -  Oct 2023</li></div>
+            <div class="general">
             <li><strong>Post Graduate Program in Data Science & Engineering Certificate | Great Learning (Online)  </strong>
-                - Certification Body, Feb 2022</li></div>
-            <div class="card">
+                -  Feb 2022 <a href="https://eportfolio.mygreatlearning.com/aishwarya-mahadev-bhanage">Myeportfolio</a></li></div>
+            <div class="general">
             <li><strong>Introduction to Programming Using JavaScript | MTA (Online)  </strong>
-                    - Certification Body, July 2019</li></div>
+                -  July 2019 <a href="https://www.credly.com/badges/690baae1-2c25-4635-b7e9-4b72a66d957a/public_url">View Badge</a></li></div>
         </ul>
     </div>
     </section>
 
-   <section id="resume">
-    <h2>Resume</h2>
-    <p>Download my resume in PDF format:</p>
-    <a href="https://github.com/AishwaryaBhanage/AishwaryaBhanage.github.io/blob/main/Aishwarya_Mahadev_Bhanage_Resume_AppDevelopmentAnalyst.pdf" download="Your_Name_Resume.pdf">Download Resume</a>
-    </section>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
