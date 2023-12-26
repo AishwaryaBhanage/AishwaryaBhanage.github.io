@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4; /* Light gray background */
+            color: #333; /* Dark gray text */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+	
+
+    .card-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+    }
+		
+    .general {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .general:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .company-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .position {
+      font-style: italic;
+      color: #555;
+    }
+
+    .project {
+      font-style: italic;
+      color: #3498db;
+    }
+
+    .duration {
+      color: #888;
+    }
+
+    .responsibilities {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .responsibilities li {
+      list-style-type: square;
+      margin-bottom: 5px;
+    }
+
+        header {
+            background-color: #add8e6; /* Primary Blue header */
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #343a40; /* Dark gray navigation bar */
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #ffffff; /* White navigation link text */
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+
+        nav a:hover {
+            background-color: #555; /* Darker gray on hover */
+        }
+
+        section {
+            display: none;
+            padding: 40px;
+            margin: 20px;
+            border-radius: 10px;
+            background-color: #ffffff; /* White section background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        section.active {
+            display: block;
+        }
+
+
+        h2 {
+            color: #007bff; /* Primary Blue heading */
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .responsibilities {
+      margin-top: 10px;
+    }
+    </style>
+</head>
+<body>
+
+    
+    <h2><a href="E:\Projects\my github portfolio\index.html">Back</a></h2>
+    <div class="general">
+        <div class="company-name">Sales Data</div>
+        <div class="duration">Dec 2021- May 2022</div>
+        <ul class="responsibilities">
+            <img src="E:\Projects\my github portfolio\images\Story 1.png"  alt="Sample Image">
+            <li>The sales data reveals insights into various product categories, presented in a horizontal bar graph. </li>
+            <li>Notably, the graph highlights 'Phones' and 'Chairs' as the top performers with the highest sales values. </li>
+            <li>In contrast, the 'Table' category ranks fourth in terms of sales, while 'Supplies' represents the category with the least sales.</li>
+        </ul>
+        <ul class="responsibilities">
+            <img src="E:\Projects\my github portfolio\images\Story 1 (1).png"  alt="Sample Image">
+            <li>Intriguingly, despite the 'Table' category ranking fourth in sales, it incurs the most significant losses, marked in red. </li>
+            <li>The sales figure for 'Table' stands at $55,618, but the profit plunges to -$17,725.  </li>
+            <li>Conversely, categories like 'Phones' and 'Chairs,' highlighted in green, not only lead in sales but also contribute to substantial profits</li>
+        </ul>
+        <ul class="responsibilities">
+            <img src="E:\Projects\my github portfolio\images\Story 1 (2).png"  alt="Sample Image">
+            <li>In a noticeable trend, the profit values consistently dip into negative territory during the month of the order date.</li> 
+            <li>This downward trend is evident in the line graph, indicating a period decreased profitability within that timeframe.</li>
+        </ul>
+        <ul class="responsibilities">
+            <img src="E:\Projects\my github portfolio\images\Story 1 (3).png"  alt="Sample Image">
+            <li>Upon a comprehensive comparison of various states and cities in the US, it's evident that Seattle emerges as the best-performing location for the 'Table' category in terms of profit.</li>
+            <li>The data underscores Seattle's notable success in generating positive returns for this particular product category.</li> 
+        </ul>
+      </div>
+      
+
+
+
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add click event listeners to navigation links
+            var navLinks = document.querySelectorAll("nav a");
+            navLinks.forEach(function (link) {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    // Hide all sections
+                    document.querySelectorAll("section").forEach(function (section) {
+                        section.classList.remove("active");
+                    });
+                    // Show the selected section
+                    var targetId = this.getAttribute("href").substring(1);
+                    document.getElementById(targetId).classList.add("active");
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+       
