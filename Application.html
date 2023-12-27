@@ -109,7 +109,11 @@
         section.active {
             display: block;
         }
-
+        .card-container {
+      display: flex;
+      justify-content: space-around; /* Optional: Adjust as needed */
+      flex-wrap: wrap;
+    }
 
         h2 {
             color: #007bff; /* Primary Blue heading */
@@ -137,9 +141,85 @@
 <body>
 
     
-        <h2><a href="E:\Projects\my github portfolio\index.html">Back</a></h2>
+    <h2><a href="https://aishwaryabhanage.github.io/index.html">Back</a></h2>
+    <div class="general">
+        <div class="company-name"> Product Recommendation and Cross-Selling Application</div>
+        <div class="duration">Oct 2023 - Nov 2023</div>
+        <ul class="responsibilities">
+            <b>Problem Statement:</b>
+            <p> Many consumers struggle with creating an efficient and comprehensive shopping list, often resulting in missed 
+                items during the shopping process. The aim is to develop a solution that recommends top 5 frequently bought
+                items based on the selection of one item from a list, facilitating a more thorough and convenient shopping experience.</p>
+        </ul>
+        <ul class="responsibilities">
+            <b>Purpose:</b>
+             <p>To create a user-friendly application that utilizes the Apriori algorithm for product recommendation and cross-selling,
+                 ultimately assisting users in building a well-rounded shopping list.</p>
 
-    
+        <ul class="responsibilities">
+            <b>Goal:</b>
+             <li>Accepts a user's selection of a product from a list.</li>
+                <li>Applies the Apriori algorithm to recommend the top 5 frequently bought items associated with the selected product.</li>
+                <li>Provides the user with a selection mechanism among the recommended products.</li>
+                <li>Allows the user to add the chosen product to their shopping list.</li>
+        </ul>
+        <ul><br>
+            <b>Analysis:</b>
+<p>Data Set:</p>
+<li>Utilized the Online Retail data set for analysis.</li>
+
+<p>Tools and Technologies:</p>
+<li>Python 3.10.10</li>
+<li>Jupyter Notebooks</li>
+<li>VS Code</li>
+<li>Streamlit for the application development</li>
+<li>Apriori algorithm for product recommendation and cross-selling</li>
+<p>Methodology:</p>
+<p>1. Data Exploration:</p>
+<li>Investigated the Online Retail data set to understand its structure and relevant features.</li>
+
+<p>2. Algorithm Selection:</p>
+<li>Chose the Apriori algorithm for its effectiveness in mining frequent itemsets.</li>
+
+<p>3. Data Preprocessing:</p>
+<li>Cleaned and preprocessed the data for input into the algorithm.</li>
+
+<p>4. Application Development:</p>
+<li>Used VS Code to create a Streamlit application that interacts with the Apriori algorithm.</li>
+
+
+            <br><b>Results:</b>
+            <div class="card-container">
+                <div class="card"><br>
+                    <li><b>Screenshot 1: Landing page displaying the list of available products.</b></li>
+                    <img src="https://aishwaryabhanage.github.io/images/overall_recommendationapp.PNG"  alt="countrides">
+                </div>
+                <div class="card"><br>
+                    <li><b>Screenshot 2: User selects a product of interest.</b></li>
+                    <img src="https://aishwaryabhanage.github.io/images/product_selection.PNG"  alt="biketype">
+                </div> 
+                <div class="card"><br>
+                    <li><b>Screenshot 3: Top 5 recommended products based on Apriori algorithm.</b></li>
+                    <img src="https://aishwaryabhanage.github.io/images/recommended_products.PNG"  alt="bikeshare">
+                </div>
+                <div class="card"><br>
+                    <li><b>Screenshot 4: User selects a product from the recommendations.</b></li>
+                    <img src="https://aishwaryabhanage.github.io/images/additiontolist.PNG"  alt="additiontolist">
+                </div>
+                  <div class="card"><br>
+                    <li><b>Screenshot 5: The chosen product is added to the shopping list.</b></li>
+                    <img src="https://aishwaryabhanage.github.io/images/added_recommendationtolist.PNG"  alt="added_recommendationtolist">
+                  </div>
+                </div>
+            </ul>
+        <ul class="responsibilities">
+            <b>Conclusion:</b>
+            <p>The developed application successfully addresses the challenge of creating a comprehensive shopping list 
+                by employing the Apriori algorithm for effective product recommendations and cross-selling. Users can 
+                now enjoy a streamlined shopping experience, reducing the likelihood of forgetting essential items.</p>
+        </ul>
+        <h2><a href="https://aishwaryabhanage.github.io/index.html">Back</a></h2>
+      </div> 
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
