@@ -109,7 +109,11 @@
         section.active {
             display: block;
         }
-
+        .card-container {
+      display: flex;
+      justify-content: space-around; /* Optional: Adjust as needed */
+      flex-wrap: wrap;
+    }
 
         h2 {
             color: #007bff; /* Primary Blue heading */
@@ -139,37 +143,56 @@
     
     <h2><a href="E:\Projects\my github portfolio\index.html">Back</a></h2>
     <div class="general">
-        <div class="company-name">Sales Data</div>
-        <div class="duration">Dec 2021- May 2022</div>
+        <div class="company-name">Bike Share Data Analysis</div>
+        <div class="duration">Oct 2023 - Nov 2023</div>
         <ul class="responsibilities">
-            <img src="E:\Projects\my github portfolio\images\Story 1.png"  alt="Sample Image">
-            <li>The sales data reveals insights into various product categories, presented in a horizontal bar graph. </li>
-            <li>Notably, the graph highlights 'Phones' and 'Chairs' as the top performers with the highest sales values. </li>
-            <li>In contrast, the 'Table' category ranks fourth in terms of sales, while 'Supplies' represents the category with the least sales.</li>
+            <b>Goal:</b>
+            <p>The primary goal of this data analysis project is to increase annual membership for
+                 Cyclistic by understanding the key differences between casual riders and annual members. 
+                 By identifying patterns and insights in the data, our aim is to formulate strategies that
+                  encourage casual riders to convert into long-term, annual subscribers.</p>
         </ul>
         <ul class="responsibilities">
-            <img src="E:\Projects\my github portfolio\images\Story 1 (1).png"  alt="Sample Image">
-            <li>Intriguingly, despite the 'Table' category ranking fourth in sales, it incurs the most significant losses, marked in red. </li>
-            <li>The sales figure for 'Table' stands at $55,618, but the profit plunges to -$17,725.  </li>
-            <li>Conversely, categories like 'Phones' and 'Chairs,' highlighted in green, not only lead in sales but also contribute to substantial profits</li>
+            <b>Purpose:</b>
+             <p>The project serves several specific purposes:</p>
+<li>User Segmentation: Differentiate between casual riders and annual members based on their usage patterns, preferences, and behavior.</li>
+<li>Identify Trends: Uncover trends and correlations in the data that distinguish the two user groups, such as peak usage times, popular routes, and trip durations.</li>
+<li>Behavioral Analysis: Analyze user behavior to understand the factors that influence casual riders' decisions to become annual members.</li>
+<li>Recommendation Strategies: Formulate data-driven recommendations and strategies to target and incentivize casual riders for conversion.</li>
         </ul>
         <ul class="responsibilities">
-            <img src="E:\Projects\my github portfolio\images\Story 1 (2).png"  alt="Sample Image">
-            <li>In a noticeable trend, the profit values consistently dip into negative territory during the month of the order date.</li> 
-            <li>This downward trend is evident in the line graph, indicating a period decreased profitability within that timeframe.</li>
-        </ul>
+            <b>Analyze:</b>
+             <li>During the analysis of the bike share trip data, distinct patterns emerged between casual and annual members. Casual riders predominantly favor the second half of the month, with weekends, particularly Saturdays, exhibiting the highest ride frequency. Conversely, annual members show a higher overall ride count, preferring Fridays and Saturdays. 
+             <li>Notably, casual riders tend to engage in longer rides compared to their annual counterparts.</li>
+            <b>Visualizations</b><br>
+            <div class="card-container">
+                <div class="card"><br>
+                    <img src="https://aishwaryabhanage.github.io/images/countrideids.PNG"  alt="countrides">
+                  </div>
+                  <div class="card"><br>
+                    <img src="https://aishwaryabhanage.github.io/images/biketype.PNG"  alt="biketype">
+                  </div> 
+                  <div class="card"><br>
+                    <img src="https://aishwaryabhanage.github.io/images/Bike_share_daysweek.PNG"  alt="bikeshare">
+                  </div>
+                  <div class="card"><br>
+                    <img src="https://aishwaryabhanage.github.io/images/biketype_member.PNG"  alt="casmem_type">
+                  </div>
+                </div>
+            </ul>
         <ul class="responsibilities">
-            <img src="E:\Projects\my github portfolio\images\Story 1 (3).png"  alt="Sample Image">
-            <li>Upon a comprehensive comparison of various states and cities in the US, it's evident that Seattle emerges as the best-performing location for the 'Table' category in terms of profit.</li>
-            <li>The data underscores Seattle's notable success in generating positive returns for this particular product category.</li> 
+            <b>Recommendations:</b>
+            <li>Targeted Promotions on Weekends:
+                Capitalize on the observed trend of casual riders favoring weekends, especially Saturdays. Implement targeted promotional campaigns during these peak days, offering incentives such as discounted annual memberships or bonus ride credits to encourage conversion
+            </li>
+            <li>Exclusive Friday and Saturday Offers:
+                Recognize the preference of annual members for Fridays and Saturdays. Design exclusive offers or benefits for casual riders who transition to annual memberships, emphasizing the advantages of riding on these days, such as priority access, special events, or extended ride times.
+            </li>
+            <li>Tailored Benefits for Long Rides:
+                Leverage the insight that casual riders engage in longer rides. Develop membership packages that provide additional benefits for extended rides, such as discounted rates for ride durations exceeding a certain threshold. Highlight the cost-effectiveness and convenience of annual memberships for those who frequently enjoy extended rides.                
+            </li>
         </ul>
       </div>
-      
-
-
-
-    
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Add click event listeners to navigation links
