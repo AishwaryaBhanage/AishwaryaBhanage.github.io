@@ -48,10 +48,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 600px;
         }
 
-        /* 3D Falling Cubes Container */
-        .falling-cubes-container {
+        /* Roaming Blocks Animation */
+        .roaming-blocks-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -59,169 +60,104 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
-            perspective: 1000px;
-            transform-style: preserve-3d;
+            overflow: hidden;
         }
 
-        .cube {
+        .roaming-block {
             position: absolute;
-            transform-style: preserve-3d;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            box-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.2),
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
             will-change: transform;
-            pointer-events: none;
-            opacity: 0.85;
-            filter: brightness(1.1) contrast(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            user-select: none;
+            backdrop-filter: blur(3px);
+            transform: perspective(200px) rotateX(15deg) rotateY(15deg);
+            transform-style: preserve-3d;
         }
 
-        .cube-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .roaming-block:hover {
+            transform: perspective(200px) rotateX(20deg) rotateY(20deg) scale(1.15);
             box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.1),
-                0 0 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(2px);
+                0 8px 16px rgba(0, 0, 0, 0.25),
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        .cube-face.front { transform: rotateY(0deg) translateZ(50%); }
-        .cube-face.back { transform: rotateY(180deg) translateZ(50%); }
-        .cube-face.right { transform: rotateY(90deg) translateZ(50%); }
-        .cube-face.left { transform: rotateY(-90deg) translateZ(50%); }
-        .cube-face.top { transform: rotateX(90deg) translateZ(50%); }
-        .cube-face.bottom { transform: rotateX(-90deg) translateZ(50%); }
-
-        /* Cube sizes */
-        .cube.size-small { width: 25px; height: 25px; }
-        .cube.size-medium { width: 40px; height: 40px; }
-        .cube.size-large { width: 60px; height: 60px; }
-        .cube.size-xl { width: 70px; height: 70px; }
-
-        /* Vibrant color schemes with glossy effects */
-        .cube.color-green .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(34, 197, 94, 0.9), 
-                rgba(22, 163, 74, 0.8), 
-                rgba(21, 128, 61, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(34, 197, 94, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cube.color-blue .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(59, 130, 246, 0.9), 
-                rgba(37, 99, 235, 0.8), 
-                rgba(29, 78, 216, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(59, 130, 246, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cube.color-orange .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(249, 115, 22, 0.9), 
-                rgba(234, 88, 12, 0.8), 
-                rgba(194, 65, 12, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(249, 115, 22, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cube.color-teal .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(6, 182, 212, 0.9), 
-                rgba(8, 145, 178, 0.8), 
-                rgba(6, 95, 70, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(6, 182, 212, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cube.color-red .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(239, 68, 68, 0.9), 
-                rgba(220, 38, 38, 0.8), 
-                rgba(185, 28, 28, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(239, 68, 68, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cube.color-yellow .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(234, 179, 8, 0.9), 
-                rgba(202, 138, 4, 0.8), 
-                rgba(161, 98, 7, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(234, 179, 8, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cube.color-purple .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(168, 85, 247, 0.9), 
-                rgba(147, 51, 234, 0.8), 
-                rgba(126, 34, 206, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(168, 85, 247, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cube.color-pink .cube-face {
-            background: linear-gradient(135deg, 
-                rgba(236, 72, 153, 0.9), 
-                rgba(219, 39, 119, 0.8), 
-                rgba(190, 24, 93, 0.7));
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(236, 72, 153, 0.3),
-                0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Cube shadow */
-        .cube-shadow {
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 10px;
-            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(3px);
-        }
-
-        /* Enhanced header background with subtle gradient */
-        header {
-            background: linear-gradient(135deg, 
-                #f8fafc 0%, 
-                #e2e8f0 25%, 
-                #cbd5e1 50%, 
-                #e2e8f0 75%, 
-                #f8fafc 100%);
-            position: relative;
-        }
-
-        header::before {
+        .roaming-block::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+            border-radius: 4px;
             pointer-events: none;
-            z-index: 0;
+        }
+
+        .roaming-block::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 0, 0, 0.1) 50%, transparent 70%);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .roaming-block.colliding {
+            animation: collision-flash 0.5s ease-out;
+        }
+
+        @keyframes collision-flash {
+            0% { 
+                transform: perspective(200px) rotateX(15deg) rotateY(15deg) scale(1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+            50% { 
+                transform: perspective(200px) rotateX(25deg) rotateY(25deg) scale(1.3);
+                box-shadow: 0 8px 24px rgba(255, 255, 255, 0.6);
+            }
+            100% { 
+                transform: perspective(200px) rotateX(15deg) rotateY(15deg) scale(1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        .roaming-block.fading {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Block colors - lighter and more transparent */
+        .roaming-block.color-orange { 
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.8), rgba(249, 115, 22, 0.8));
+            backdrop-filter: blur(10px);
+        }
+        .roaming-block.color-black { 
+            background: linear-gradient(135deg, rgba(107, 114, 128, 0.7), rgba(75, 85, 99, 0.7));
+            backdrop-filter: blur(10px);
+        }
+        .roaming-block.color-blue { 
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.8), rgba(59, 130, 246, 0.8));
+            backdrop-filter: blur(10px);
+        }
+        .roaming-block.color-yellow { 
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.8), rgba(245, 158, 11, 0.8));
+            backdrop-filter: blur(10px);
         }
 
         .header-container {
@@ -311,8 +247,8 @@
         }
 
         .hero-image img {
-            max-width: 160%;
-            width: 650px;
+            max-width: 140%;
+            width: 550px;
             height: auto;
             border-radius: 20px;
             box-shadow: 
@@ -592,37 +528,193 @@
             color: var(--primary-color);
         }
 
-        /* Services Section */
-        .services-grid {
+        /* Experience Section */
+        .experience-section {
+            margin-bottom: 50px;
+        }
+
+        .experience-category {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .experience-category i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .experience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .experience-title h4 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .company {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .experience-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .location {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .duration {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: var(--light-accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .experience-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .experience-content li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #64748b;
+        }
+
+        .experience-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Education Section */
+        .education-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
         }
 
-        .service-card {
+        .education-card {
             background: white;
-            padding: 30px;
             border-radius: 12px;
+            padding: 30px;
             box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
-            text-align: center;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .service-card:hover {
+        .education-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--hover-shadow);
         }
 
-        .service-card i {
-            font-size: 3rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
+        .education-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-color), #0891b2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
         }
 
-        .service-card h3 {
-            font-size: 1.5rem;
+        .education-content {
+            flex: 1;
+        }
+
+        .education-content h3 {
+            font-size: 1.3rem;
             color: var(--primary-color);
-            margin-bottom: 15px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .education-content .institution {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .education-content .location,
+        .education-content .duration {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .education-content .description {
+            color: #64748b;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .experience-meta {
+                align-items: flex-start;
+            }
+
+            .education-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .education-icon {
+                align-self: center;
+            }
         }
 
         /* Projects Section */
@@ -1070,8 +1162,8 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="falling-cubes-container" id="fallingCubes">
-            <!-- 3D falling cubes will be generated by JavaScript -->
+        <div class="roaming-blocks-container" id="roamingBlocks">
+            <!-- Dynamic roaming blocks will be generated by JavaScript -->
         </div>
         
         <div class="header-container">
@@ -1130,7 +1222,8 @@
         <div class="container">
             <div class="nav-content">
                 <a href="#about">About</a>
-                <a href="#services">Services</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
                 <a href="#projects">Projects</a>
                 <a href="#featured">Featured Work</a>
                 <a href="#contact">Contact</a>
@@ -1182,33 +1275,124 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" style="background: var(--light-accent);">
+    <!-- Professional Experience Section -->
+    <section id="experience" style="background: var(--light-accent);">
         <div class="container">
             <div class="section-header">
-                <h2>Services</h2>
-                <p>Comprehensive data science solutions tailored to your needs</p>
+                <h2>Professional Experience</h2>
+                <p>My journey in data science and analytics across diverse roles and responsibilities</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Custom Analysis</h3>
-                    <p>Deep-dive statistical analysis and predictive modeling to uncover actionable insights from your data. From exploratory data analysis to advanced machine learning models.</p>
+            
+            <!-- Leadership Experience -->
+            <div class="experience-section">
+                <h3 class="experience-category">
+                    <i class="fas fa-users-cog"></i>
+                    Leadership Experience
+                </h3>
+                
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-title">
+                            <h4>Graduate Student Organization Treasurer</h4>
+                            <span class="company">Stony Brook University</span>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-chart-bar"></i>
-                    <h3>Data Visualization</h3>
-                    <p>Transform complex datasets into compelling visual stories using tools like Tableau, Power BI, and custom Python/R visualizations that engage stakeholders.</p>
+                        <div class="experience-meta">
+                            <span class="location">Stony Brook, NY</span>
+                            <span class="duration">May 2025 - Present</span>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Training & Workshops</h3>
-                    <p>Upskill your team with hands-on training sessions covering Python, R, machine learning, and data visualization. Customized curriculum for all skill levels.</p>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Strategy Consulting</h3>
-                    <p>Data strategy consulting to help organizations build data-driven cultures, implement best practices, and establish scalable analytics frameworks.</p>
+                    <div class="experience-content">
+                        <ul>
+                            <li>Facilitate budget meeting discussions, provide executive-level finance reports, and manage 5 reimbursement lines while ensuring the Graduate Student Organization's transparent and compliant financial operations per available funding for more than 8000 students.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professional Experience -->
+            <div class="experience-section">
+                <h3 class="experience-category">
+                    <i class="fas fa-briefcase"></i>
+                    Professional Experience
+                </h3>
+                
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-title">
+                            <h4>Packaged App Development Analyst</h4>
+                            <span class="company">Accenture Solutions Pvt Ltd</span>
+                        </div>
+                        <div class="experience-meta">
+                            <span class="location">Pune, MH</span>
+                            <span class="duration">Jun 2022 - Oct 2023</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <ul>
+                            <li>Engineered predictive anomaly detection models using XGBoost and logistic regression in Python to identify fraudulent banking transactions, achieving 95% accuracy rate while monitoring 1M+ daily records and reducing false positives by 40%.</li>
+                            <li>Optimized ETL data pipelines using PySpark and MySQL to process banking transaction data, improving processing speed by 40% and enabling real-time analytics for 1M+ daily transactions.</li>
+                            <li>Analyzed user behavior patterns on Android / iOS platforms using statistical analysis and Python libraries (Pandas, NumPy) to identify performance bottlenecks, resulting in 25% improvement in user journey completion rates.</li>
+                            <li>Built interactive machine learning dashboards using Tableau and Power BI to visualize model performance metrics and KPIs, reducing executive reporting time by 30% and enabling data-driven decision making for stakeholders.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-title">
+                            <h4>Associate Software Engineer</h4>
+                            <span class="company">Accenture Solutions Pvt Ltd</span>
+                        </div>
+                        <div class="experience-meta">
+                            <span class="location">Pune, MH</span>
+                            <span class="duration">Dec 2020 - May 2022</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <ul>
+                            <li>Led a cross-functional analytics team of 4 engineers to resolve critical data processing bottlenecks using Agile methodologies, delivering 25% more features per sprint and reducing project delays by 20%.</li>
+                            <li>Developed data processing pipelines using SQL and Apache Spark to handle large-scale datasets, cutting processing time by 40% and enabling efficient A/B testing for product deployments.</li>
+                            <li>Created hash-based customer lookup algorithm using Python to optimize data retrieval from banking databases, improving query response time by 35% and supporting real-time customer service operations.</li>
+                            <li>Designed data preprocessing workflows using Python and Excel VBA to automate data cleaning processes, reducing manual processing time by 50% and improving data accuracy for downstream analytics.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <h2>Education</h2>
+                <p>Academic foundation and continuous learning in data science and technology</p>
+            </div>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Master of Science in Data Science</h3>
+                        <p class="institution">Stony Brook University</p>
+                        <p class="location">Stony Brook, NY</p>
+                        <p class="duration">2024 - Present</p>
+                        <p class="description">Currently pursuing advanced studies in machine learning, statistical analysis, and data science methodologies. Focus on cutting-edge AI/ML technologies and research applications.</p>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Bachelor of Engineering in Computer Engineering</h3>
+                        <p class="institution">Sinhgad Institute of Technology and Science</p>
+                        <p class="location">Pune, Maharashtra</p>
+                        <p class="duration">2016 - 2020</p>
+                        <p class="description">Comprehensive foundation in computer science, software engineering, and data structures. Developed strong analytical and problem-solving skills through hands-on projects and coursework.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1507,284 +1691,232 @@
             observer.observe(section);
         });
 
-        // 3D Falling Cubes System with Realistic Physics
-        class FallingCubesSystem {
+        // Dynamic Roaming Blocks System
+        class RoamingBlocksSystem {
             constructor() {
-                this.cubes = [];
-                this.mouseX = 0;
-                this.mouseY = 0;
-                this.container = document.getElementById('fallingCubes');
-                this.maxCubes = 15;
+                this.blocks = [];
+                this.container = document.getElementById('roamingBlocks');
+                this.maxBlocks = 8;
+                this.blockSize = 40; // Updated to match CSS
                 this.isAnimating = true;
-                this.headerHeight = window.innerHeight;
                 this.headerWidth = window.innerWidth;
-                this.gravity = 0.3;
-                this.bounceDamping = 0.7;
-                this.friction = 0.98;
+                this.headerHeight = window.innerHeight;
                 
-                // Cube configuration with vibrant colors and sizes
-                this.cubeConfigs = [
-                    { size: 'small', color: 'green' },
-                    { size: 'small', color: 'blue' },
-                    { size: 'small', color: 'orange' },
-                    { size: 'small', color: 'teal' },
-                    { size: 'small', color: 'red' },
-                    { size: 'small', color: 'yellow' },
-                    { size: 'medium', color: 'purple' },
-                    { size: 'medium', color: 'pink' },
-                    { size: 'medium', color: 'green' },
-                    { size: 'medium', color: 'blue' },
-                    { size: 'medium', color: 'orange' },
-                    { size: 'large', color: 'teal' },
-                    { size: 'large', color: 'red' },
-                    { size: 'xl', color: 'yellow' },
-                    { size: 'xl', color: 'purple' }
+                // Block configuration with specified colors (2 of each)
+                this.blockColors = ['orange', 'orange', 'black', 'black', 'blue', 'blue', 'yellow', 'yellow'];
+                
+                // Tech skills with their logos (8 skills)
+                this.techSkills = [
+                    { name: 'Python', icon: '🐍', color: 'blue' },
+                    { name: 'React', icon: '⚛️', color: 'blue' },
+                    { name: 'MongoDB', icon: '🍃', color: 'orange' },
+                    { name: 'AWS', icon: '☁️', color: 'orange' },
+                    { name: 'Tableau', icon: '📊', color: 'black' },
+                    { name: 'SQL', icon: '🗄️', color: 'black' },
+                    { name: 'JavaScript', icon: '💻', color: 'yellow' },
+                    { name: 'Machine Learning', icon: '🤖', color: 'yellow' }
                 ];
+                
+                console.log('RoamingBlocksSystem initialized');
+                console.log('Container:', this.container);
+                console.log('Header dimensions:', this.headerWidth, 'x', this.headerHeight);
                 
                 this.init();
             }
 
             init() {
-                this.createCubes();
+                this.createBlocks();
                 this.setupEventListeners();
-                this.animate();
-            }
-
-            createCubes() {
-                for (let i = 0; i < this.maxCubes; i++) {
-                    setTimeout(() => this.createCube(i), i * 200);
-                }
-            }
-
-            createCube(index) {
-                const config = this.cubeConfigs[index % this.cubeConfigs.length];
-                const cube = document.createElement('div');
                 
-                cube.className = `cube size-${config.size} color-${config.color}`;
-                
-                // Create cube faces
-                const faces = ['front', 'back', 'left', 'right', 'top', 'bottom'];
-                faces.forEach(face => {
-                    const faceElement = document.createElement('div');
-                    faceElement.className = `cube-face ${face}`;
-                    cube.appendChild(faceElement);
-                });
-                
-                // Add shadow
-                const shadow = document.createElement('div');
-                shadow.className = 'cube-shadow';
-                cube.appendChild(shadow);
-                
-                // Physics properties
-                const size = this.getCubeSize(config.size);
-                const cubeData = {
-                    element: cube,
-                    config: config,
-                    x: Math.random() * (this.headerWidth - size),
-                    y: -size - Math.random() * 200,
-                    vx: (Math.random() - 0.5) * 2,
-                    vy: Math.random() * 2 + 1,
-                    vz: 0,
-                    rotationX: Math.random() * 360,
-                    rotationY: Math.random() * 360,
-                    rotationZ: Math.random() * 360,
-                    rotationSpeedX: (Math.random() - 0.5) * 4,
-                    rotationSpeedY: (Math.random() - 0.5) * 4,
-                    rotationSpeedZ: (Math.random() - 0.5) * 4,
-                    size: size,
-                    bouncing: false,
-                    bounceCount: 0,
-                    maxBounces: 2
-                };
-                
-                this.cubes.push(cubeData);
-                this.container.appendChild(cube);
-                
-                // Initial fade in
-                cube.style.opacity = '0';
+                // Start animation after a short delay to ensure everything is ready
                 setTimeout(() => {
-                    cube.style.opacity = '0.85';
+                    console.log('Starting animation loop');
+                this.animate();
                 }, 100);
             }
 
-            getCubeSize(size) {
-                const sizes = {
-                    'small': 25,
-                    'medium': 40,
-                    'large': 60,
-                    'xl': 70
+            createBlocks() {
+                for (let i = 0; i < this.maxBlocks; i++) {
+                    this.createBlock(i);
+                }
+            }
+
+            createBlock(index) {
+                const block = document.createElement('div');
+                const techSkill = this.techSkills[index % this.techSkills.length];
+                const color = techSkill.color;
+                
+                block.className = `roaming-block color-${color}`;
+                
+                // Add tech skill logo and name
+                block.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%;">
+                        <div style="font-size: 16px; margin-bottom: 2px;">${techSkill.icon}</div>
+                        <div style="font-size: 8px; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); text-align: center; line-height: 1;">${techSkill.name}</div>
+                    </div>
+                `;
+                
+                // Random initial position
+                const x = Math.random() * (this.headerWidth - this.blockSize);
+                const y = Math.random() * (this.headerHeight - this.blockSize);
+                
+                // Random direction and speed (reduced speed for smoother movement)
+                const angle = Math.random() * 2 * Math.PI;
+                const speed = 0.5 + Math.random() * 1; // 0.5-1.5 pixels per frame (reduced speed)
+                
+                const blockData = {
+                    element: block,
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    color: color,
+                    skill: techSkill.name,
+                    isColliding: false
                 };
-                return sizes[size] || 40;
+                
+                this.blocks.push(blockData);
+                this.container.appendChild(block);
+                
+                // Set initial position
+                block.style.transform = `translate(${x}px, ${y}px)`;
+                
+                console.log(`Created block ${index}:`, techSkill.name, 'at', x, y, 'velocity:', blockData.vx, blockData.vy);
+                
+                // Initial fade in
+                block.style.opacity = '0';
+                setTimeout(() => {
+                    block.style.opacity = '1';
+                }, 100);
             }
 
             animate() {
-                if (!this.isAnimating) return;
+                if (!this.isAnimating) {
+                    console.log('Animation paused');
+                    return;
+                }
                 
-                this.cubes.forEach(cubeData => {
-                    this.updateCubePhysics(cubeData);
-                    this.updateCubePosition(cubeData);
+                this.blocks.forEach(blockData => {
+                    this.updateBlockPosition(blockData);
+                    this.checkBoundaryCollisions(blockData);
                 });
                 
+                this.checkBlockCollisions();
+                
+                // Continue animation loop
                 requestAnimationFrame(() => this.animate());
             }
 
-            updateCubePhysics(cubeData) {
-                // Apply gravity
-                cubeData.vy += this.gravity;
+            updateBlockPosition(blockData) {
+                blockData.x += blockData.vx;
+                blockData.y += blockData.vy;
                 
-                // Apply friction
-                cubeData.vx *= this.friction;
-                cubeData.vy *= this.friction;
+                blockData.element.style.transform = `translate(${blockData.x}px, ${blockData.y}px)`;
                 
-                // Update position
-                cubeData.x += cubeData.vx;
-                cubeData.y += cubeData.vy;
-                
-                // Update rotations
-                cubeData.rotationX += cubeData.rotationSpeedX;
-                cubeData.rotationY += cubeData.rotationSpeedY;
-                cubeData.rotationZ += cubeData.rotationSpeedZ;
-                
-                // Boundary collision detection
-                this.handleBoundaryCollisions(cubeData);
-                
-                // Cube-to-cube collision detection
-                this.handleCubeCollisions(cubeData);
-                
-                // Check if cube should respawn
-                if (cubeData.y > this.headerHeight + cubeData.size && !cubeData.bouncing) {
-                    this.respawnCube(cubeData);
-                }
+                // Debug: log position changes occasionally
+                if (Math.random() < 0.01) { // 1% chance to log
+                    console.log('Block position:', blockData.x.toFixed(1), blockData.y.toFixed(1), 'velocity:', blockData.vx.toFixed(2), blockData.vy.toFixed(2));
+                    }
             }
 
-            handleBoundaryCollisions(cubeData) {
-                const halfSize = cubeData.size / 2;
-                
+            checkBoundaryCollisions(blockData) {
                 // Left and right boundaries
-                if (cubeData.x - halfSize < 0) {
-                    cubeData.x = halfSize;
-                    cubeData.vx = Math.abs(cubeData.vx) * this.bounceDamping;
-                } else if (cubeData.x + halfSize > this.headerWidth) {
-                    cubeData.x = this.headerWidth - halfSize;
-                    cubeData.vx = -Math.abs(cubeData.vx) * this.bounceDamping;
+                if (blockData.x <= 0 || blockData.x >= this.headerWidth - this.blockSize) {
+                    blockData.vx = -blockData.vx;
+                    blockData.x = Math.max(0, Math.min(this.headerWidth - this.blockSize, blockData.x));
                 }
                 
-                // Bottom boundary (bounce)
-                if (cubeData.y + halfSize > this.headerHeight && !cubeData.bouncing) {
-                    cubeData.y = this.headerHeight - halfSize;
-                    cubeData.vy = -Math.abs(cubeData.vy) * this.bounceDamping;
-                    cubeData.bouncing = true;
-                    cubeData.bounceCount++;
-                    
-                    // Add some horizontal movement on bounce
-                    cubeData.vx += (Math.random() - 0.5) * 2;
-                    
-                    // Stop bouncing after max bounces
-                    if (cubeData.bounceCount >= cubeData.maxBounces) {
-                        cubeData.vy = 0;
-                        cubeData.vx = 0;
-                        cubeData.rotationSpeedX *= 0.5;
-                        cubeData.rotationSpeedY *= 0.5;
-                        cubeData.rotationSpeedZ *= 0.5;
+                // Top and bottom boundaries
+                if (blockData.y <= 0 || blockData.y >= this.headerHeight - this.blockSize) {
+                    blockData.vy = -blockData.vy;
+                    blockData.y = Math.max(0, Math.min(this.headerHeight - this.blockSize, blockData.y));
                     }
-                    
-                    setTimeout(() => {
-                        cubeData.bouncing = false;
-                    }, 500);
                 }
-            }
 
-            handleCubeCollisions(cubeData) {
-                this.cubes.forEach(otherCube => {
-                    if (cubeData === otherCube) return;
-                    
-                    const dx = cubeData.x - otherCube.x;
-                    const dy = cubeData.y - otherCube.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    const minDistance = (cubeData.size + otherCube.size) / 2;
-                    
-                    if (distance < minDistance) {
-                        // Collision response
-                        const angle = Math.atan2(dy, dx);
-                        const overlap = minDistance - distance;
+            checkBlockCollisions() {
+                for (let i = 0; i < this.blocks.length; i++) {
+                    for (let j = i + 1; j < this.blocks.length; j++) {
+                        const block1 = this.blocks[i];
+                        const block2 = this.blocks[j];
                         
-                        // Separate cubes
-                        const moveX = Math.cos(angle) * overlap * 0.5;
-                        const moveY = Math.sin(angle) * overlap * 0.5;
+                        if (block1.isColliding || block2.isColliding) continue;
                         
-                        cubeData.x += moveX;
-                        cubeData.y += moveY;
-                        otherCube.x -= moveX;
-                        otherCube.y -= moveY;
-                        
-                        // Exchange some momentum
-                        const tempVx = cubeData.vx;
-                        const tempVy = cubeData.vy;
-                        cubeData.vx = otherCube.vx * 0.8;
-                        cubeData.vy = otherCube.vy * 0.8;
-                        otherCube.vx = tempVx * 0.8;
-                        otherCube.vy = tempVy * 0.8;
-                        
-                        // Add some rotation change
-                        cubeData.rotationSpeedX += (Math.random() - 0.5) * 2;
-                        cubeData.rotationSpeedY += (Math.random() - 0.5) * 2;
-                        otherCube.rotationSpeedX += (Math.random() - 0.5) * 2;
-                        otherCube.rotationSpeedY += (Math.random() - 0.5) * 2;
+                        const dx = block1.x - block2.x;
+                        const dy = block1.y - block2.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                        if (distance < this.blockSize) {
+                            this.handleCollision(block1, block2);
+                        }
                     }
-                });
-            }
-
-            updateCubePosition(cubeData) {
-                const transform = `
-                    translate3d(${cubeData.x}px, ${cubeData.y}px, ${cubeData.vz}px)
-                    rotateX(${cubeData.rotationX}deg)
-                    rotateY(${cubeData.rotationY}deg)
-                    rotateZ(${cubeData.rotationZ}deg)
-                `;
-                
-                cubeData.element.style.transform = transform;
-                
-                // Update shadow position and opacity based on height
-                const shadow = cubeData.element.querySelector('.cube-shadow');
-                if (shadow) {
-                    const shadowOpacity = Math.max(0, 0.3 - (cubeData.y / this.headerHeight) * 0.2);
-                    shadow.style.opacity = shadowOpacity;
-                    shadow.style.transform = `translateX(-50%) scale(${1 - cubeData.y / this.headerHeight * 0.3})`;
                 }
             }
 
-            respawnCube(cubeData) {
-                cubeData.x = Math.random() * (this.headerWidth - cubeData.size);
-                cubeData.y = -cubeData.size - Math.random() * 100;
-                cubeData.vx = (Math.random() - 0.5) * 3;
-                cubeData.vy = Math.random() * 2 + 1;
-                cubeData.rotationX = Math.random() * 360;
-                cubeData.rotationY = Math.random() * 360;
-                cubeData.rotationZ = Math.random() * 360;
-                cubeData.rotationSpeedX = (Math.random() - 0.5) * 4;
-                cubeData.rotationSpeedY = (Math.random() - 0.5) * 4;
-                cubeData.rotationSpeedZ = (Math.random() - 0.5) * 4;
-                cubeData.bouncing = false;
-                cubeData.bounceCount = 0;
+            handleCollision(block1, block2) {
+                // Mark blocks as colliding
+                block1.isColliding = true;
+                block2.isColliding = true;
+                    
+                // Add collision animation
+                block1.element.classList.add('colliding');
+                block2.element.classList.add('colliding');
                 
-                // Fade in effect
-                cubeData.element.style.opacity = '0';
+                // Create collision spark effect
+                this.createCollisionSpark(block1.x + this.blockSize/2, block1.y + this.blockSize/2);
+                
+                // Exchange velocities for realistic collision
+                const tempVx = block1.vx;
+                const tempVy = block1.vy;
+                block1.vx = block2.vx;
+                block1.vy = block2.vy;
+                block2.vx = tempVx;
+                block2.vy = tempVy;
+                
+                // Add slight speed variation to make it more interesting
+                block1.vx *= 0.9 + Math.random() * 0.2; // 0.9-1.1x speed
+                block1.vy *= 0.9 + Math.random() * 0.2;
+                block2.vx *= 0.9 + Math.random() * 0.2;
+                block2.vy *= 0.9 + Math.random() * 0.2;
+                
+                // Remove collision class after animation
                 setTimeout(() => {
-                    cubeData.element.style.opacity = '0.85';
-                }, 100);
+                    block1.element.classList.remove('colliding');
+                    block2.element.classList.remove('colliding');
+                    block1.isColliding = false;
+                    block2.isColliding = false;
+                }, 500);
             }
+
+            createCollisionSpark(x, y) {
+                const spark = document.createElement('div');
+                spark.style.position = 'absolute';
+                spark.style.left = x + 'px';
+                spark.style.top = y + 'px';
+                spark.style.width = '4px';
+                spark.style.height = '4px';
+                spark.style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%)';
+                spark.style.borderRadius = '50%';
+                spark.style.pointerEvents = 'none';
+                spark.style.zIndex = '10';
+                spark.style.animation = 'spark-fade 0.3s ease-out forwards';
+                
+                this.container.appendChild(spark);
+                
+                // Remove spark after animation
+                setTimeout(() => {
+                    if (spark.parentNode) {
+                        spark.parentNode.removeChild(spark);
+                    }
+                }, 300);
+            }
+
+
 
             setupEventListeners() {
-                document.addEventListener('mousemove', (e) => {
-                    this.mouseX = e.clientX;
-                    this.mouseY = e.clientY;
-                    this.handleMouseInteraction();
-                });
-
                 window.addEventListener('resize', () => {
                     this.handleResize();
                 });
-
+                
                 // Pause animation when header is not visible
                 if ('IntersectionObserver' in window) {
                     const headerObserver = new IntersectionObserver((entries) => {
@@ -1801,45 +1933,37 @@
                 }
             }
 
-            handleMouseInteraction() {
-                this.cubes.forEach(cubeData => {
-                    const rect = cubeData.element.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    
-                    const dx = this.mouseX - centerX;
-                    const dy = this.mouseY - centerY;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        // Gentle repulsion effect
-                        const repulsionForce = 0.5;
-                        cubeData.vx += (dx / distance) * repulsionForce;
-                        cubeData.vy += (dy / distance) * repulsionForce;
-                        
-                        // Increase rotation speed temporarily
-                        cubeData.rotationSpeedX *= 1.2;
-                        cubeData.rotationSpeedY *= 1.2;
-                        cubeData.rotationSpeedZ *= 1.2;
-                    }
-                });
-            }
-
             handleResize() {
-                this.headerHeight = window.innerHeight;
                 this.headerWidth = window.innerWidth;
+                this.headerHeight = window.innerHeight;
                 
-                // Adjust cube positions if they're outside the new boundaries
-                this.cubes.forEach(cubeData => {
-                    if (cubeData.x + cubeData.size > this.headerWidth) {
-                        cubeData.x = this.headerWidth - cubeData.size;
+                // Adjust block positions if they're outside the new boundaries
+                this.blocks.forEach(blockData => {
+                    if (blockData.x + this.blockSize > this.headerWidth) {
+                        blockData.x = this.headerWidth - this.blockSize;
                     }
-                    if (cubeData.y + cubeData.size > this.headerHeight) {
-                        cubeData.y = this.headerHeight - cubeData.size;
+                    if (blockData.y + this.blockSize > this.headerHeight) {
+                        blockData.y = this.headerHeight - this.blockSize;
                     }
                 });
             }
         }
+
+        // Add spark animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spark-fade {
+                0% { 
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: scale(2);
+                    opacity: 0;
+            }
+        }
+        `;
+        document.head.appendChild(style);
 
         // Scroll indicator functionality
         function initScrollIndicator() {
@@ -1858,8 +1982,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             initScrollIndicator();
             
-            // Initialize 3D falling cubes system
-            new FallingCubesSystem();
+            // Initialize roaming blocks system
+            new RoamingBlocksSystem();
         });
     </script>
 </body>
