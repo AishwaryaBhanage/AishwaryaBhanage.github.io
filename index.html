@@ -1,1397 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aishwarya Bhanage | Data Scientist Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Aishwarya - Data Professional Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #1e3a8a;
-            --accent-color: #06b6d4;
-            --background-color: #f8fafc;
-            --text-color: #374151;
-            --light-accent: #f0f9ff;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --hover-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            scroll-behavior: smooth;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: #1e3a8a;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 600px;
-        }
-
-        /* Roaming Blocks Animation */
-        .roaming-blocks-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .roaming-block {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
-            box-shadow: 
-                0 4px 8px rgba(0, 0, 0, 0.2),
-                0 2px 4px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            will-change: transform;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            user-select: none;
-            backdrop-filter: blur(3px);
-            transform: perspective(200px) rotateX(15deg) rotateY(15deg);
-            transform-style: preserve-3d;
-        }
-
-        .roaming-block:hover {
-            transform: perspective(200px) rotateX(20deg) rotateY(20deg) scale(1.15);
-            box-shadow: 
-                0 8px 16px rgba(0, 0, 0, 0.25),
-                0 4px 8px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
-        }
-
-        .roaming-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
-            border-radius: 4px;
-            pointer-events: none;
-        }
-
-        .roaming-block::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(0, 0, 0, 0.1) 50%, transparent 70%);
-            border-radius: 4px;
-            pointer-events: none;
-        }
-
-        .roaming-block.colliding {
-            animation: collision-flash 0.5s ease-out;
-        }
-
-        @keyframes collision-flash {
-            0% { 
-                transform: perspective(200px) rotateX(15deg) rotateY(15deg) scale(1);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-            50% { 
-                transform: perspective(200px) rotateX(25deg) rotateY(25deg) scale(1.3);
-                box-shadow: 0 8px 24px rgba(255, 255, 255, 0.6);
-            }
-            100% { 
-                transform: perspective(200px) rotateX(15deg) rotateY(15deg) scale(1);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-        }
-
-        .roaming-block.fading {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Block colors - lighter and more transparent */
-        .roaming-block.color-orange { 
-            background: linear-gradient(135deg, rgba(251, 146, 60, 0.8), rgba(249, 115, 22, 0.8));
-            backdrop-filter: blur(10px);
-        }
-        .roaming-block.color-black { 
-            background: linear-gradient(135deg, rgba(107, 114, 128, 0.7), rgba(75, 85, 99, 0.7));
-            backdrop-filter: blur(10px);
-        }
-        .roaming-block.color-blue { 
-            background: linear-gradient(135deg, rgba(96, 165, 250, 0.8), rgba(59, 130, 246, 0.8));
-            backdrop-filter: blur(10px);
-        }
-        .roaming-block.color-yellow { 
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.8), rgba(245, 158, 11, 0.8));
-            backdrop-filter: blur(10px);
-        }
-
-        .header-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 0 60px;
-            position: relative;
-            z-index: 2;
-        }
-
-
-
-        .header-content {
-            position: relative;
-            z-index: 10;
-            text-align: left;
-        }
-
-        .hero-text h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.1;
-            color: #1e3a8a;
-            background: linear-gradient(135deg, #1e3a8a 0%, #6b21a8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: nameAppear 2s ease-out;
-        }
-
-        .hero-text .tagline {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #6b21a8;
-            animation: taglineAppear 2s ease-out 0.3s both;
-        }
-
-        .hero-text .intro {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #64748b;
-            margin-bottom: 40px;
-            animation: introAppear 2s ease-out 0.6s both;
-        }
-
-        .hero-text .intro .highlight {
-            color: #1e3a8a;
-            font-weight: 600;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-            animation: statsAppear 2s ease-out 0.9s both;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        .stat-item .icon {
-            color: #06b6d4;
-            font-size: 1.2rem;
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            animation: imageAppear 2s ease-out 1.2s both;
-            perspective: 1000px;
-            transform-style: preserve-3d;
-        }
-
-        .hero-image img {
-            max-width: 140%;
-            width: 550px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                0 8px 32px rgba(0, 0, 0, 0.1);
-            animation: characterFloat 6s ease-in-out infinite;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            padding: 20px;
-            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateZ(50px);
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-
-        .hero-image img:hover {
-            transform: perspective(1000px) rotateY(-8deg) rotateX(8deg) translateZ(80px);
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.2),
-                0 0 0 1px rgba(255, 255, 255, 0.2),
-                0 12px 48px rgba(0, 0, 0, 0.15);
-        }
-
-        @keyframes characterFloat {
-            0%, 100% {
-                transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateZ(50px) translateY(0px);
-            }
-            50% {
-                transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateZ(50px) translateY(-15px);
-            }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            margin-top: 30px;
-            animation: ctaAppear 2s ease-out 1.5s both;
-        }
-
-        .cta-btn {
-            padding: 18px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-primary {
-            background: linear-gradient(135deg, #06b6d4, #1e3a8a);
-            color: white;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
-        }
-
-        .cta-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6);
-        }
-
-        .cta-secondary {
-            background: transparent;
-            color: #1e3a8a;
-            border: 2px solid #1e3a8a;
-            backdrop-filter: blur(10px);
-        }
-
-        .cta-secondary:hover {
-            background: #1e3a8a;
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Animation keyframes */
-        @keyframes nameAppear {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes taglineAppear {
-            0% {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes introAppear {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes statsAppear {
-            0% {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes imageAppear {
-            0% {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes ctaAppear {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            opacity: 0.8;
-        }
-
-        .scroll-indicator:hover {
-            opacity: 1;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        .profile-photo {
-            display: none;
-        }
-
-        /* Navigation */
-        nav {
-            background: var(--background-color);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--card-shadow);
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-        }
-
-        .nav-content a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-content a:hover {
-            background: var(--light-accent);
-            color: var(--primary-color);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .section-header p {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-
-        /* About Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .about-content p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-
-        .stats-card {
-            background: var(--light-accent);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .stat-item i {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            margin-right: 15px;
-        }
-
-        .stat-item span {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        /* Experience Section */
-        .experience-section {
-            margin-bottom: 50px;
-        }
-
-        .experience-category {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--accent-color);
-        }
-
-        .experience-category i {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-        }
-
-        .experience-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .experience-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .experience-title h4 {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .company {
-            color: var(--accent-color);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .experience-meta {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 5px;
-        }
-
-        .location {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        .duration {
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 0.9rem;
-            background: var(--light-accent);
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-
-        .experience-content ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .experience-content li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-            line-height: 1.6;
-            color: #64748b;
-        }
-
-        .experience-content li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* Education Section */
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-        }
-
-        .education-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .education-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .education-icon {
-            flex-shrink: 0;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent-color), #0891b2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .education-content {
-            flex: 1;
-        }
-
-        .education-content h3 {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .education-content .institution {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-
-        .education-content .location,
-        .education-content .duration {
-            color: #64748b;
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-        }
-
-        .education-content .description {
-            color: #64748b;
-            line-height: 1.6;
-            margin-top: 10px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .experience-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .experience-meta {
-                align-items: flex-start;
-            }
-
-            .education-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .education-icon {
-                align-self: center;
-            }
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--light-accent), #e0f2fe);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            font-size: 3rem;
-        }
-
-        .project-content {
-            padding: 25px;
-        }
-
-        .project-content h3 {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .project-content p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .tech-tag {
-            background: var(--light-accent);
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #ea580c;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* Featured Work */
-        .featured-work {
-            background: var(--light-accent);
-        }
-
-        .featured-item {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .featured-item h3 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .featured-item .impact {
-            background: var(--accent-color);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-weight: 600;
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-        }
-
-        .contact-info h3 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .contact-item i {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            margin-right: 15px;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 6px;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Performance optimizations */
-        .floating-block {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            .floating-block {
-                animation: none !important;
-                transition: none !important;
-            }
-            
-            .hero-text h1,
-            .hero-text .tagline,
-            .hero-text .intro,
-            .stats-grid,
-            .hero-image,
-            .cta-buttons {
-                animation: none !important;
-            }
-            
-            .hero-image img {
-                animation: none !important;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .header-container {
-                grid-template-columns: 1fr;
-                gap: 50px;
-                text-align: center;
-                padding: 0 40px;
-            }
-            
-            .header-content {
-                text-align: center;
-                order: 2;
-            }
-            
-            .hero-image {
-                order: 1;
-            }
-            
-            .hero-image img {
-                width: 550px;
-                max-width: 100%;
-            }
-            
-            .hero-text h1 {
-                font-size: 3.5rem;
-            }
-            
-            .hero-text .tagline {
-                font-size: 1.3rem;
-            }
-            
-            .hero-text .intro {
-                font-size: 1.1rem;
-            }
-            
-            .cta-buttons {
-                justify-content: center;
-            }
-            
-            .floating-block.size-small {
-                width: 28px;
-                height: 28px;
-                font-size: 10px;
-            }
-            
-            .floating-block.size-medium {
-                width: 40px;
-                height: 40px;
-                font-size: 14px;
-            }
-            
-            .floating-block.size-large {
-                width: 52px;
-                height: 52px;
-                font-size: 18px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header-container {
-                padding: 0 30px;
-                gap: 40px;
-            }
-            
-            .hero-text h1 {
-                font-size: 2.8rem;
-                line-height: 1.1;
-            }
-            
-            .hero-text .tagline {
-                font-size: 1.2rem;
-            }
-            
-            .hero-text .intro {
-                font-size: 1rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            
-            .cta-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-                padding: 15px 30px;
-                font-size: 1rem;
-            }
-            
-            .floating-block.size-small {
-                width: 24px;
-                height: 24px;
-                font-size: 9px;
-            }
-            
-            .floating-block.size-medium {
-                width: 36px;
-                height: 36px;
-                font-size: 12px;
-            }
-            
-            .floating-block.size-large {
-                width: 48px;
-                height: 48px;
-                font-size: 16px;
-            }
-            
-            .hero-image img {
-                width: 400px;
-                max-width: 100%;
-            }
-            
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav-content {
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-
-        }
-        
-        @media (max-width: 480px) {
-            .header-container {
-                padding: 0 15px;
-            }
-            
-            .hero-text h1 {
-                font-size: 2rem;
-                line-height: 1.1;
-            }
-            
-            .hero-text .tagline {
-                font-size: 1rem;
-            }
-            
-            .hero-text .intro {
-                font-size: 0.9rem;
-            }
-            
-            .cta-btn {
-                padding: 12px 25px;
-                font-size: 0.95rem;
-            }
-            
-            .floating-block.size-small {
-                width: 20px;
-                height: 20px;
-                font-size: 8px;
-            }
-            
-            .floating-block.size-medium {
-                width: 32px;
-                height: 32px;
-                font-size: 11px;
-            }
-            
-            .floating-block.size-large {
-                width: 44px;
-                height: 44px;
-                font-size: 14px;
-            }
-            
-            .hero-image img {
-                width: 350px;
-                max-width: 100%;
-            }
-            
-
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                scroll-behavior: auto;
-                transition: none !important;
-                animation: none !important;
-            }
-        }
-
-        /* Focus styles for accessibility */
-        *:focus {
-            outline: 2px solid var(--accent-color);
-            outline-offset: 2px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="roaming-blocks-container" id="roamingBlocks">
-            <!-- Dynamic roaming blocks will be generated by JavaScript -->
-        </div>
-        
-        <div class="header-container">
-            <div class="header-content">
-                <div class="hero-text">
-                    <h1>Aishwarya Bhanage</h1>
-                    <p class="intro">
-                        <span class="highlight">Hi! I'm Aishwarya</span> 👋<br><br>
-                        A passionate Data Scientist specializing in machine learning, data visualization, and predictive analytics. I transform complex datasets into actionable insights that drive business growth.
-                    </p>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="icon">🔹</span>
-                            <span>3+ years in data science & analytics</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="icon">🔹</span>
-                            <span>Expert in Python, R, SQL, and cloud platforms</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="icon">🔹</span>
-                            <span>Certified Tableau Desktop Specialist</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="icon">🔹</span>
-                            <span>Passionate about AI/ML innovation</span>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-buttons">
-                        <a href="#projects" class="cta-btn cta-primary">
-                            <i class="fas fa-rocket"></i>
-                            View My Projects
-                        </a>
-                        <a href="Aishwarya_Bhanage_Resume.pdf" class="cta-btn cta-secondary" target="_blank" download>
-                            <i class="fas fa-download"></i>
-                            Download Resume
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="hero-image">
-                <img src="img1.jpg" alt="Aishwarya Bhanage - Data Scientist" />
-            </div>
-        </div>
-        
-        <div class="scroll-indicator">
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </header>
 
+<body>
     <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="nav-content">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#education">Education</a>
-                <a href="#projects">Projects</a>
-                <a href="#featured">Featured Work</a>
-                <a href="#contact">Contact</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">AB</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#journey" class="nav-link">Journey</a></li>
+                <li class="nav-item"><a href="culture.html" class="nav-link">My Canvas</a></li>
+                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing"
+                    target="_blank" class="resume-btn">
+                    <i class="fas fa-download"></i>
+                    Resume
+                </a>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="availability-status">
+                    <div class="status-dot"></div>
+                    <span>Available for new opportunities</span>
+                </div>
+
+                <h1 class="hero-name left-aligned">
+                    <span class="first-name">Aishwarya</span>
+                    <span class="last-name">Bhanage</span>
+                </h1>
+
+                <h2 class="hero-role">
+                    <span id="typing-text">Data Scientist</span><span class="typing-cursor">|</span>
+                </h2>
+
+                <p class="hero-description">
+                    Crafting innovative solutions at the intersection of
+                    <span class="highlight-text">data science</span>,
+                    <span class="highlight-text">machine learning</span>, and
+                    <span class="highlight-text">artificial intelligence</span>.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing"
+                        target="_blank" class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Download Resume
+                    </a>
+                </div>
+
+                <div class="scroll-indicator">
+                    <span>SCROLL TO EXPLORE</span>
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="profile-container">
+                    <div class="profile-circle">
+                        <div class="profile-placeholder">AB</div>
+                        <div class="orbit-dots">
+                            <div class="dot dot-1"></div>
+                            <div class="dot dot-2"></div>
+                            <div class="dot dot-3"></div>
+                            <div class="dot dot-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- About Section -->
-    <section id="about">
+    <section id="about" class="about">
         <div class="container">
-            <div class="section-header">
-                <h2>About Me</h2>
-                <p>Transforming data into insights, insights into action</p>
-            </div>
-            <div class="about-grid">
-                <div class="about-content">
-                    <p>With 3+ years of experience in data science and analytics, I've specialized in predictive modeling, anomaly detection, and large-scale data processing. My journey began with a Bachelor's in Computer Engineering from Sinhgad Institute of Technology and Science, followed by my current pursuit of a Master's in Data Science at Stony Brook University, where I'm developing expertise in advanced machine learning and statistical analysis.</p>
-                    
-                    <p>At Accenture Solutions, I engineered predictive anomaly detection models using XGBoost and logistic regression, achieving 95% accuracy while monitoring 1M+ daily banking transactions and reducing false positives by 40%. I've optimized ETL data pipelines using PySpark and MySQL, improving processing speed by 40% and enabling real-time analytics for massive datasets.</p>
-                    
-                    <p>I've built interactive machine learning dashboards using Tableau and Power BI, reducing executive reporting time by 30% and enabling data-driven decision making. My expertise spans Python, R, SQL, and cloud platforms, with particular strength in predictive modeling, NLP, and statistical analysis. I've led cross-functional teams of 4 engineers, delivering 25% more features per sprint while reducing project delays by 20%.</p>
-                    
-                    <p>Currently pursuing my Master's in Data Science, I'm actively working on cutting-edge projects including a mythology-based story generator using RAG systems, AI-powered summarization tools, and crime trend analysis. I'm passionate about leveraging data to solve real-world problems and making complex analytical insights accessible to stakeholders.</p>
+            <h2 class="section-title">About <span class="highlight-purple">Me</span></h2>
+            <p class="section-subtitle">
+                Passionate about transforming complex challenges into elegant solutions through the
+                power of artificial intelligence and modern data science.
+            </p>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>3+</h3>
+                    <p>Years Experience</p>
                 </div>
-                <div class="stats-card">
-                    <h3 style="color: var(--primary-color); margin-bottom: 25px;">Quick Stats</h3>
-                    <div class="stat-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>3+ Years Experience</span>
+                <div class="stat-card">
+                    <h3>1M+</h3>
+                    <p>Records Processed</p>
+                </div>
+                <div class="stat-card">
+                    <h3>8+</h3>
+                    <p>Projects</p>
+                </div>
+                <div class="stat-card">
+                    <h3>10+</h3>
+                    <p>Certifications</p>
+                </div>
+                <div class="stat-card">
+                    <h3>3000+</h3>
+                    <p>KPIs Created & Monitored</p>
+                </div>
+                <div class="stat-card">
+                    <h3>40+</h3>
+                    <p>Dashboards Created</p>
+                </div>
+            </div>
+
+            <div class="about-side-by-side">
+                <div class="about-left-content">
+                    <h3 class="about-main-heading">Crafting the Future with <span class="highlight-ai">AI</span> & <span
+                            class="highlight-code">Code</span></h3>
+
+                    <p class="about-main-bio">
+                        I'm Aishwarya Bhanage, a passionate data professional with a Master's in Data Science from Stony
+                        Brook University. My journey spans from academic excellence as a Tableau Certified specialist
+                        during my studies to real-world impact as an AI/ML Engineer at Veach & Company. With 3+ years of
+                        experience and expertise in artificial intelligence, machine learning, and data engineering, I
+                        bridge the gap between cutting-edge research and practical solutions that drive business value.
+                        When I'm not coding or researching, you'll find me exploring new technologies and sharing
+                        knowledge with the data science community.
+                    </p>
+
+                    <div class="skill-tags-modern">
+                        <span class="skill-tag-modern">Python</span>
+                        <span class="skill-tag-modern">SQL</span>
+                        <span class="skill-tag-modern">Tableau</span>
+                        <span class="skill-tag-modern">Data Science</span>
+                        <span class="skill-tag-modern">Machine Learning</span>
+                        <span class="skill-tag-modern">Cloud</span>
+                        <span class="skill-tag-modern">NLP</span>
+                        <span class="skill-tag-modern">Backend</span>
                     </div>
-                    <div class="stat-item">
-                        <i class="fas fa-chart-line"></i>
-                        <span>3000+ KPI Created & Monitored</span>
+                </div>
+
+                <div class="about-right-features">
+                    <div class="feature-card gold-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Tableau Certified</h4>
+                            <p>Top academic performer with distinction in Data Visualization</p>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>40+ Dashboards Created & Monitored</span>
+
+                    <div class="feature-card purple-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Industry Experience</h4>
+                            <p>AI Engineer at Veach & Company | Former Analyst at Accenture</p>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <i class="fas fa-database"></i>
-                        <span>1M+ Data Points Analyzed Daily</span>
+
+                    <div class="feature-card teal-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Research Publications</h4>
+                            <p>Published papers in Bitcoin and Blockchain technology</p>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <i class="fas fa-code"></i>
-                        <span>Python, R, SQL Expert</span>
+
+                    <div class="feature-card pink-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Full-Stack Developer</h4>
+                            <p>Backend focused Python with React familiarity</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education & Experience - Simplified -->
+            <div class="edu-exp-simple">
+                <div class="simple-section">
+                    <div class="section-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Education</h3>
+                    </div>
+                    <div class="simple-card">
+                        <h4>Master of Science in Data Science</h4>
+                        <p class="institution">Stony Brook University</p>
+                    </div>
+                    <div class="simple-card">
+                        <h4>Bachelor of Engineering in Computer Engineering</h4>
+                        <p class="institution">Sinhgad Institute of Technology</p>
+                    </div>
+                </div>
+
+                <div class="simple-section">
+                    <div class="section-header">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>Experience</h3>
+                    </div>
+                    <div class="simple-card">
+                        <h4>Founding AI/ML Engineer Intern</h4>
+                        <p class="company">Veach & Company</p>
+                        <p class="description">AI-driven investor matching & LLM systems</p>
+                    </div>
+                    <div class="simple-card">
+                        <h4>Packaged App Development Analyst</h4>
+                        <p class="company">Accenture</p>
+                        <p class="description">ML models, ETL pipelines & data analytics</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Professional Experience Section -->
-    <section id="experience" style="background: var(--light-accent);">
+    <!-- Interactive Timeline Journey Section -->
+    <section id="journey" class="timeline-journey">
         <div class="container">
-            <div class="section-header">
-                <h2>Professional Experience</h2>
-                <p>My journey in data science and analytics across diverse roles and responsibilities</p>
-            </div>
-            
-            <!-- Leadership Experience -->
-            <div class="experience-section">
-                <h3 class="experience-category">
-                    <i class="fas fa-users-cog"></i>
-                    Leadership Experience
-                </h3>
-                
-                <div class="experience-card">
-                    <div class="experience-header">
-                        <div class="experience-title">
-                            <h4>Graduate Student Organization Treasurer</h4>
-                            <span class="company">Stony Brook University</span>
-                </div>
-                        <div class="experience-meta">
-                            <span class="location">Stony Brook, NY</span>
-                            <span class="duration">May 2025 - Present</span>
-                </div>
-                </div>
-                    <div class="experience-content">
-                        <ul>
-                            <li>Facilitate budget meeting discussions, provide executive-level finance reports, and manage 5 reimbursement lines while ensuring the Graduate Student Organization's transparent and compliant financial operations per available funding for more than 8000 students.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Professional Experience -->
-            <div class="experience-section">
-                <h3 class="experience-category">
-                    <i class="fas fa-briefcase"></i>
-                    Professional Experience
-                </h3>
-                
-                <div class="experience-card">
-                    <div class="experience-header">
-                        <div class="experience-title">
-                            <h4>Packaged App Development Analyst</h4>
-                            <span class="company">Accenture Solutions Pvt Ltd</span>
-                        </div>
-                        <div class="experience-meta">
-                            <span class="location">Pune, MH</span>
-                            <span class="duration">Jun 2022 - Oct 2023</span>
-                        </div>
-                    </div>
-                    <div class="experience-content">
-                        <ul>
-                            <li>Engineered predictive anomaly detection models using XGBoost and logistic regression in Python to identify fraudulent banking transactions, achieving 95% accuracy rate while monitoring 1M+ daily records and reducing false positives by 40%.</li>
-                            <li>Optimized ETL data pipelines using PySpark and MySQL to process banking transaction data, improving processing speed by 40% and enabling real-time analytics for 1M+ daily transactions.</li>
-                            <li>Analyzed user behavior patterns on Android / iOS platforms using statistical analysis and Python libraries (Pandas, NumPy) to identify performance bottlenecks, resulting in 25% improvement in user journey completion rates.</li>
-                            <li>Built interactive machine learning dashboards using Tableau and Power BI to visualize model performance metrics and KPIs, reducing executive reporting time by 30% and enabling data-driven decision making for stakeholders.</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="experience-card">
-                    <div class="experience-header">
-                        <div class="experience-title">
-                            <h4>Associate Software Engineer</h4>
-                            <span class="company">Accenture Solutions Pvt Ltd</span>
-                        </div>
-                        <div class="experience-meta">
-                            <span class="location">Pune, MH</span>
-                            <span class="duration">Dec 2020 - May 2022</span>
-                        </div>
-                    </div>
-                    <div class="experience-content">
-                        <ul>
-                            <li>Led a cross-functional analytics team of 4 engineers to resolve critical data processing bottlenecks using Agile methodologies, delivering 25% more features per sprint and reducing project delays by 20%.</li>
-                            <li>Developed data processing pipelines using SQL and Apache Spark to handle large-scale datasets, cutting processing time by 40% and enabling efficient A/B testing for product deployments.</li>
-                            <li>Created hash-based customer lookup algorithm using Python to optimize data retrieval from banking databases, improving query response time by 35% and supporting real-time customer service operations.</li>
-                            <li>Designed data preprocessing workflows using Python and Excel VBA to automate data cleaning processes, reducing manual processing time by 50% and improving data accuracy for downstream analytics.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <h2 class="section-title">Professional <span class="highlight-purple">Journey</span></h2>
+            <p class="section-subtitle">
+                From software engineering to AI innovation - a journey of continuous learning and impactful
+                contributions
+            </p>
 
-    <!-- Education Section -->
-    <section id="education">
-        <div class="container">
-            <div class="section-header">
-                <h2>Education</h2>
-                <p>Academic foundation and continuous learning in data science and technology</p>
-            </div>
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-icon">
+            <div class="interactive-timeline">
+                <!-- Glowing Central Line -->
+                <div class="timeline-line"></div>
+
+                <!-- Timeline Entry 1 - Current Position AI/ML Engineer -->
+                <div class="timeline-entry" data-side="left">
+                    <div class="timeline-icon work-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag current">Current Position</div>
+                        <h3 class="entry-title">Founding AI/ML Engineer Intern</h3>
+                        <div class="entry-company">
+                            <a href="https://veachandcompany.com/" target="_blank">Veach & Company</a>
+                        </div>
+                        <div class="entry-duration">Jul 2025 – Present</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            New York City, NY
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Designing an AI-driven investor matching engine using GPT-4, Supabase, FastAPI, and
+                                React</li>
+                            <li>Increased investor match relevance scores by 40% with semantic pitch deck similarity
+                            </li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">LangChain</span>
+                            <span class="skill-pill">Pinecone</span>
+                            <span class="skill-pill">LlamaIndex</span>
+                            <span class="skill-pill">FAISS</span>
+                            <span class="skill-pill">OpenAI</span>
+                            <span class="skill-pill">HuggingFace</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 2 - Graduate Student Organization Treasurer -->
+                <div class="timeline-entry" data-side="right">
+                    <div class="timeline-icon leadership-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag current">Current Position</div>
+                        <h3 class="entry-title">Graduate Student Organization Treasurer</h3>
+                        <div class="entry-company">
+                            <a href="https://www.stonybrook.edu/" target="_blank">Stony Brook University</a>
+                        </div>
+                        <div class="entry-duration">May 2025 – Present</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Stony Brook, NY
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Managing financial operations for 8,000+ graduate students</li>
+                            <li>Oversaw reimbursements, chaired budget meetings with 98% approval</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">Budgeting</span>
+                            <span class="skill-pill">Leadership</span>
+                            <span class="skill-pill">Stakeholder Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 3 - Master's Education -->
+                <div class="timeline-entry" data-side="left">
+                    <div class="timeline-icon education-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <div class="education-content">
-                        <h3>Master of Science in Data Science</h3>
-                        <p class="institution">Stony Brook University</p>
-                        <p class="location">Stony Brook, NY</p>
-                        <p class="duration">2024 - Present</p>
-                        <p class="description">Currently pursuing advanced studies in machine learning, statistical analysis, and data science methodologies. Focus on cutting-edge AI/ML technologies and research applications.</p>
+                    <div class="timeline-card">
+                        <div class="status-tag current">In Progress</div>
+                        <h3 class="entry-title">Master of Science in Data Science</h3>
+                        <div class="entry-company">
+                            <a href="https://www.stonybrook.edu/" target="_blank">Stony Brook University</a>
+                        </div>
+                        <div class="entry-duration">Aug 2024 – Present</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Stony Brook, NY
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Specializing in AI/ML, NLP, and Data Engineering</li>
+                            <li>Research on retrieval-augmented generation and enterprise-scale ML systems</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">AI/ML</span>
+                            <span class="skill-pill">NLP</span>
+                            <span class="skill-pill">Data Engineering</span>
+                            <span class="skill-pill">Research</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="education-card">
-                    <div class="education-icon">
+
+                <!-- Timeline Entry 4 - Accenture Analyst -->
+                <div class="timeline-entry" data-side="right">
+                    <div class="timeline-icon work-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag completed">Completed</div>
+                        <h3 class="entry-title">Packaged App Development Analyst</h3>
+                        <div class="entry-company">
+                            <a href="https://www.accenture.com/" target="_blank">Accenture</a>
+                        </div>
+                        <div class="entry-duration">Jun 2022 – Oct 2023</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Pune, India
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Built anomaly detection models with 95% accuracy, reducing false positives by 40%</li>
+                            <li>Optimized ETL pipelines in PySpark/Databricks, speeding processes by 20%</li>
+                            <li>Created ML dashboards in Tableau/Power BI, cutting reporting time by 30%</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">PySpark</span>
+                            <span class="skill-pill">Databricks</span>
+                            <span class="skill-pill">SQL</span>
+                            <span class="skill-pill">Tableau</span>
+                            <span class="skill-pill">Power BI</span>
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">XGBoost</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 5 - Associate Software Engineer -->
+                <div class="timeline-entry" data-side="left">
+                    <div class="timeline-icon work-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag completed">Completed</div>
+                        <h3 class="entry-title">Associate Software Engineer</h3>
+                        <div class="entry-company">
+                            <a href="https://www.accenture.com/" target="_blank">Accenture</a>
+                        </div>
+                        <div class="entry-duration">Dec 2020 – May 2022</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Pune, India
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Built A/B testing framework accelerating feature launches (8+ new features)</li>
+                            <li>Developed a hash-based lookup algorithm, reducing query time by 35%</li>
+                            <li>Automated preprocessing workflows, cutting processing time by 50%</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">SQL</span>
+                            <span class="skill-pill">Excel VBA</span>
+                            <span class="skill-pill">Spark</span>
+                            <span class="skill-pill">Data Engineering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 6 - Bachelor's Education -->
+                <div class="timeline-entry" data-side="right">
+                    <div class="timeline-icon education-icon">
                         <i class="fas fa-university"></i>
                     </div>
-                    <div class="education-content">
-                        <h3>Bachelor of Engineering in Computer Engineering</h3>
-                        <p class="institution">Sinhgad Institute of Technology and Science</p>
-                        <p class="location">Pune, Maharashtra</p>
-                        <p class="duration">2016 - 2020</p>
-                        <p class="description">Comprehensive foundation in computer science, software engineering, and data structures. Developed strong analytical and problem-solving skills through hands-on projects and coursework.</p>
+                    <div class="timeline-card">
+                        <div class="status-tag completed">Completed</div>
+                        <h3 class="entry-title">Bachelor of Engineering in Computer Engineering</h3>
+                        <div class="entry-company">
+                            <a href="https://www.sinhgad.edu/" target="_blank">Sinhgad Institute of Technology &
+                                Science</a>
+                        </div>
+                        <div class="entry-duration">May 2016 – May 2020</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Pune, India
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Built strong foundations in computer science and engineering</li>
+                            <li>Completed multiple academic projects in data analytics and AI</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">Computer Engineering</span>
+                            <span class="skill-pill">Programming</span>
+                            <span class="skill-pill">Data Analytics</span>
+                            <span class="skill-pill">AI Fundamentals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Data Analysis</h3>
+                    </div>
+                    <div class="skill-items">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Statistical Analysis</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Data Science</h3>
+                    </div>
+                    <div class="skill-items">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">XGBoost</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">Transformers</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">LLMs</span>
+                        <span class="skill-tag">Anomaly Detection</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <i class="fas fa-database"></i>
+                        <h3>Data Engineering</h3>
+                    </div>
+                    <div class="skill-items">
+                        <span class="skill-tag">PySpark</span>
+                        <span class="skill-tag">Databricks</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Snowflake</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Azure Data Factory</span>
+                        <span class="skill-tag">ETL Pipelines</span>
                     </div>
                 </div>
             </div>
@@ -1399,592 +505,190 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects">
+    <section id="projects" class="projects">
         <div class="container">
-            <div class="section-header">
-                <h2>Projects Portfolio</h2>
-                <p>A showcase of diverse data science projects and solutions</p>
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="analysis">Data Analysis</button>
+                <button class="filter-btn" data-filter="science">Data Science</button>
+                <button class="filter-btn" data-filter="engineering">Data Engineering</button>
             </div>
+
             <div class="projects-grid">
-                <div class="project-card">
+                <!-- Data Science Project -->
+                <div class="project-card" data-category="science">
                     <div class="project-image">
-                        <i class="fas fa-shield-alt"></i>
+                        <div class="project-placeholder">📊</div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                        </div>
                     </div>
                     <div class="project-content">
-                        <h3>Fraud Detection System</h3>
-                        <p>Engineered predictive anomaly detection models using XGBoost and logistic regression, achieving 95% accuracy while monitoring 1M+ daily banking transactions and reducing false positives by 40%.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">XGBoost</span>
-                            <span class="tech-tag">PySpark</span>
-                            <span class="tech-tag">MySQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-primary">View Project</a>
-                            <a href="#" class="btn btn-secondary">GitHub</a>
+                        <h3>Mythology-Based Story Generator & Narrator</h3>
+                        <p>RAG system using Falcon-7B and E5-base embeddings achieving 93% accuracy with less than 3%
+                            hallucination across 20+ test conditions.</p>
+                        <div class="project-tech">
+                            <span>Falcon-7B</span>
+                            <span>PyTorch</span>
+                            <span>NLTK</span>
+                            <span>RAG</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="project-card">
+
+                <!-- Data Analysis Project -->
+                <div class="project-card" data-category="analysis">
                     <div class="project-image">
-                        <i class="fas fa-book-open"></i>
+                        <div class="project-placeholder">🥑</div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                        </div>
                     </div>
                     <div class="project-content">
-                        <h3>Mythology Story Generator</h3>
-                        <p>Built end-to-end RAG system using Falcon-7B model and E5-base embeddings, processing 5M+ tokens from historical texts and achieving 93% precision rate with only 3% hallucination.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">PyTorch</span>
-                            <span class="tech-tag">NLTK</span>
-                            <span class="tech-tag">Hugging Face</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-primary">View Project</a>
-                            <a href="#" class="btn btn-secondary">GitHub</a>
+                        <h3>Avocado Market Analysis - US Price & Sales Trends</h3>
+                        <p>Analyzed 18K+ records across 50+ US regions to identify seasonal patterns, regional
+                            discrepancies, and market conditions.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Pandas</span>
+                            <span>Seaborn</span>
+                            <span>SQL</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="project-card">
+
+                <!-- Data Engineering Project -->
+                <div class="project-card" data-category="engineering">
                     <div class="project-image">
-                        <i class="fas fa-graduation-cap"></i>
+                        <div class="project-placeholder">🤖</div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                        </div>
                     </div>
                     <div class="project-content">
-                        <h3>SummarIQ - Smart Summarization</h3>
-                        <p>Developed AI-powered summarization system using Whisper and GPT-4 models integrated with Zoom API, automating session analysis and reducing manual summary time by 80%.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">GPT-4</span>
-                            <span class="tech-tag">Whisper</span>
-                            <span class="tech-tag">MySQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-primary">View Project</a>
-                            <a href="#" class="btn btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Crime Trend Analysis</h3>
-                        <p>Engineered crime prediction model using Random Forest and PCA in R, achieving 0.81 AUC and providing actionable insights for resource allocation decisions with 85% accuracy in high-risk area identification.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">R</span>
-                            <span class="tech-tag">Random Forest</span>
-                            <span class="tech-tag">Leaflet</span>
-                            <span class="tech-tag">ggplot2</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-primary">View Project</a>
-                            <a href="#" class="btn btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>ML Dashboard & Analytics</h3>
-                        <p>Built interactive machine learning dashboards using Tableau and Power BI, reducing executive reporting time by 30% and enabling data-driven decision making for stakeholders.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Tableau</span>
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-primary">View Project</a>
-                            <a href="#" class="btn btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>User Behavior Analytics</h3>
-                        <p>Analyzed user behavior patterns on Android/iOS platforms using statistical analysis and Python libraries, resulting in 25% improvement in user journey completion rates.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Pandas</span>
-                            <span class="tech-tag">NumPy</span>
-                            <span class="tech-tag">Statistical Analysis</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-primary">View Project</a>
-                            <a href="#" class="btn btn-secondary">GitHub</a>
+                        <h3>AI-Driven Investor Matching Engine</h3>
+                        <p>GPT-4 powered system with semantic similarity matching, increasing relevance scores by 40%
+                            using FastAPI and React.</p>
+                        <div class="project-tech">
+                            <span>GPT-4</span>
+                            <span>FastAPI</span>
+                            <span>Supabase</span>
+                            <span>LangChain</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Featured Work Section -->
-    <section id="featured" class="featured-work">
+    </section> <!-- Ac
+hievements Section -->
+    <section id="achievements" class="achievements">
         <div class="container">
-            <div class="section-header">
-                <h2>Featured Work</h2>
-                <p>Spotlight on high-impact projects and their business outcomes</p>
-            </div>
-            
-            <div class="featured-item">
-                <h3>🏆 Revenue Optimization Engine</h3>
-                <p>Developed a sophisticated machine learning system for a major e-commerce platform to optimize pricing strategies across 100,000+ products. The system combines multiple algorithms including gradient boosting, neural networks, and reinforcement learning to maximize revenue while maintaining competitive positioning.</p>
-                <div class="impact">
-                    <i class="fas fa-chart-line"></i>
-                    Business Impact: 18% increase in revenue, $2.3M additional profit in first quarter
+            <h2 class="section-title">Achievements & Certifications</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Tableau Desktop Specialist</h3>
+                    <p>Certified Tableau Desktop Specialist for advanced data visualization</p>
+                    <span class="achievement-date">2023</span>
                 </div>
-                <p><strong>Technical Approach:</strong> Implemented a multi-model ensemble using XGBoost, LightGBM, and custom neural networks. Built real-time inference pipeline handling 10,000+ predictions per second. Created A/B testing framework to validate model performance and business impact.</p>
-                <a href="#" class="btn btn-primary">View Detailed Case Study</a>
-            </div>
-            
-            <div class="featured-item">
-                <h3>🚀 Predictive Maintenance Platform</h3>
-                <p>Led the development of an IoT-based predictive maintenance solution for manufacturing equipment, processing sensor data from 500+ machines to predict failures before they occur. The solution combines time series analysis, anomaly detection, and maintenance scheduling optimization.</p>
-                <div class="impact">
-                    <i class="fas fa-tools"></i>
-                    Business Impact: 40% reduction in unplanned downtime, $5M annual savings
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Graduate Student Organization Treasurer</h3>
+                    <p>Managing financial operations for 8,000+ graduate students with 98% budget approval</p>
+                    <span class="achievement-date">2025</span>
                 </div>
-                <p><strong>Technical Approach:</strong> Built streaming data pipeline using Apache Kafka and Apache Spark. Implemented LSTM networks for time series forecasting and isolation forests for anomaly detection. Created interactive dashboards for maintenance teams with real-time alerts.</p>
-                <a href="#" class="btn btn-primary">View Technical Deep Dive</a>
-            </div>
-            
-            <div class="featured-item">
-                <h3>📊 Healthcare Analytics Suite</h3>
-                <p>Designed and implemented a comprehensive analytics platform for a healthcare network, enabling data-driven decision making across patient care, operations, and financial performance. The platform processes medical records, claims data, and operational metrics to provide actionable insights.</p>
-                <div class="impact">
-                    <i class="fas fa-heartbeat"></i>
-                    Business Impact: 25% improvement in patient outcomes, 30% reduction in operational costs
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Fraud Detection Excellence</h3>
+                    <p>Built ML models achieving 95% accuracy on 1M+ daily banking transactions</p>
+                    <span class="achievement-date">2023</span>
                 </div>
-                <p><strong>Technical Approach:</strong> Built HIPAA-compliant data warehouse using modern cloud architecture. Implemented natural language processing for clinical notes analysis and developed predictive models for patient risk assessment. Created executive dashboards with drill-down capabilities.</p>
-                <a href="#" class="btn btn-primary">View Platform Demo</a>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>AI Innovation Leader</h3>
+                    <p>Founding team member developing cutting-edge investor matching technology</p>
+                    <span class="achievement-date">2025</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
+    <section id="contact" class="contact">
         <div class="container">
-            <div class="section-header">
-                <h2>Let's Work Together</h2>
-                <p>Ready to turn your data into actionable insights?</p>
-            </div>
-            <div class="contact-grid">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Get in Touch</h3>
-                    <p>I'm always excited to discuss new projects and opportunities. Whether you need help with a specific analysis, want to build a data science team, or are looking for strategic guidance, I'm here to help.</p>
-                    
+                    <h3>Get In Touch</h3>
+                    <p>I'm always excited to discuss new projects and opportunities. Whether you need help with a
+                        specific analysis, want to build a data science team, or are looking for strategic guidance, I'm
+                        here to help.</p>
+
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>aishwaryamahad.bhanage@stonybrook.edu</span>
+                        <span>aish.bhanage0412@gmail.com</span>
                     </div>
+
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <span>+1 (934) 246-0445</span>
+                        <span>+1 9342460445</span>
                     </div>
+
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Stony Brook, New York</span>
+                        <span>New York City, US</span>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Available for consulting projects</span>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                
-                <div class="contact-form">
-                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">Send a Message</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i>
-                            Send Message
-                        </button>
-                    </form>
-                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <div class="social-links">
-                <a href="#" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                <a href="#" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Medium Blog"><i class="fab fa-medium"></i></a>
-                <a href="#" aria-label="Kaggle Profile"><i class="fab fa-kaggle"></i></a>
-            </div>
-
-            <p>Built with passion for data science and beautiful design.</p>
+            <p>&copy; 2024 Aishwarya. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Form submission handling
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            this.reset();
-        });
-
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all sections for animation
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
-        });
-
-        // Dynamic Roaming Blocks System
-        class RoamingBlocksSystem {
-            constructor() {
-                this.blocks = [];
-                this.container = document.getElementById('roamingBlocks');
-                this.maxBlocks = 8;
-                this.blockSize = 40; // Updated to match CSS
-                this.isAnimating = true;
-                this.headerWidth = window.innerWidth;
-                this.headerHeight = window.innerHeight;
-                
-                // Block configuration with specified colors (2 of each)
-                this.blockColors = ['orange', 'orange', 'black', 'black', 'blue', 'blue', 'yellow', 'yellow'];
-                
-                // Tech skills with their logos (8 skills)
-                this.techSkills = [
-                    { name: 'Python', icon: '🐍', color: 'blue' },
-                    { name: 'React', icon: '⚛️', color: 'blue' },
-                    { name: 'MongoDB', icon: '🍃', color: 'orange' },
-                    { name: 'AWS', icon: '☁️', color: 'orange' },
-                    { name: 'Tableau', icon: '📊', color: 'black' },
-                    { name: 'SQL', icon: '🗄️', color: 'black' },
-                    { name: 'JavaScript', icon: '💻', color: 'yellow' },
-                    { name: 'Machine Learning', icon: '🤖', color: 'yellow' }
-                ];
-                
-                console.log('RoamingBlocksSystem initialized');
-                console.log('Container:', this.container);
-                console.log('Header dimensions:', this.headerWidth, 'x', this.headerHeight);
-                
-                this.init();
-            }
-
-            init() {
-                this.createBlocks();
-                this.setupEventListeners();
-                
-                // Start animation after a short delay to ensure everything is ready
-                setTimeout(() => {
-                    console.log('Starting animation loop');
-                this.animate();
-                }, 100);
-            }
-
-            createBlocks() {
-                for (let i = 0; i < this.maxBlocks; i++) {
-                    this.createBlock(i);
-                }
-            }
-
-            createBlock(index) {
-                const block = document.createElement('div');
-                const techSkill = this.techSkills[index % this.techSkills.length];
-                const color = techSkill.color;
-                
-                block.className = `roaming-block color-${color}`;
-                
-                // Add tech skill logo and name
-                block.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%;">
-                        <div style="font-size: 16px; margin-bottom: 2px;">${techSkill.icon}</div>
-                        <div style="font-size: 8px; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); text-align: center; line-height: 1;">${techSkill.name}</div>
-                    </div>
-                `;
-                
-                // Random initial position
-                const x = Math.random() * (this.headerWidth - this.blockSize);
-                const y = Math.random() * (this.headerHeight - this.blockSize);
-                
-                // Random direction and speed (reduced speed for smoother movement)
-                const angle = Math.random() * 2 * Math.PI;
-                const speed = 0.5 + Math.random() * 1; // 0.5-1.5 pixels per frame (reduced speed)
-                
-                const blockData = {
-                    element: block,
-                    x: x,
-                    y: y,
-                    vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed,
-                    color: color,
-                    skill: techSkill.name,
-                    isColliding: false
-                };
-                
-                this.blocks.push(blockData);
-                this.container.appendChild(block);
-                
-                // Set initial position
-                block.style.transform = `translate(${x}px, ${y}px)`;
-                
-                console.log(`Created block ${index}:`, techSkill.name, 'at', x, y, 'velocity:', blockData.vx, blockData.vy);
-                
-                // Initial fade in
-                block.style.opacity = '0';
-                setTimeout(() => {
-                    block.style.opacity = '1';
-                }, 100);
-            }
-
-            animate() {
-                if (!this.isAnimating) {
-                    console.log('Animation paused');
-                    return;
-                }
-                
-                this.blocks.forEach(blockData => {
-                    this.updateBlockPosition(blockData);
-                    this.checkBoundaryCollisions(blockData);
-                });
-                
-                this.checkBlockCollisions();
-                
-                // Continue animation loop
-                requestAnimationFrame(() => this.animate());
-            }
-
-            updateBlockPosition(blockData) {
-                blockData.x += blockData.vx;
-                blockData.y += blockData.vy;
-                
-                blockData.element.style.transform = `translate(${blockData.x}px, ${blockData.y}px)`;
-                
-                // Debug: log position changes occasionally
-                if (Math.random() < 0.01) { // 1% chance to log
-                    console.log('Block position:', blockData.x.toFixed(1), blockData.y.toFixed(1), 'velocity:', blockData.vx.toFixed(2), blockData.vy.toFixed(2));
-                    }
-            }
-
-            checkBoundaryCollisions(blockData) {
-                // Left and right boundaries
-                if (blockData.x <= 0 || blockData.x >= this.headerWidth - this.blockSize) {
-                    blockData.vx = -blockData.vx;
-                    blockData.x = Math.max(0, Math.min(this.headerWidth - this.blockSize, blockData.x));
-                }
-                
-                // Top and bottom boundaries
-                if (blockData.y <= 0 || blockData.y >= this.headerHeight - this.blockSize) {
-                    blockData.vy = -blockData.vy;
-                    blockData.y = Math.max(0, Math.min(this.headerHeight - this.blockSize, blockData.y));
-                    }
-                }
-
-            checkBlockCollisions() {
-                for (let i = 0; i < this.blocks.length; i++) {
-                    for (let j = i + 1; j < this.blocks.length; j++) {
-                        const block1 = this.blocks[i];
-                        const block2 = this.blocks[j];
-                        
-                        if (block1.isColliding || block2.isColliding) continue;
-                        
-                        const dx = block1.x - block2.x;
-                        const dy = block1.y - block2.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                        if (distance < this.blockSize) {
-                            this.handleCollision(block1, block2);
-                        }
-                    }
-                }
-            }
-
-            handleCollision(block1, block2) {
-                // Mark blocks as colliding
-                block1.isColliding = true;
-                block2.isColliding = true;
-                    
-                // Add collision animation
-                block1.element.classList.add('colliding');
-                block2.element.classList.add('colliding');
-                
-                // Create collision spark effect
-                this.createCollisionSpark(block1.x + this.blockSize/2, block1.y + this.blockSize/2);
-                
-                // Exchange velocities for realistic collision
-                const tempVx = block1.vx;
-                const tempVy = block1.vy;
-                block1.vx = block2.vx;
-                block1.vy = block2.vy;
-                block2.vx = tempVx;
-                block2.vy = tempVy;
-                
-                // Add slight speed variation to make it more interesting
-                block1.vx *= 0.9 + Math.random() * 0.2; // 0.9-1.1x speed
-                block1.vy *= 0.9 + Math.random() * 0.2;
-                block2.vx *= 0.9 + Math.random() * 0.2;
-                block2.vy *= 0.9 + Math.random() * 0.2;
-                
-                // Remove collision class after animation
-                setTimeout(() => {
-                    block1.element.classList.remove('colliding');
-                    block2.element.classList.remove('colliding');
-                    block1.isColliding = false;
-                    block2.isColliding = false;
-                }, 500);
-            }
-
-            createCollisionSpark(x, y) {
-                const spark = document.createElement('div');
-                spark.style.position = 'absolute';
-                spark.style.left = x + 'px';
-                spark.style.top = y + 'px';
-                spark.style.width = '4px';
-                spark.style.height = '4px';
-                spark.style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%)';
-                spark.style.borderRadius = '50%';
-                spark.style.pointerEvents = 'none';
-                spark.style.zIndex = '10';
-                spark.style.animation = 'spark-fade 0.3s ease-out forwards';
-                
-                this.container.appendChild(spark);
-                
-                // Remove spark after animation
-                setTimeout(() => {
-                    if (spark.parentNode) {
-                        spark.parentNode.removeChild(spark);
-                    }
-                }, 300);
-            }
-
-
-
-            setupEventListeners() {
-                window.addEventListener('resize', () => {
-                    this.handleResize();
-                });
-                
-                // Pause animation when header is not visible
-                if ('IntersectionObserver' in window) {
-                    const headerObserver = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            this.isAnimating = entry.isIntersecting;
-                        });
-                    });
-                    headerObserver.observe(document.querySelector('header'));
-                }
-
-                // Respect reduced motion preference
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                    this.isAnimating = false;
-                }
-            }
-
-            handleResize() {
-                this.headerWidth = window.innerWidth;
-                this.headerHeight = window.innerHeight;
-                
-                // Adjust block positions if they're outside the new boundaries
-                this.blocks.forEach(blockData => {
-                    if (blockData.x + this.blockSize > this.headerWidth) {
-                        blockData.x = this.headerWidth - this.blockSize;
-                    }
-                    if (blockData.y + this.blockSize > this.headerHeight) {
-                        blockData.y = this.headerHeight - this.blockSize;
-                    }
-                });
-            }
-        }
-
-        // Add spark animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes spark-fade {
-                0% { 
-                    transform: scale(0);
-                    opacity: 1;
-                }
-                100% { 
-                    transform: scale(2);
-                    opacity: 0;
-            }
-        }
-        `;
-        document.head.appendChild(style);
-
-        // Scroll indicator functionality
-        function initScrollIndicator() {
-            const scrollIndicator = document.querySelector('.scroll-indicator');
-            if (scrollIndicator) {
-                scrollIndicator.addEventListener('click', () => {
-                    const aboutSection = document.querySelector('#about');
-                    if (aboutSection) {
-                        aboutSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            }
-        }
-
-        // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            initScrollIndicator();
-            
-            // Initialize roaming blocks system
-            new RoamingBlocksSystem();
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
