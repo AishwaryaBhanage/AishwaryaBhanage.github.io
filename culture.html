@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Canvas - Aishwarya Bhanage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for My Canvas Portfolio */
+        .canvas-page {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            min-height: 100vh;
+        }
+
+        .canvas-hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #16213e 0%, #0f0f23 100%);
+        }
+
+        .intro-section {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .profile-image-container {
+            position: relative;
+        }
+
+        .profile-image {
+            width: 350px;
+            height: 350px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(245, 158, 11, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .who-am-i {
+            padding: 20px 0;
+        }
+
+        .canvas-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #A855F7;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .canvas-subtitle {
+            font-size: 1.3rem;
+            color: #FBBF24;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .personal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #E5E7EB;
+            margin-bottom: 30px;
+        }
+
+        .personality-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .trait-tag {
+            background: linear-gradient(135deg, #374151 0%, #4B5563 100%);
+            color: #FBBF24;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #8B5CF6;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #8B5CF6 0%, #F59E0B 50%, #8B5CF6 100%);
+            margin: 80px 0;
+            border-radius: 1px;
+        }
+
+        /* Portfolio Sections */
+        .portfolio-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #A855F7;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: #D1D5DB;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Passion Categories */
+        .passion-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+            border: 1px solid #F3E8FF;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B5CF6 0%, #F59E0B 100%);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B5CF6 0%, #F59E0B 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .category-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #6B21A8;
+            margin-bottom: 15px;
+        }
+
+        .category-text {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .category-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: #FEF3C7;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #92400E;
+            font-weight: 500;
+        }
+
+        /* Photography Collage */
+        .photography-section {
+            margin-bottom: 80px;
+        }
+
+        .photo-collage {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(12, 100px);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .photo-item {
+            background: linear-gradient(135deg, #8B5CF6 0%, #F59E0B 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+            z-index: 10;
+        }
+
+        .photo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover::before {
+            opacity: 1;
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-label {
+            opacity: 1;
+        }
+
+        /* Specific positioning to avoid overlaps - Row by Row Layout */
+        .photo-1 { grid-column: 1 / 5; grid-row: 1 / 4; }
+        .photo-2 { grid-column: 5 / 8; grid-row: 1 / 3; }
+        .photo-3 { grid-column: 8 / 10; grid-row: 1 / 3; }
+        .photo-4 { grid-column: 10 / 13; grid-row: 1 / 3; }
+        
+        .photo-5 { grid-column: 1 / 3; grid-row: 4 / 6; }
+        .photo-6 { grid-column: 3 / 8; grid-row: 4 / 6; }
+        .photo-7 { grid-column: 8 / 10; grid-row: 3 / 6; }
+        .photo-8 { grid-column: 10 / 13; grid-row: 3 / 6; }
+        
+        .photo-9 { grid-column: 1 / 4; grid-row: 7 / 9; }
+        .photo-10 { grid-column: 4 / 6; grid-row: 7 / 10; }
+        .photo-11 { grid-column: 6 / 9; grid-row: 7 / 9; }
+        .photo-12 { grid-column: 9 / 13; grid-row: 7 / 10; }
+
+        /* Achievements Timeline */
+        .achievements-timeline {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+            border: 1px solid #F3E8FF;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: -30px;
+            width: 2px;
+            background: linear-gradient(180deg, #8B5CF6 0%, #F59E0B 100%);
+        }
+
+        .timeline-dot {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #8B5CF6 0%, #F59E0B 100%);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .timeline-content h4 {
+            color: #6B21A8;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #6B21A8 0%, #8B5CF6 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .intro-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 280px;
+                height: 280px;
+                margin: 0 auto;
+            }
+
+            .canvas-title {
+                font-size: 2.5rem;
+            }
+
+            .photo-collage {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(15, 60px);
+                gap: 10px;
+            }
+
+            .photo-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
+            .photo-2 { grid-column: 3 / 5; grid-row: 1 / 3; }
+            .photo-3 { grid-column: 1 / 2; grid-row: 3 / 5; }
+            .photo-4 { grid-column: 2 / 5; grid-row: 3 / 5; }
+            .photo-5 { grid-column: 1 / 5; grid-row: 5 / 7; }
+            .photo-6 { grid-column: 1 / 2; grid-row: 7 / 9; }
+            .photo-7 { grid-column: 2 / 3; grid-row: 7 / 10; }
+            .photo-8 { grid-column: 3 / 5; grid-row: 7 / 9; }
+            .photo-9 { grid-column: 1 / 3; grid-row: 9 / 11; }
+            .photo-10 { grid-column: 3 / 5; grid-row: 9 / 12; }
+            .photo-11 { grid-column: 1 / 3; grid-row: 11 / 13; }
+            .photo-12 { grid-column: 1 / 5; grid-row: 13 / 15; }
+        }
+    </style>
+</head>
+
+<body class="canvas-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">AB</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#journey" class="nav-link">Journey</a></li>
+                <li class="nav-item"><a href="culture.html" class="nav-link active">My Canvas</a></li>
+                <li class="nav-item"><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="index.html#achievements" class="nav-link">Achievements</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing" target="_blank" class="resume-btn">
+                    <i class="fas fa-download"></i>
+                    Resume
+                </a>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="canvas-hero">
+        <div class="intro-section">
+            <div class="profile-image-container">
+                <div class="profile-image">
+                    AB
+                </div>
+            </div>
+            <div class="who-am-i">
+                <h1 class="canvas-title">My Canvas</h1>
+                <p class="canvas-subtitle">A passionate and free spirited happy soul</p>
+                <div class="personal-description">
+                    <p>Welcome to my creative world! Beyond the algorithms and data models, this is where my heart truly lives - in the rhythm of dance, the adrenaline of sports, the beauty captured through my lens, and the joy of cultural expression.</p>
+                    
+                    <p>This canvas showcases the passions that fuel my soul and the moments that define who I am beyond my professional achievements.</p>
+                </div>
+                <div class="personality-traits">
+                    <span class="trait-tag">💃 Dancer</span>
+                    <span class="trait-tag">📸 Photographer</span>
+                    <span class="trait-tag">🏃‍♀️ Fitness Enthusiast</span>
+                    <span class="trait-tag">🎭 Performer</span>
+                    <span class="trait-tag">🌍 Explorer</span>
+                    <span class="trait-tag">🎨 Creative</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Passion Categories -->
+    <section class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">My Passions</h2>
+            <p class="section-description">The creative pursuits that bring color to my life and balance to my journey</p>
+        </div>
+
+        <div class="passion-categories">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3 class="category-title">Dance & Performance</h3>
+                <p class="category-text">From classical Bharatanatyam to contemporary fusion, dance is my language of expression and cultural connection.</p>
+                <div class="category-stats">
+                    <span class="stat-badge">10+ Years</span>
+                    <span class="stat-badge">FIFA World Cup</span>
+                    <span class="stat-badge">50+ Shows</span>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3 class="category-title">Photography</h3>
+                <p class="category-text">Capturing moments, emotions, and stories through my lens - from cultural events to candid life moments.</p>
+                <div class="category-stats">
+                    <span class="stat-badge">Portrait</span>
+                    <span class="stat-badge">Events</span>
+                    <span class="stat-badge">Travel</span>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3 class="category-title">Sports & Fitness</h3>
+                <p class="category-text">Staying active and healthy through various sports and workout routines that keep my mind sharp and spirit high.</p>
+                <div class="category-stats">
+                    <span class="stat-badge">Daily Workouts</span>
+                    <span class="stat-badge">Yoga</span>
+                    <span class="stat-badge">Running</span>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="category-title">Cultural Arts</h3>
+                <p class="category-text">Exploring and celebrating diverse cultural expressions through art, music, and traditional performances.</p>
+                <div class="category-stats">
+                    <span class="stat-badge">Cultural Events</span>
+                    <span class="stat-badge">Festivals</span>
+                    <span class="stat-badge">Traditions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photography Collage -->
+    <section class="photography-section">
+        <div class="section-header" style="text-align: right; padding-right: 100px;">
+            <h2 class="section-title">Visual Stories</h2>
+            <p class="section-description" style="margin-left: auto; margin-right: 0;">A collage of moments, memories, and passions captured through my journey</p>
+        </div>
+
+        <div class="photo-collage">
+            <div class="photo-item photo-1">
+                <i class="fas fa-music" style="font-size: 2rem;"></i>
+                <div class="photo-label">Dance Performance</div>
+            </div>
+            <div class="photo-item photo-2">
+                <i class="fas fa-camera" style="font-size: 1.5rem;"></i>
+                <div class="photo-label">Photography</div>
+            </div>
+            <div class="photo-item photo-3">
+                <i class="fas fa-running" style="font-size: 1.2rem;"></i>
+                <div class="photo-label">Fitness</div>
+            </div>
+            <div class="photo-item photo-4">
+                <i class="fas fa-globe" style="font-size: 2rem;"></i>
+                <div class="photo-label">FIFA World Cup</div>
+            </div>
+            <div class="photo-item photo-5">
+                <i class="fas fa-heart" style="font-size: 1rem;"></i>
+                <div class="photo-label">Moments</div>
+            </div>
+            <div class="photo-item photo-6">
+                <i class="fas fa-star" style="font-size: 2rem;"></i>
+                <div class="photo-label">Stage Performance</div>
+            </div>
+            <div class="photo-item photo-7">
+                <i class="fas fa-mountain" style="font-size: 1.5rem;"></i>
+                <div class="photo-label">Adventure</div>
+            </div>
+            <div class="photo-item photo-8">
+                <i class="fas fa-palette" style="font-size: 1.5rem;"></i>
+                <div class="photo-label">Art & Culture</div>
+            </div>
+            <div class="photo-item photo-9">
+                <i class="fas fa-users" style="font-size: 1.5rem;"></i>
+                <div class="photo-label">Community</div>
+            </div>
+            <div class="photo-item photo-10">
+                <i class="fas fa-sun" style="font-size: 1.5rem;"></i>
+                <div class="photo-label">Sunshine</div>
+            </div>
+            <div class="photo-item photo-11">
+                <i class="fas fa-leaf" style="font-size: 1rem;"></i>
+                <div class="photo-label">Nature</div>
+            </div>
+            <div class="photo-item photo-12">
+                <i class="fas fa-trophy" style="font-size: 2rem;"></i>
+                <div class="photo-label">Achievements</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Passion Journey Timeline -->
+    <section class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">My Creative Journey</h2>
+            <p class="section-description">Key milestones in my artistic and personal growth</p>
+        </div>
+
+        <div class="achievements-timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot">🎭</div>
+                <div class="timeline-content">
+                    <h4>First Dance Performance (2014)</h4>
+                    <p>Began my journey with classical Bharatanatyam, discovering the joy of storytelling through movement and connecting with my cultural roots.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">📸</div>
+                <div class="timeline-content">
+                    <h4>Photography Passion Ignited (2018)</h4>
+                    <p>Started capturing moments during cultural events and performances, developing an eye for composition and storytelling through visuals.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">🏆</div>
+                <div class="timeline-content">
+                    <h4>Major Performance Breakthrough (2020)</h4>
+                    <p>Performed at significant cultural events while balancing professional career, proving that passion and profession can coexist beautifully.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">🌍</div>
+                <div class="timeline-content">
+                    <h4>FIFA World Cup Recognition (2022)</h4>
+                    <p>Represented India at FIFA World Cup 2022 - a dream come true that combined my love for dance with global cultural exchange.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">💪</div>
+                <div class="timeline-content">
+                    <h4>Fitness & Wellness Focus (2023)</h4>
+                    <p>Integrated regular fitness routines and wellness practices, understanding the importance of physical health in creative expression.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">✨</div>
+                <div class="timeline-content">
+                    <h4>Creative Renaissance (2024-Present)</h4>
+                    <p>Exploring new forms of artistic expression while pursuing advanced studies, finding perfect harmony between analytical and creative pursuits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Let's Create Magic Together</h2>
+            <p class="cta-subtitle">Whether it's a performance collaboration, photography project, or just sharing creative ideas</p>
+            <a href="index.html#contact" class="cta-button">
+                <span>Connect & Collaborate</span>
+                <i class="fas fa-heart"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Aishwarya Bhanage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
