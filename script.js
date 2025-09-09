@@ -18,12 +18,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const href = this.getAttribute('href');
-        
+
         // Skip if href is just '#' or invalid
         if (!href || href === '#' || href.length <= 1) {
             return;
         }
-        
+
         try {
             const target = document.querySelector(href);
             if (target) {
@@ -48,9 +48,9 @@ filterButtons.forEach(button => {
         filterButtons.forEach(btn => btn.classList.remove('active'));
         // Add active class to clicked button
         button.classList.add('active');
-        
+
         const filterValue = button.getAttribute('data-filter');
-        
+
         projectCards.forEach(card => {
             if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
                 card.style.display = 'block';
@@ -93,7 +93,7 @@ document.querySelectorAll('section').forEach(section => {
 function createHeroChart() {
     const ctx = document.getElementById('heroChart');
     if (!ctx) return;
-    
+
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -142,24 +142,24 @@ const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData);
-        
+
         // Simple validation
         if (!data.name || !data.email || !data.message) {
             alert('Please fill in all required fields.');
             return;
         }
-        
+
         // Simulate form submission
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        
+
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
-        
+
         setTimeout(() => {
             alert('Thank you for your message! I\'ll get back to you soon.');
             contactForm.reset();
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function typeWriter(element, text, speed = 100) {
     let i = 0;
     element.innerHTML = '';
-    
+
     function type() {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
@@ -198,7 +198,7 @@ function typeWriter(element, text, speed = 100) {
             setTimeout(type, speed);
         }
     }
-    
+
     type();
 }
 
@@ -261,18 +261,18 @@ timelineEntries.forEach((entry, index) => {
     const side = entry.getAttribute('data-side');
     const card = entry.querySelector('.timeline-card');
     const icon = entry.querySelector('.timeline-icon');
-    
+
     // Set initial hidden state
     entry.style.opacity = '0';
     entry.style.transform = 'translateY(60px)';
-    
+
     // Set initial card position based on side
     if (side === 'left') {
         card.style.transform = 'translateX(-80px)';
     } else {
         card.style.transform = 'translateX(80px)';
     }
-    
+
     // Set initial icon state
     icon.style.transform = 'translateX(-50%) scale(0.3)';
     icon.style.opacity = '0';
@@ -283,14 +283,14 @@ const timelineEntryObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             const timelineEntry = entry.target;
-            
+
             // Only animate if not already animated
             if (!timelineEntry.classList.contains('animate-in')) {
                 animateTimelineEntry(timelineEntry);
             }
         }
     });
-}, { 
+}, {
     threshold: 0.4,
     rootMargin: '0px 0px -100px 0px'
 });
@@ -299,27 +299,27 @@ function animateTimelineEntry(entry) {
     const side = entry.getAttribute('data-side');
     const card = entry.querySelector('.timeline-card');
     const icon = entry.querySelector('.timeline-icon');
-    
+
     // Add animate-in class
     entry.classList.add('animate-in');
-    
+
     // Animate the entry container
     entry.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
     entry.style.opacity = '1';
     entry.style.transform = 'translateY(0)';
-    
+
     // Animate the card with a slight delay
     setTimeout(() => {
         card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         card.style.transform = 'translateX(0)';
     }, 200);
-    
+
     // Animate the icon with bounce effect
     setTimeout(() => {
         icon.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
         icon.style.transform = 'translateX(-50%) scale(1)';
         icon.style.opacity = '1';
-        
+
         // Add a subtle pop effect
         setTimeout(() => {
             icon.style.transform = 'translateX(-50%) scale(1.1)';
@@ -328,7 +328,7 @@ function animateTimelineEntry(entry) {
             }, 150);
         }, 300);
     }, 400);
-    
+
     // Animate skill pills after card is in place
     setTimeout(() => {
         const skillPills = entry.querySelectorAll('.skill-pill');
@@ -350,7 +350,7 @@ timelineEntries.forEach(entry => {
 timelineEntries.forEach(entry => {
     const card = entry.querySelector('.timeline-card');
     const skillPills = entry.querySelectorAll('.skill-pill');
-    
+
     card.addEventListener('mouseenter', () => {
         // Animate skill pills on card hover
         skillPills.forEach((pill, index) => {
@@ -360,7 +360,7 @@ timelineEntries.forEach(entry => {
             }, index * 50);
         });
     });
-    
+
     card.addEventListener('mouseleave', () => {
         skillPills.forEach(pill => {
             pill.style.transform = 'translateY(0) scale(1)';
@@ -394,7 +394,7 @@ simpleCards.forEach(card => {
 // Dynamic Typing Animation for Hero Subtitle
 const roles = [
     "Data Scientist",
-    "Machine Learning Engineer", 
+    "Machine Learning Engineer",
     "Data Analyst",
     "Tableau Developer",
     "AI Engineer",
@@ -410,22 +410,22 @@ let isTypingActive = false;
 function typeRole() {
     const typingElement = document.getElementById('typing-text');
     const cursorElement = document.querySelector('.typing-cursor');
-    
+
     if (!typingElement || !cursorElement) return;
-    
+
     const currentRole = roles[currentRoleIndex];
-    
+
     // Remove blinking class during active typing/deleting
     cursorElement.classList.remove('blink');
     cursorElement.style.opacity = '1';
-    
+
     if (isDeleting) {
         // Deleting characters
         const currentText = currentRole.substring(0, currentCharIndex - 1);
         typingElement.textContent = currentText;
         currentCharIndex--;
         typingSpeed = 50; // Faster deletion
-        
+
         if (currentCharIndex === 0) {
             isDeleting = false;
             currentRoleIndex = (currentRoleIndex + 1) % roles.length;
@@ -437,16 +437,16 @@ function typeRole() {
         typingElement.textContent = currentText;
         currentCharIndex++;
         typingSpeed = Math.random() * 100 + 80; // Vary typing speed for natural feel
-        
+
         if (currentCharIndex === currentRole.length) {
             isDeleting = true;
             typingSpeed = 2000; // Pause when role is complete
-            
+
             // Add blinking animation when paused
             cursorElement.classList.add('blink');
         }
     }
-    
+
     setTimeout(typeRole, typingSpeed);
 }
 
@@ -454,9 +454,9 @@ function typeRole() {
 function updateCursorPosition() {
     const typingElement = document.getElementById('typing-text');
     const cursorElement = document.querySelector('.typing-cursor');
-    
+
     if (!typingElement || !cursorElement) return;
-    
+
     // Ensure cursor appears right after the text
     const textWidth = typingElement.offsetWidth;
     cursorElement.style.marginLeft = '2px';
@@ -465,13 +465,13 @@ function updateCursorPosition() {
 // Start typing animation when page loads
 document.addEventListener('DOMContentLoaded', () => {
     const cursorElement = document.querySelector('.typing-cursor');
-    
+
     if (cursorElement) {
         // Start with cursor visible and blinking
         cursorElement.style.opacity = '1';
         cursorElement.classList.add('blink');
     }
-    
+
     setTimeout(() => {
         // Stop initial blinking and start typing
         if (cursorElement) {
@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isTypingActive = true;
         typeRole();
     }, 1500); // Start after 1.5 seconds
-    
+
     // Update cursor position on window resize
     window.addEventListener('resize', updateCursorPosition);
 });
@@ -497,31 +497,31 @@ document.addEventListener('DOMContentLoaded', () => {
             pill.style.setProperty('--pill-index', index);
         });
     });
-    
+
     // Add click handlers for timeline icons to add active state
     timelineEntries.forEach(entry => {
         const icon = entry.querySelector('.timeline-icon');
         const card = entry.querySelector('.timeline-card');
-        
+
         icon.addEventListener('click', () => {
             // Remove active class from all icons
             document.querySelectorAll('.timeline-icon').forEach(i => i.classList.remove('active'));
             // Add active class to clicked icon
             icon.classList.add('active');
-            
+
             // Scroll to the card smoothly
-            card.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
+            card.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
             });
         });
     });
-    
+
     // Add keyboard navigation for timeline
     timelineEntries.forEach((entry, index) => {
         const card = entry.querySelector('.timeline-card');
         card.setAttribute('tabindex', '0');
-        
+
         card.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowDown' && index < timelineEntries.length - 1) {
                 timelineEntries[index + 1].querySelector('.timeline-card').focus();
@@ -536,11 +536,11 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('scroll', () => {
     const timelineSection = document.querySelector('.timeline-journey');
     const timelineLine = document.querySelector('.timeline-line');
-    
+
     if (timelineSection && timelineLine) {
         const rect = timelineSection.getBoundingClientRect();
         const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-        
+
         // Animate the timeline line height based on scroll progress
         timelineLine.style.transform = `translateX(-50%) scaleY(${scrollProgress})`;
         timelineLine.style.transformOrigin = 'top center';
@@ -553,13 +553,13 @@ const revealTimelineObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const timelineEntry = entry.target;
             const icon = timelineEntry.querySelector('.timeline-icon');
-            
+
             // Add reveal class with delay
             setTimeout(() => {
                 timelineEntry.classList.add('revealed');
                 if (icon) {
                     icon.classList.add('active');
-                    
+
                     // Remove active class after animation
                     setTimeout(() => {
                         icon.classList.remove('active');
@@ -568,7 +568,7 @@ const revealTimelineObserver = new IntersectionObserver((entries) => {
             }, 200);
         }
     });
-}, { 
+}, {
     threshold: 0.6,
     rootMargin: '0px 0px -20% 0px'
 });
