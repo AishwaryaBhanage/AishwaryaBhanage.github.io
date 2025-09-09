@@ -63,8 +63,13 @@
         }
 
         @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
         }
 
         .who-am-i {
@@ -222,87 +227,283 @@
             font-weight: 500;
         }
 
-        /* Photography Collage */
+        /* Photography Mosaic - True Pinterest Style Masonry */
         .photography-section {
-            margin-bottom: 80px;
+            margin-bottom: 0;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            background: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
+            padding: 8px;
+            box-sizing: border-box;
         }
 
-        .photo-collage {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(12, 100px);
-            gap: 20px;
-            max-width: 1200px;
+        .photo-mosaic {
+            columns: 4;
+            column-gap: 8px;
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .photo-item {
-            background: linear-gradient(135deg, #8B5CF6 0%, #F59E0B 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
-            transition: all 0.3s ease;
+        .mosaic-tile {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 8px;
+            break-inside: avoid;
+            page-break-inside: avoid;
             position: relative;
             overflow: hidden;
+            background: transparent;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border-radius: 0;
         }
 
-        .photo-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+        /* Pinterest-style Natural Image Sizing */
+        
+        /* All images maintain their natural aspect ratios */
+        .mosaic-tile img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 0;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Specific sizing for different image types to create variety */
+        .tall-vertical img {
+            /* Let natural height flow, but ensure minimum height for impact */
+            min-height: 300px;
+        }
+
+        .wide-landscape img {
+            /* Landscape images get a bit more height for cinematic feel */
+            min-height: 200px;
+        }
+
+        .highlight-block img {
+            /* Featured images get extra height for prominence */
+            min-height: 350px;
+        }
+
+        .regular-photo img {
+            /* Regular photos flow naturally */
+            min-height: 180px;
+        }
+
+        /* Remove duplicate img styling - handled above */
+
+        /* Responsive Pinterest Masonry Layout */
+        @media (max-width: 1200px) {
+            .photo-mosaic {
+                columns: 3;
+                column-gap: 6px;
+            }
+            
+            .photography-section {
+                padding: 6px;
+            }
+            
+            .mosaic-tile {
+                margin-bottom: 6px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .photo-mosaic {
+                columns: 2;
+                column-gap: 4px;
+            }
+            
+            .photography-section {
+                padding: 4px;
+            }
+            
+            .mosaic-tile {
+                margin-bottom: 4px;
+            }
+            
+            .tall-vertical img {
+                min-height: 250px;
+            }
+            
+            .highlight-block img {
+                min-height: 280px;
+            }
+            
+            .wide-landscape img {
+                min-height: 160px;
+            }
+            
+            .regular-photo img {
+                min-height: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-mosaic {
+                columns: 2;
+                column-gap: 2px;
+            }
+            
+            .photography-section {
+                padding: 2px;
+            }
+            
+            .mosaic-tile {
+                margin-bottom: 2px;
+            }
+            
+            .tall-vertical img {
+                min-height: 200px;
+            }
+            
+            .highlight-block img {
+                min-height: 220px;
+            }
+            
+            .wide-landscape img {
+                min-height: 120px;
+            }
+            
+            .regular-photo img {
+                min-height: 100px;
+            }
+        }
+
+        /* Visual Stories Header - Aligned with My Passions */
+        .visual-stories-header {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: right;
+            margin-bottom: 40px;
+        }
+
+        .visual-stories-header .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #A855F7;
+            margin-bottom: 15px;
+        }
+
+        .visual-stories-header .section-description {
+            font-size: 1.2rem;
+            color: #D1D5DB;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: 0;
+            line-height: 1.6;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .visual-stories-header {
+                text-align: center;
+                padding: 0 20px;
+            }
+            
+            .visual-stories-header .section-description {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Pinterest-style Subtle Hover Effects */
+        .mosaic-tile:hover {
+            transform: translateY(-1px);
             z-index: 10;
+            transition: all 0.2s ease-out;
         }
 
-        .photo-item::before {
-            content: '';
+        .mosaic-tile:hover img {
+            transform: scale(1.02);
+            transition: transform 0.3s ease-out;
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        /* Subtle shadow for all tiles on hover */
+        .mosaic-tile:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced shadows for special tiles */
+        .highlight-block:hover {
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .wide-landscape:hover {
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        .tall-vertical:hover {
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Enhanced Overlay System */
+        .mosaic-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.1);
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(0, 0, 0, 0.1) 40%,
+                rgba(0, 0, 0, 0.7) 80%,
+                rgba(0, 0, 0, 0.9) 100%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
         }
 
-        .photo-item:hover::before {
+        .mosaic-tile:hover .mosaic-overlay {
             opacity: 1;
         }
 
-        .photo-label {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            font-size: 0.8rem;
-            text-align: center;
+        /* Enhanced Caption Styling */
+        .mosaic-caption {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            line-height: 1.3;
+            letter-spacing: 0.3px;
         }
 
-        .photo-item:hover .photo-label {
+        .mosaic-tile:hover .mosaic-caption {
             opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Specific positioning to avoid overlaps - Row by Row Layout */
-        .photo-1 { grid-column: 1 / 5; grid-row: 1 / 4; }
-        .photo-2 { grid-column: 5 / 8; grid-row: 1 / 3; }
-        .photo-3 { grid-column: 8 / 10; grid-row: 1 / 3; }
-        .photo-4 { grid-column: 10 / 13; grid-row: 1 / 3; }
-        
-        .photo-5 { grid-column: 1 / 3; grid-row: 4 / 6; }
-        .photo-6 { grid-column: 3 / 8; grid-row: 4 / 6; }
-        .photo-7 { grid-column: 8 / 10; grid-row: 3 / 6; }
-        .photo-8 { grid-column: 10 / 13; grid-row: 3 / 6; }
-        
-        .photo-9 { grid-column: 1 / 4; grid-row: 7 / 9; }
-        .photo-10 { grid-column: 4 / 6; grid-row: 7 / 10; }
-        .photo-11 { grid-column: 6 / 9; grid-row: 7 / 9; }
-        .photo-12 { grid-column: 9 / 13; grid-row: 7 / 10; }
+        /* Special caption styling for different tile types */
+        .highlight-block .mosaic-caption {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .wide-landscape .mosaic-caption {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .tall-vertical .mosaic-caption {
+            font-size: 0.9rem;
+            writing-mode: horizontal-tb;
+        }
+
+        /* Pinterest-style masonry layout - no grid positioning needed */
+
+        /* Large wide */
 
         /* Achievements Timeline */
         .achievements-timeline {
@@ -392,7 +593,7 @@
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 768px) {
@@ -412,24 +613,25 @@
                 font-size: 2.5rem;
             }
 
-            .photo-collage {
-                grid-template-columns: repeat(4, 1fr);
-                grid-template-rows: repeat(15, 60px);
-                gap: 10px;
+            .photo-mosaic {
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                gap: 4px;
+                padding: 10px;
+                min-height: 50vh;
             }
 
-            .photo-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
-            .photo-2 { grid-column: 3 / 5; grid-row: 1 / 3; }
-            .photo-3 { grid-column: 1 / 2; grid-row: 3 / 5; }
-            .photo-4 { grid-column: 2 / 5; grid-row: 3 / 5; }
-            .photo-5 { grid-column: 1 / 5; grid-row: 5 / 7; }
-            .photo-6 { grid-column: 1 / 2; grid-row: 7 / 9; }
-            .photo-7 { grid-column: 2 / 3; grid-row: 7 / 10; }
-            .photo-8 { grid-column: 3 / 5; grid-row: 7 / 9; }
-            .photo-9 { grid-column: 1 / 3; grid-row: 9 / 11; }
-            .photo-10 { grid-column: 3 / 5; grid-row: 9 / 12; }
-            .photo-11 { grid-column: 1 / 3; grid-row: 11 / 13; }
-            .photo-12 { grid-column: 1 / 5; grid-row: 13 / 15; }
+
+        }
+
+        @media (max-width: 480px) {
+            .photo-mosaic {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 3px;
+                padding: 8px;
+                min-height: 40vh;
+            }
+
+
         }
     </style>
 </head>
@@ -452,7 +654,8 @@
                 <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing" target="_blank" class="resume-btn">
+                <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing"
+                    target="_blank" class="resume-btn">
                     <i class="fas fa-download"></i>
                     Resume
                 </a>
@@ -474,20 +677,20 @@
                 </div>
             </div>
             <div class="who-am-i">
-                <h1 class="canvas-title">My Canvas</h1>
-                <p class="canvas-subtitle">A passionate and free spirited happy soul</p>
+                <h1 class="canvas-title">Who Am I?</h1>
+                <p class="canvas-subtitle">Beyond the data and algorithms</p>
                 <div class="personal-description">
-                    <p>Welcome to my creative world! Beyond the algorithms and data models, this is where my heart truly lives - in the rhythm of dance, the adrenaline of sports, the beauty captured through my lens, and the joy of cultural expression.</p>
-                    
-                    <p>This canvas showcases the passions that fuel my soul and the moments that define who I am beyond my professional achievements.</p>
+                    <p>I'm Aishwarya Bhanage - a passionate and free spirited happy soul who finds beauty in both data patterns and life's rhythms. While my professional world revolves around artificial intelligence and machine learning, my heart beats to the rhythm of dance, cultural expression, and human connection.</p>
+
+                    <p>I believe in living life with purpose, embracing challenges with a smile, and finding joy in every small victory. Whether I'm debugging code at 2 AM or performing on stage, I bring the same energy, dedication, and love for what I do.</p>
                 </div>
                 <div class="personality-traits">
-                    <span class="trait-tag">💃 Dancer</span>
-                    <span class="trait-tag">📸 Photographer</span>
-                    <span class="trait-tag">🏃‍♀️ Fitness Enthusiast</span>
-                    <span class="trait-tag">🎭 Performer</span>
-                    <span class="trait-tag">🌍 Explorer</span>
-                    <span class="trait-tag">🎨 Creative</span>
+                    <span class="trait-tag">🌟 Optimistic</span>
+                    <span class="trait-tag">🎯 Goal-Oriented</span>
+                    <span class="trait-tag">💃 Creative</span>
+                    <span class="trait-tag">🤝 Collaborative</span>
+                    <span class="trait-tag">📚 Lifelong Learner</span>
+                    <span class="trait-tag">🌍 Cultural Explorer</span>
                 </div>
             </div>
         </div>
@@ -499,7 +702,8 @@
     <section class="portfolio-section">
         <div class="section-header">
             <h2 class="section-title">My Passions</h2>
-            <p class="section-description">The creative pursuits that bring color to my life and balance to my journey</p>
+            <p class="section-description">The creative pursuits that bring color to my life and balance to my journey
+            </p>
         </div>
 
         <div class="passion-categories">
@@ -508,7 +712,8 @@
                     <i class="fas fa-music"></i>
                 </div>
                 <h3 class="category-title">Dance & Performance</h3>
-                <p class="category-text">From classical Bharatanatyam to contemporary fusion, dance is my language of expression and cultural connection.</p>
+                <p class="category-text">From classical Bharatanatyam to contemporary fusion, dance is my language of
+                    expression and cultural connection.</p>
                 <div class="category-stats">
                     <span class="stat-badge">10+ Years</span>
                     <span class="stat-badge">FIFA World Cup</span>
@@ -521,7 +726,8 @@
                     <i class="fas fa-camera"></i>
                 </div>
                 <h3 class="category-title">Photography</h3>
-                <p class="category-text">Capturing moments, emotions, and stories through my lens - from cultural events to candid life moments.</p>
+                <p class="category-text">Capturing moments, emotions, and stories through my lens - from cultural events
+                    to candid life moments.</p>
                 <div class="category-stats">
                     <span class="stat-badge">Portrait</span>
                     <span class="stat-badge">Events</span>
@@ -534,7 +740,8 @@
                     <i class="fas fa-dumbbell"></i>
                 </div>
                 <h3 class="category-title">Sports & Fitness</h3>
-                <p class="category-text">Staying active and healthy through various sports and workout routines that keep my mind sharp and spirit high.</p>
+                <p class="category-text">Staying active and healthy through various sports and workout routines that
+                    keep my mind sharp and spirit high.</p>
                 <div class="category-stats">
                     <span class="stat-badge">Daily Workouts</span>
                     <span class="stat-badge">Yoga</span>
@@ -547,7 +754,8 @@
                     <i class="fas fa-palette"></i>
                 </div>
                 <h3 class="category-title">Cultural Arts</h3>
-                <p class="category-text">Exploring and celebrating diverse cultural expressions through art, music, and traditional performances.</p>
+                <p class="category-text">Exploring and celebrating diverse cultural expressions through art, music, and
+                    traditional performances.</p>
                 <div class="category-stats">
                     <span class="stat-badge">Cultural Events</span>
                     <span class="stat-badge">Festivals</span>
@@ -559,59 +767,99 @@
 
     <!-- Photography Collage -->
     <section class="photography-section">
-        <div class="section-header" style="text-align: right; padding-right: 100px;">
+        <div class="visual-stories-header">
             <h2 class="section-title">Visual Stories</h2>
-            <p class="section-description" style="margin-left: auto; margin-right: 0;">A collage of moments, memories, and passions captured through my journey</p>
+            <p class="section-description">A collage of moments, memories,
+                and passions captured through my journey</p>
         </div>
 
-        <div class="photo-collage">
-            <div class="photo-item photo-1">
-                <i class="fas fa-music" style="font-size: 2rem;"></i>
-                <div class="photo-label">Dance Performance</div>
+        <div class="photo-mosaic">
+            <!-- Tall Vertical - Waterfall Nature -->
+            <div class="mosaic-tile tall-vertical">
+                <img src="assets/images/personal/1000275397.jpg" alt="Nature Waterfall" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Nature's Symphony 🌊<br>Finding peace in flowing waters</div>
+                </div>
             </div>
-            <div class="photo-item photo-2">
-                <i class="fas fa-camera" style="font-size: 1.5rem;"></i>
-                <div class="photo-label">Photography</div>
+            
+            <!-- Wide Landscape - City Skyline -->
+            <div class="mosaic-tile wide-landscape">
+                <img src="assets/images/personal/1.jpg" alt="City Skyline" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Skyline Nights 🌃<br>Urban dreams and city lights</div>
+                </div>
             </div>
-            <div class="photo-item photo-3">
-                <i class="fas fa-running" style="font-size: 1.2rem;"></i>
-                <div class="photo-label">Fitness</div>
+            
+            <!-- Regular Photo - FIFA World Cup -->
+            <div class="mosaic-tile regular-photo">
+                <img src="assets/images/personal/1000292859.jpg" alt="FIFA World Cup Journey" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">FIFA World Cup 2022 🇮🇳<br>Representing India with pride</div>
+                </div>
             </div>
-            <div class="photo-item photo-4">
-                <i class="fas fa-globe" style="font-size: 2rem;"></i>
-                <div class="photo-label">FIFA World Cup</div>
+            
+            <!-- Highlight Block - Sunset (Featured) -->
+            <div class="mosaic-tile highlight-block">
+                <img src="assets/images/personal/2.jpg" alt="Sunset Cityscape" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Sunset Lover 🌅<br>Golden hour magic over the city</div>
+                </div>
             </div>
-            <div class="photo-item photo-5">
-                <i class="fas fa-heart" style="font-size: 1rem;"></i>
-                <div class="photo-label">Moments</div>
+            
+            <!-- Tall Vertical - Dance Performance -->
+            <div class="mosaic-tile tall-vertical">
+                <img src="assets/images/personal/1000275530.jpg" alt="Dance Performance" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Dance Journey 💃<br>Classical Bharatanatyam expressions</div>
+                </div>
             </div>
-            <div class="photo-item photo-6">
-                <i class="fas fa-star" style="font-size: 2rem;"></i>
-                <div class="photo-label">Stage Performance</div>
+            
+            <!-- Regular Photo - Adventure -->
+            <div class="mosaic-tile regular-photo">
+                <img src="assets/images/personal/1000295801.jpg" alt="Adventure & Travel" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Adventure Calls 🏔️<br>Exploring new horizons</div>
+                </div>
             </div>
-            <div class="photo-item photo-7">
-                <i class="fas fa-mountain" style="font-size: 1.5rem;"></i>
-                <div class="photo-label">Adventure</div>
+            
+            <!-- Highlight Block - Starry Sky (Featured) -->
+            <div class="mosaic-tile highlight-block">
+                <img src="assets/images/personal/3.jpg" alt="Starry Night" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Starry Dreams ⭐<br>Lost in the cosmic beauty</div>
+                </div>
             </div>
-            <div class="photo-item photo-8">
-                <i class="fas fa-palette" style="font-size: 1.5rem;"></i>
-                <div class="photo-label">Art & Culture</div>
+            
+            <!-- Regular Photo - Community -->
+            <div class="mosaic-tile regular-photo">
+                <img src="assets/images/personal/IMG20250808202859.jpg" alt="Community & Events" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Community Spirit 🤝<br>Celebrating together</div>
+                </div>
             </div>
-            <div class="photo-item photo-9">
-                <i class="fas fa-users" style="font-size: 1.5rem;"></i>
-                <div class="photo-label">Community</div>
+            
+            <!-- Tall Vertical - Stage Performance -->
+            <div class="mosaic-tile tall-vertical">
+                <img src="assets/images/personal/1000295243.jpg" alt="Stage Performance" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Stage Magic 🎭<br>Live performance energy</div>
+                </div>
             </div>
-            <div class="photo-item photo-10">
-                <i class="fas fa-sun" style="font-size: 1.5rem;"></i>
-                <div class="photo-label">Sunshine</div>
+            
+            <!-- Wide Landscape - Cultural Heritage -->
+            <div class="mosaic-tile wide-landscape">
+                <img src="assets/images/personal/4.jpg" alt="Cultural Moment" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Cultural Roots 🏛️<br>Heritage and traditions</div>
+                </div>
             </div>
-            <div class="photo-item photo-11">
-                <i class="fas fa-leaf" style="font-size: 1rem;"></i>
-                <div class="photo-label">Nature</div>
-            </div>
-            <div class="photo-item photo-12">
-                <i class="fas fa-trophy" style="font-size: 2rem;"></i>
-                <div class="photo-label">Achievements</div>
+            
+            <!-- Regular Photo - Travel Memories -->
+            <div class="mosaic-tile regular-photo">
+                <img src="assets/images/personal/5.jpg" alt="Travel Memory" loading="lazy">
+                <div class="mosaic-overlay">
+                    <div class="mosaic-caption">Travel Tales 🌍<br>Memories from around the world</div>
+                </div>
             </div>
         </div>
     </section>
@@ -628,7 +876,8 @@
                 <div class="timeline-dot">🎭</div>
                 <div class="timeline-content">
                     <h4>First Dance Performance (2014)</h4>
-                    <p>Began my journey with classical Bharatanatyam, discovering the joy of storytelling through movement and connecting with my cultural roots.</p>
+                    <p>Began my journey with classical Bharatanatyam, discovering the joy of storytelling through
+                        movement and connecting with my cultural roots.</p>
                 </div>
             </div>
 
@@ -636,7 +885,8 @@
                 <div class="timeline-dot">📸</div>
                 <div class="timeline-content">
                     <h4>Photography Passion Ignited (2018)</h4>
-                    <p>Started capturing moments during cultural events and performances, developing an eye for composition and storytelling through visuals.</p>
+                    <p>Started capturing moments during cultural events and performances, developing an eye for
+                        composition and storytelling through visuals.</p>
                 </div>
             </div>
 
@@ -644,7 +894,8 @@
                 <div class="timeline-dot">🏆</div>
                 <div class="timeline-content">
                     <h4>Major Performance Breakthrough (2020)</h4>
-                    <p>Performed at significant cultural events while balancing professional career, proving that passion and profession can coexist beautifully.</p>
+                    <p>Performed at significant cultural events while balancing professional career, proving that
+                        passion and profession can coexist beautifully.</p>
                 </div>
             </div>
 
@@ -652,7 +903,8 @@
                 <div class="timeline-dot">🌍</div>
                 <div class="timeline-content">
                     <h4>FIFA World Cup Recognition (2022)</h4>
-                    <p>Represented India at FIFA World Cup 2022 - a dream come true that combined my love for dance with global cultural exchange.</p>
+                    <p>Represented India at FIFA World Cup 2022 - a dream come true that combined my love for dance with
+                        global cultural exchange.</p>
                 </div>
             </div>
 
@@ -660,7 +912,8 @@
                 <div class="timeline-dot">💪</div>
                 <div class="timeline-content">
                     <h4>Fitness & Wellness Focus (2023)</h4>
-                    <p>Integrated regular fitness routines and wellness practices, understanding the importance of physical health in creative expression.</p>
+                    <p>Integrated regular fitness routines and wellness practices, understanding the importance of
+                        physical health in creative expression.</p>
                 </div>
             </div>
 
@@ -668,7 +921,8 @@
                 <div class="timeline-dot">✨</div>
                 <div class="timeline-content">
                     <h4>Creative Renaissance (2024-Present)</h4>
-                    <p>Exploring new forms of artistic expression while pursuing advanced studies, finding perfect harmony between analytical and creative pursuits.</p>
+                    <p>Exploring new forms of artistic expression while pursuing advanced studies, finding perfect
+                        harmony between analytical and creative pursuits.</p>
                 </div>
             </div>
         </div>
@@ -678,7 +932,8 @@
     <section class="cta-section">
         <div class="container">
             <h2 class="cta-title">Let's Create Magic Together</h2>
-            <p class="cta-subtitle">Whether it's a performance collaboration, photography project, or just sharing creative ideas</p>
+            <p class="cta-subtitle">Whether it's a performance collaboration, photography project, or just sharing
+                creative ideas</p>
             <a href="index.html#contact" class="cta-button">
                 <span>Connect & Collaborate</span>
                 <i class="fas fa-heart"></i>
