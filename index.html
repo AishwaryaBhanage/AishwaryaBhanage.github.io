@@ -1,579 +1,921 @@
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
-}));
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const href = this.getAttribute('href');
-
-        // Skip if href is just '#' or invalid
-        if (!href || href === '#' || href.length <= 1) {
-            return;
-        }
-
-        try {
-            const target = document.querySelector(href);
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        } catch (error) {
-            console.warn('Invalid selector:', href);
-        }
-    });
-});
-
-// Project filtering
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-
-filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        button.classList.add('active');
-
-        const filterValue = button.getAttribute('data-filter');
-
-        projectCards.forEach(card => {
-            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                card.style.display = 'block';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                }, 10);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'scale(0.8)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
-            }
-        });
-    });
-});
-
-// Scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
-
-// Observe all sections for animations
-document.querySelectorAll('section').forEach(section => {
-    section.classList.add('fade-in');
-    observer.observe(section);
-});
-
-// Hero chart animation
-function createHeroChart() {
-    const ctx = document.getElementById('heroChart');
-    if (!ctx) return;
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Data Insights',
-                data: [65, 78, 90, 81, 95, 88],
-                borderColor: '#fbbf24',
-                backgroundColor: 'rgba(251, 191, 36, 0.1)',
-                borderWidth: 3,
-                fill: true,
-                tension: 0.4,
-                pointBackgroundColor: '#fbbf24',
-                pointBorderColor: '#ffffff',
-                pointBorderWidth: 2,
-                pointRadius: 6
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    display: false
-                },
-                y: {
-                    display: false
-                }
-            },
-            elements: {
-                point: {
-                    hoverRadius: 8
-                }
-            }
-        }
-    });
-}
-
-// Contact form handling
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-
-        // Simple validation
-        if (!data.name || !data.email || !data.message) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
-        // Simulate form submission
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            contactForm.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-    });
-}
-
-// Navbar background on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.background = '#000000';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.5)';
-    } else {
-        navbar.style.background = '#000000';
-        navbar.style.boxShadow = 'none';
-    }
-});
-
-// Initialize chart when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(createHeroChart, 500);
-});
-
-// Typing animation for hero title
-function typeWriter(element, text, speed = 100) {
-    let i = 0;
-    element.innerHTML = '';
-
-    function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-
-    type();
-}
-
-// Initialize typing animation
-window.addEventListener('load', () => {
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        const originalText = heroTitle.textContent;
-        setTimeout(() => {
-            typeWriter(heroTitle, originalText, 80);
-        }, 1000);
-    }
-});
-
-// Skills animation on scroll
-const skillCategories = document.querySelectorAll('.skill-category');
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }, index * 200);
-        }
-    });
-}, { threshold: 0.3 });
-
-skillCategories.forEach(category => {
-    category.style.opacity = '0';
-    category.style.transform = 'translateY(30px)';
-    category.style.transition = 'all 0.6s ease';
-    skillObserver.observe(category);
-});
-
-// Achievement cards animation
-const achievementCards = document.querySelectorAll('.achievement-card');
-const achievementObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0) scale(1)';
-            }, index * 150);
-        }
-    });
-}, { threshold: 0.3 });
-
-achievementCards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px) scale(0.9)';
-    card.style.transition = 'all 0.6s ease';
-    achievementObserver.observe(card);
-});
-
-// Interactive Timeline Animation - Sequential Pop-in Effect
-const timelineEntries = document.querySelectorAll('.timeline-entry');
-
-// Initialize all timeline entries as hidden
-timelineEntries.forEach((entry, index) => {
-    const side = entry.getAttribute('data-side');
-    const card = entry.querySelector('.timeline-card');
-    const icon = entry.querySelector('.timeline-icon');
-
-    // Set initial hidden state
-    entry.style.opacity = '0';
-    entry.style.transform = 'translateY(60px)';
-
-    // Set initial card position based on side
-    if (side === 'left') {
-        card.style.transform = 'translateX(-80px)';
-    } else {
-        card.style.transform = 'translateX(80px)';
-    }
-
-    // Set initial icon state
-    icon.style.transform = 'translateX(-50%) scale(0.3)';
-    icon.style.opacity = '0';
-});
-
-// Individual timeline entry observer for sequential animation
-const timelineEntryObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            const timelineEntry = entry.target;
-
-            // Only animate if not already animated
-            if (!timelineEntry.classList.contains('animate-in')) {
-                animateTimelineEntry(timelineEntry);
-            }
-        }
-    });
-}, {
-    threshold: 0.4,
-    rootMargin: '0px 0px -100px 0px'
-});
-
-function animateTimelineEntry(entry) {
-    const side = entry.getAttribute('data-side');
-    const card = entry.querySelector('.timeline-card');
-    const icon = entry.querySelector('.timeline-icon');
-
-    // Add animate-in class
-    entry.classList.add('animate-in');
-
-    // Animate the entry container
-    entry.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    entry.style.opacity = '1';
-    entry.style.transform = 'translateY(0)';
-
-    // Animate the card with a slight delay
-    setTimeout(() => {
-        card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        card.style.transform = 'translateX(0)';
-    }, 200);
-
-    // Animate the icon with bounce effect
-    setTimeout(() => {
-        icon.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-        icon.style.transform = 'translateX(-50%) scale(1)';
-        icon.style.opacity = '1';
-
-        // Add a subtle pop effect
-        setTimeout(() => {
-            icon.style.transform = 'translateX(-50%) scale(1.1)';
-            setTimeout(() => {
-                icon.style.transform = 'translateX(-50%) scale(1)';
-            }, 150);
-        }, 300);
-    }, 400);
-
-    // Animate skill pills after card is in place
-    setTimeout(() => {
-        const skillPills = entry.querySelectorAll('.skill-pill');
-        skillPills.forEach((pill, index) => {
-            setTimeout(() => {
-                pill.style.opacity = '1';
-                pill.style.transform = 'translateY(0) scale(1)';
-            }, index * 80);
-        });
-    }, 800);
-}
-
-// Observe each timeline entry individually
-timelineEntries.forEach(entry => {
-    timelineEntryObserver.observe(entry);
-});
-
-// Enhanced card hover effects
-timelineEntries.forEach(entry => {
-    const card = entry.querySelector('.timeline-card');
-    const skillPills = entry.querySelectorAll('.skill-pill');
-
-    card.addEventListener('mouseenter', () => {
-        // Animate skill pills on card hover
-        skillPills.forEach((pill, index) => {
-            setTimeout(() => {
-                pill.style.transform = 'translateY(-2px) scale(1.05)';
-                pill.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.3)';
-            }, index * 50);
-        });
-    });
-
-    card.addEventListener('mouseleave', () => {
-        skillPills.forEach(pill => {
-            pill.style.transform = 'translateY(0) scale(1)';
-            pill.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.1)';
-        });
-    });
-});
-
-// Education & Experience Animation - Simplified
-const simpleCards = document.querySelectorAll('.simple-card');
-const simpleObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }, index * 100);
-        }
-    });
-}, { threshold: 0.3 });
-
-simpleCards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'all 0.5s ease';
-    simpleObserver.observe(card);
-});
-
-
-
-// Dynamic Typing Animation for Hero Subtitle
-const roles = [
-    "Data Scientist",
-    "Machine Learning Engineer",
-    "Data Analyst",
-    "Tableau Developer",
-    "AI Engineer",
-    "Data Engineer"
-];
-
-let currentRoleIndex = 0;
-let currentCharIndex = 0;
-let isDeleting = false;
-let typingSpeed = 100;
-let isTypingActive = false;
-
-function typeRole() {
-    const typingElement = document.getElementById('typing-text');
-    const cursorElement = document.querySelector('.typing-cursor');
-
-    if (!typingElement || !cursorElement) return;
-
-    const currentRole = roles[currentRoleIndex];
-
-    // Remove blinking class during active typing/deleting
-    cursorElement.classList.remove('blink');
-    cursorElement.style.opacity = '1';
-
-    if (isDeleting) {
-        // Deleting characters
-        const currentText = currentRole.substring(0, currentCharIndex - 1);
-        typingElement.textContent = currentText;
-        currentCharIndex--;
-        typingSpeed = 50; // Faster deletion
-
-        if (currentCharIndex === 0) {
-            isDeleting = false;
-            currentRoleIndex = (currentRoleIndex + 1) % roles.length;
-            typingSpeed = 500; // Pause before typing next role
-        }
-    } else {
-        // Typing characters
-        const currentText = currentRole.substring(0, currentCharIndex + 1);
-        typingElement.textContent = currentText;
-        currentCharIndex++;
-        typingSpeed = Math.random() * 100 + 80; // Vary typing speed for natural feel
-
-        if (currentCharIndex === currentRole.length) {
-            isDeleting = true;
-            typingSpeed = 2000; // Pause when role is complete
-
-            // Add blinking animation when paused
-            cursorElement.classList.add('blink');
-        }
-    }
-
-    setTimeout(typeRole, typingSpeed);
-}
-
-// Enhanced cursor positioning
-function updateCursorPosition() {
-    const typingElement = document.getElementById('typing-text');
-    const cursorElement = document.querySelector('.typing-cursor');
-
-    if (!typingElement || !cursorElement) return;
-
-    // Ensure cursor appears right after the text
-    const textWidth = typingElement.offsetWidth;
-    cursorElement.style.marginLeft = '2px';
-}
-
-// Start typing animation when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const cursorElement = document.querySelector('.typing-cursor');
-
-    if (cursorElement) {
-        // Start with cursor visible and blinking
-        cursorElement.style.opacity = '1';
-        cursorElement.classList.add('blink');
-    }
-
-    setTimeout(() => {
-        // Stop initial blinking and start typing
-        if (cursorElement) {
-            cursorElement.classList.remove('blink');
-        }
-        isTypingActive = true;
-        typeRole();
-    }, 1500); // Start after 1.5 seconds
-
-    // Update cursor position on window resize
-    window.addEventListener('resize', updateCursorPosition);
-});
-
-// Enhanced Timeline Interactions
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize skill pills as hidden for animation
-    timelineEntries.forEach(entry => {
-        const skillPills = entry.querySelectorAll('.skill-pill');
-        skillPills.forEach((pill, index) => {
-            pill.style.opacity = '0';
-            pill.style.transform = 'translateY(15px) scale(0.8)';
-            pill.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            pill.style.setProperty('--pill-index', index);
-        });
-    });
-
-    // Add click handlers for timeline icons to add active state
-    timelineEntries.forEach(entry => {
-        const icon = entry.querySelector('.timeline-icon');
-        const card = entry.querySelector('.timeline-card');
-
-        icon.addEventListener('click', () => {
-            // Remove active class from all icons
-            document.querySelectorAll('.timeline-icon').forEach(i => i.classList.remove('active'));
-            // Add active class to clicked icon
-            icon.classList.add('active');
-
-            // Scroll to the card smoothly
-            card.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        });
-    });
-
-    // Add keyboard navigation for timeline
-    timelineEntries.forEach((entry, index) => {
-        const card = entry.querySelector('.timeline-card');
-        card.setAttribute('tabindex', '0');
-
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' && index < timelineEntries.length - 1) {
-                timelineEntries[index + 1].querySelector('.timeline-card').focus();
-            } else if (e.key === 'ArrowUp' && index > 0) {
-                timelineEntries[index - 1].querySelector('.timeline-card').focus();
-            }
-        });
-    });
-});
-
-// Parallax effect for timeline line
-window.addEventListener('scroll', () => {
-    const timelineSection = document.querySelector('.timeline-journey');
-    const timelineLine = document.querySelector('.timeline-line');
-
-    if (timelineSection && timelineLine) {
-        const rect = timelineSection.getBoundingClientRect();
-        const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-
-        // Animate the timeline line height based on scroll progress
-        timelineLine.style.transform = `translateX(-50%) scaleY(${scrollProgress})`;
-        timelineLine.style.transformOrigin = 'top center';
-    }
-});
-
-// Add smooth reveal animation for timeline entries as user scrolls
-const revealTimelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const timelineEntry = entry.target;
-            const icon = timelineEntry.querySelector('.timeline-icon');
-
-            // Add reveal class with delay
-            setTimeout(() => {
-                timelineEntry.classList.add('revealed');
-                if (icon) {
-                    icon.classList.add('active');
-
-                    // Remove active class after animation
-                    setTimeout(() => {
-                        icon.classList.remove('active');
-                    }, 1500);
-                }
-            }, 200);
-        }
-    });
-}, {
-    threshold: 0.6,
-    rootMargin: '0px 0px -20% 0px'
-});
-
-// Observe each timeline entry for reveal animations
-timelineEntries.forEach(entry => {
-    revealTimelineObserver.observe(entry);
-});
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aishwarya - Data Professional Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">AB</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#journey" class="nav-link">Journey</a></li>
+                <li class="nav-item"><a href="culture.html" class="nav-link">My Canvas</a></li>
+                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing"
+                    target="_blank" class="resume-btn">
+                    <i class="fas fa-download"></i>
+                    Resume
+                </a>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="availability-status">
+                    <div class="status-dot"></div>
+                    <span>Available for new opportunities</span>
+                </div>
+
+                <h1 class="hero-name left-aligned">
+                    <span class="first-name">Aishwarya</span>
+                    <span class="last-name">Bhanage</span>
+                </h1>
+
+                <h2 class="hero-role">
+                    <span id="typing-text">Data Scientist</span><span class="typing-cursor">|</span>
+                </h2>
+
+                <p class="hero-description">
+                    Crafting innovative solutions at the intersection of
+                    <span class="highlight-text">data science</span>,
+                    <span class="highlight-text">machine learning</span>, and
+                    <span class="highlight-text">artificial intelligence</span>.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing"
+                        target="_blank" class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Download Resume
+                    </a>
+                </div>
+
+                <div class="scroll-indicator">
+                    <span>SCROLL TO EXPLORE</span>
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="profile-container">
+                    <div class="profile-circle">
+                        <div class="profile-placeholder">AB</div>
+                        <div class="orbit-dots">
+                            <div class="dot dot-1"></div>
+                            <div class="dot dot-2"></div>
+                            <div class="dot dot-3"></div>
+                            <div class="dot dot-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About <span class="highlight-purple">Me</span></h2>
+            <p class="section-subtitle">
+                Passionate about transforming complex challenges into elegant solutions through the
+                power of artificial intelligence and modern data science.
+            </p>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>3+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-card">
+                    <h3>1M+</h3>
+                    <p>Records Processed</p>
+                </div>
+                <div class="stat-card">
+                    <h3>8+</h3>
+                    <p>Projects</p>
+                </div>
+                <div class="stat-card">
+                    <h3>10+</h3>
+                    <p>Certifications</p>
+                </div>
+                <div class="stat-card">
+                    <h3>3000+</h3>
+                    <p>KPIs Created & Monitored</p>
+                </div>
+                <div class="stat-card">
+                    <h3>40+</h3>
+                    <p>Dashboards Created</p>
+                </div>
+            </div>
+
+            <div class="about-side-by-side">
+                <div class="about-left-content">
+                    <h3 class="about-main-heading">Crafting the Future with <span class="highlight-ai">AI</span> & <span
+                            class="highlight-code">Code</span></h3>
+
+                    <p class="about-main-bio">
+                        I'm Aishwarya Bhanage, a passionate data professional with a Master's in Data Science from Stony
+                        Brook University. My journey spans from academic excellence as a Tableau Certified specialist
+                        during my studies to real-world impact as an AI/ML Engineer at Veach & Company. With 3+ years of
+                        experience and expertise in artificial intelligence, machine learning, and data engineering, I
+                        bridge the gap between cutting-edge research and practical solutions that drive business value.
+                        When I'm not coding or researching, you'll find me exploring new technologies and sharing
+                        knowledge with the data science community.
+                    </p>
+
+                    <div class="skill-tags-modern">
+                        <span class="skill-tag-modern">Python</span>
+                        <span class="skill-tag-modern">SQL</span>
+                        <span class="skill-tag-modern">Tableau</span>
+                        <span class="skill-tag-modern">Data Science</span>
+                        <span class="skill-tag-modern">Machine Learning</span>
+                        <span class="skill-tag-modern">Cloud</span>
+                        <span class="skill-tag-modern">NLP</span>
+                        <span class="skill-tag-modern">Backend</span>
+                    </div>
+                </div>
+
+                <div class="about-right-features">
+                    <div class="feature-card gold-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Tableau Certified</h4>
+                            <p>Top academic performer with distinction in Data Visualization</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card purple-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Industry Experience</h4>
+                            <p>AI Engineer at Veach & Company | Former Analyst at Accenture</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card teal-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Research Publications</h4>
+                            <p>Published papers in Bitcoin and Blockchain technology</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card pink-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Full-Stack Developer</h4>
+                            <p>Backend focused Python with React familiarity</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Interactive Timeline Journey Section -->
+    <section id="journey" class="timeline-journey">
+        <div class="container">
+            <h2 class="section-title">Professional <span class="highlight-purple">Journey</span></h2>
+            <p class="section-subtitle">
+                From software engineering to AI innovation - a journey of continuous learning and impactful
+                contributions
+            </p>
+
+            <div class="interactive-timeline">
+                <!-- Glowing Central Line -->
+                <div class="timeline-line"></div>
+
+                <!-- Timeline Entry 1 - Current Position AI/ML Engineer -->
+                <div class="timeline-entry" data-side="left">
+                    <div class="timeline-icon work-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag current">Current Position</div>
+                        <h3 class="entry-title">Founding AI/ML Engineer</h3>
+                        <div class="entry-company">
+                            <a href="https://veachandcompany.com/" target="_blank">Veach & Company</a>
+                        </div>
+                        <div class="entry-duration">Jul 2025 – Present</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            New York City, NY
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Designing an AI-driven investor matching engine using GPT-4, Supabase, FastAPI, and
+                                React</li>
+                            <li>Increased investor match relevance scores by 40% with semantic pitch deck similarity
+                            </li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">LangChain</span>
+                            <span class="skill-pill">Pinecone</span>
+                            <span class="skill-pill">LlamaIndex</span>
+                            <span class="skill-pill">FAISS</span>
+                            <span class="skill-pill">OpenAI</span>
+                            <span class="skill-pill">HuggingFace</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 2 - Graduate Student Organization Treasurer -->
+                <div class="timeline-entry" data-side="right">
+                    <div class="timeline-icon leadership-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag current">Current Position</div>
+                        <h3 class="entry-title">Graduate Student Organization Treasurer</h3>
+                        <div class="entry-company">
+                            <a href="https://www.stonybrook.edu/" target="_blank">Stony Brook University</a>
+                        </div>
+                        <div class="entry-duration">May 2025 – Present</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Stony Brook, NY
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Managing financial operations for 8,000+ graduate students</li>
+                            <li>Oversaw reimbursements, chaired budget meetings with 98% approval</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">Budgeting</span>
+                            <span class="skill-pill">Leadership</span>
+                            <span class="skill-pill">Stakeholder Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 3 - Master's Education -->
+                <div class="timeline-entry" data-side="left">
+                    <div class="timeline-icon education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag current">In Progress</div>
+                        <h3 class="entry-title">Master of Science in Data Science</h3>
+                        <div class="entry-company">
+                            <a href="https://www.stonybrook.edu/" target="_blank">Stony Brook University</a>
+                        </div>
+                        <div class="entry-duration">Aug 2024 – Present</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Stony Brook, NY
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Specializing in AI/ML, NLP, and Data Engineering</li>
+                            <li>Research on retrieval-augmented generation and enterprise-scale ML systems</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">AI/ML</span>
+                            <span class="skill-pill">NLP</span>
+                            <span class="skill-pill">Data Engineering</span>
+                            <span class="skill-pill">Research</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 4 - Accenture Analyst -->
+                <div class="timeline-entry" data-side="right">
+                    <div class="timeline-icon work-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag completed">Completed</div>
+                        <h3 class="entry-title">Packaged App Development Analyst</h3>
+                        <div class="entry-company">
+                            <a href="https://www.accenture.com/" target="_blank">Accenture</a>
+                        </div>
+                        <div class="entry-duration">Jun 2022 – Oct 2023</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Pune, India
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Built anomaly detection models with 95% accuracy, reducing false positives by 40%</li>
+                            <li>Optimized ETL pipelines in PySpark/Databricks, speeding processes by 20%</li>
+                            <li>Created ML dashboards in Tableau/Power BI, cutting reporting time by 30%</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">PySpark</span>
+                            <span class="skill-pill">Databricks</span>
+                            <span class="skill-pill">SQL</span>
+                            <span class="skill-pill">Tableau</span>
+                            <span class="skill-pill">Power BI</span>
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">XGBoost</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 5 - Associate Software Engineer -->
+                <div class="timeline-entry" data-side="left">
+                    <div class="timeline-icon work-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag completed">Completed</div>
+                        <h3 class="entry-title">Associate Software Engineer</h3>
+                        <div class="entry-company">
+                            <a href="https://www.accenture.com/" target="_blank">Accenture</a>
+                        </div>
+                        <div class="entry-duration">Dec 2020 – May 2022</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Pune, India
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Built A/B testing framework accelerating feature launches (8+ new features)</li>
+                            <li>Developed a hash-based lookup algorithm, reducing query time by 35%</li>
+                            <li>Automated preprocessing workflows, cutting processing time by 50%</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">SQL</span>
+                            <span class="skill-pill">Excel VBA</span>
+                            <span class="skill-pill">Spark</span>
+                            <span class="skill-pill">Data Engineering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Entry 6 - Bachelor's Education -->
+                <div class="timeline-entry" data-side="right">
+                    <div class="timeline-icon education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="status-tag completed">Completed</div>
+                        <h3 class="entry-title">Bachelor of Engineering in Computer Engineering</h3>
+                        <div class="entry-company">
+                            <a href="https://www.sinhgad.edu/" target="_blank">Sinhgad Institute of Technology &
+                                Science</a>
+                        </div>
+                        <div class="entry-duration">May 2016 – May 2020</div>
+                        <div class="entry-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Pune, India
+                        </div>
+                        <ul class="entry-contributions">
+                            <li>Built strong foundations in computer science and engineering</li>
+                            <li>Completed multiple academic projects in data analytics and AI</li>
+                        </ul>
+                        <div class="entry-skills">
+                            <span class="skill-pill">Computer Engineering</span>
+                            <span class="skill-pill">Programming</span>
+                            <span class="skill-pill">Data Analytics</span>
+                            <span class="skill-pill">AI Fundamentals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid-advanced">
+                <!-- Machine Learning & AI -->
+                <div class="skill-category-advanced ml-ai">
+                    <div class="skill-header-advanced">
+                        <div class="skill-icon-advanced">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="skill-title-section">
+                            <h3>Machine Learning & AI</h3>
+                            <p>Advanced ML algorithms and AI systems</p>
+                        </div>
+                        <div class="skill-level expert">Expert ⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="skill-items-advanced">
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">TensorFlow</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">PyTorch</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Computer Vision</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">NLP</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Deep Learning</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">VLM</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Science & Analytics -->
+                <div class="skill-category-advanced data-science">
+                    <div class="skill-header-advanced">
+                        <div class="skill-icon-advanced">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="skill-title-section">
+                            <h3>Data Science & Analytics</h3>
+                            <p>Statistical analysis and data insights</p>
+                        </div>
+                        <div class="skill-level expert">Expert ⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="skill-items-advanced">
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Python (Pandas)</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Statistical Analysis</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Data Visualization</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Apache Spark</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Time Series</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Feature Engineering</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Programming Languages -->
+                <div class="skill-category-advanced programming">
+                    <div class="skill-header-advanced">
+                        <div class="skill-icon-advanced">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="skill-title-section">
+                            <h3>Programming Languages</h3>
+                            <p>Multi-language proficiency</p>
+                        </div>
+                        <div class="skill-level expert">Expert ⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="skill-items-advanced">
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">JavaScript/TS</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Java</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">C++</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">SQL</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">R</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Development -->
+                <div class="skill-category-advanced backend">
+                    <div class="skill-header-advanced">
+                        <div class="skill-icon-advanced">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="skill-title-section">
+                            <h3>Backend Development</h3>
+                            <p>Scalable server-side applications</p>
+                        </div>
+                        <div class="skill-level advanced">Advanced ⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="skill-items-advanced">
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Node.js</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Python/Django</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">PostgreSQL</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">MongoDB</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">REST APIs</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">GraphQL</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend Development -->
+                <div class="skill-category-advanced frontend">
+                    <div class="skill-header-advanced">
+                        <div class="skill-icon-advanced">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="skill-title-section">
+                            <h3>Frontend Development</h3>
+                            <p>Modern web interfaces and UX</p>
+                        </div>
+                        <div class="skill-level intermediate">Intermediate ⭐⭐⭐</div>
+                    </div>
+                    <div class="skill-items-advanced">
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">React/Next.js</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">TypeScript</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Tailwind CSS</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Vue.js</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Framer Motion</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Responsive Design</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud & DevOps -->
+                <div class="skill-category-advanced cloud">
+                    <div class="skill-header-advanced">
+                        <div class="skill-icon-advanced">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="skill-title-section">
+                            <h3>Cloud & DevOps</h3>
+                            <p>Cloud infrastructure and deployment</p>
+                        </div>
+                        <div class="skill-level intermediate">Intermediate ⭐⭐⭐</div>
+                    </div>
+                    <div class="skill-items-advanced">
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">AWS</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Docker</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Kubernetes</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">CI/CD</span>
+                            <span class="skill-badge intermediate">🔶 Intermediate</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Linux/Unix</span>
+                            <span class="skill-badge advanced">⭐ Advanced</span>
+                        </div>
+                        <div class="skill-item-detailed">
+                            <span class="skill-name">Git/GitHub</span>
+                            <span class="skill-badge expert">⚡ Expert</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="analysis">Data Analysis</button>
+                <button class="filter-btn" data-filter="science">Data Science</button>
+                <button class="filter-btn" data-filter="engineering">Data Engineering</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Data Science Project -->
+                <div class="project-card" data-category="science">
+                    <div class="project-image">
+                        <div class="project-placeholder">📊</div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Mythology-Based Story Generator & Narrator</h3>
+                        <p>RAG system using Falcon-7B and E5-base embeddings achieving 93% accuracy with less than 3%
+                            hallucination across 20+ test conditions.</p>
+                        <div class="project-tech">
+                            <span>Falcon-7B</span>
+                            <span>PyTorch</span>
+                            <span>NLTK</span>
+                            <span>RAG</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Analysis Project -->
+                <div class="project-card" data-category="analysis">
+                    <div class="project-image">
+                        <div class="project-placeholder">🥑</div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Avocado Market Analysis - US Price & Sales Trends</h3>
+                        <p>Analyzed 18K+ records across 50+ US regions to identify seasonal patterns, regional
+                            discrepancies, and market conditions.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Pandas</span>
+                            <span>Seaborn</span>
+                            <span>SQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Engineering Project -->
+                <div class="project-card" data-category="engineering">
+                    <div class="project-image">
+                        <div class="project-placeholder">🤖</div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI-Driven Investor Matching Engine</h3>
+                        <p>GPT-4 powered system with semantic similarity matching, increasing relevance scores by 40%
+                            using FastAPI and React.</p>
+                        <div class="project-tech">
+                            <span>GPT-4</span>
+                            <span>FastAPI</span>
+                            <span>Supabase</span>
+                            <span>LangChain</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- Ac
+hievements Section -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title">Achievements & Certifications</h2>
+            <div class="achievements-grid">
+                <!-- 2025 Achievements -->
+                <!-- AI Innovation Leader -->
+                <div class="achievement-card featured">
+                    <div class="achievement-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Innovation Leader</h3>
+                    <p>Founding team member developing cutting-edge investor matching technology</p>
+                    <span class="achievement-date">2025</span>
+                </div>
+
+                <!-- Graduate Student Organization Treasurer -->
+                <div class="achievement-card featured">
+                    <div class="achievement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Graduate Student Organization Treasurer</h3>
+                    <p>Managing financial operations for 8,000+ graduate students with 98% budget approval</p>
+                    <span class="achievement-date">2025</span>
+                </div>
+
+                <!-- 2023 Achievements -->
+                <!-- Tableau Desktop Specialist with Link -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <a href="https://www.credly.com/badges/22562fea-6a11-4f6c-b7cb-13f60a7cefad/public_url" target="_blank" class="achievement-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <h3>Tableau Desktop Specialist</h3>
+                    <p>Certified Tableau Desktop Specialist for advanced data visualization</p>
+                    <span class="achievement-date">2023</span>
+                </div>
+
+                <!-- Google Data Analytics Certificate -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <a href="https://www.credly.com/badges/d777b6e1-4f92-406f-82c5-a8c5173769dd/public_url" target="_blank" class="achievement-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <h3>Google Data Analytics Professional Certificate</h3>
+                    <p>Professional certificate in data analytics from Google Career Certificates</p>
+                    <span class="achievement-date">2023</span>
+                </div>
+
+                <!-- Cisco Data Analytics Certificate -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <a href="https://www.credly.com/badges/6d1b59aa-e3c8-4ddd-9fa4-1b7ae29e4f21/public_url" target="_blank" class="achievement-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <h3>Data Analytics Essentials Certificate</h3>
+                    <p>Data Analytics Essentials certification from Cisco Networking Academy</p>
+                    <span class="achievement-date">2023</span>
+                </div>
+
+
+
+                <!-- 2022 Achievements -->
+                <!-- FIFA World Cup 2022 -->
+                <div class="achievement-card featured">
+                    <div class="achievement-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>FIFA World Cup 2022 Performer</h3>
+                    <p>Represented India in Bollywood dancing for 35 days in Qatar during FIFA World Cup 2022</p>
+                    <span class="achievement-date">2022</span>
+                </div>
+
+                <!-- Star of the Month -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Star of the Month Award</h3>
+                    <p>Recognized as Star of the Month at Accenture for exceptional contributions</p>
+                    <span class="achievement-date">Feb 2022</span>
+                </div>
+
+                <!-- 2021 Achievements -->
+                <!-- ACE Award -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>ACE - Accenture Celebrates Excellence</h3>
+                    <p>Award in Skill Star category for exceptional performance and technical excellence</p>
+                    <span class="achievement-date">2021</span>
+                </div>
+
+                <!-- Tech Expressway Merit -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-road"></i>
+                    </div>
+                    <h3>Accenture Tech Expressway Merit Holder</h3>
+                    <p>Merit holder recognition for outstanding technical skills and innovation</p>
+                    <span class="achievement-date">2021</span>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>I'm always excited to discuss new projects and opportunities. Whether you need help with a
+                        specific analysis, want to build a data science team, or are looking for strategic guidance, I'm
+                        here to help.</p>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>aish.bhanage0412@gmail.com</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 9342460445</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>New York City, US</span>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Aishwarya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
