@@ -1964,7 +1964,8 @@ body {
 
 .skills-grid-advanced {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 1.5rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -2163,9 +2164,18 @@ body {
     border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
+@media (max-width: 1024px) {
+    .skills-grid-advanced {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+}
+
 @media (max-width: 768px) {
     .skills-grid-advanced {
         grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
         gap: 1rem;
     }
     
