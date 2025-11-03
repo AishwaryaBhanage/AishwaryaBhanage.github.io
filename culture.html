@@ -39,6 +39,10 @@
             height: 350px;
             border-radius: 20px;
             background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            background-image: url('images/canvas_pic.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -262,7 +266,7 @@
         }
 
         /* Pinterest-style Natural Image Sizing */
-        
+
         /* All images maintain their natural aspect ratios */
         .mosaic-tile img {
             width: 100%;
@@ -302,11 +306,11 @@
                 columns: 3;
                 column-gap: 6px;
             }
-            
+
             .photography-section {
                 padding: 6px;
             }
-            
+
             .mosaic-tile {
                 margin-bottom: 6px;
             }
@@ -317,27 +321,27 @@
                 columns: 2;
                 column-gap: 4px;
             }
-            
+
             .photography-section {
                 padding: 4px;
             }
-            
+
             .mosaic-tile {
                 margin-bottom: 4px;
             }
-            
+
             .tall-vertical img {
                 min-height: 250px;
             }
-            
+
             .highlight-block img {
                 min-height: 280px;
             }
-            
+
             .wide-landscape img {
                 min-height: 160px;
             }
-            
+
             .regular-photo img {
                 min-height: 140px;
             }
@@ -348,27 +352,27 @@
                 columns: 2;
                 column-gap: 2px;
             }
-            
+
             .photography-section {
                 padding: 2px;
             }
-            
+
             .mosaic-tile {
                 margin-bottom: 2px;
             }
-            
+
             .tall-vertical img {
                 min-height: 200px;
             }
-            
+
             .highlight-block img {
                 min-height: 220px;
             }
-            
+
             .wide-landscape img {
                 min-height: 120px;
             }
-            
+
             .regular-photo img {
                 min-height: 100px;
             }
@@ -405,7 +409,7 @@
                 text-align: center;
                 padding: 0 20px;
             }
-            
+
             .visual-stories-header .section-description {
                 text-align: center;
                 margin-left: auto;
@@ -451,11 +455,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(0, 0, 0, 0.1) 40%,
-                rgba(0, 0, 0, 0.7) 80%,
-                rgba(0, 0, 0, 0.9) 100%);
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.1) 40%,
+                    rgba(0, 0, 0, 0.7) 80%,
+                    rgba(0, 0, 0, 0.9) 100%);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
@@ -472,7 +476,7 @@
             color: white;
             font-weight: 600;
             font-size: 0.95rem;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
             opacity: 0;
             transform: translateY(15px);
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -646,6 +650,7 @@
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#education" class="nav-link">Education</a></li>
                 <li class="nav-item"><a href="index.html#journey" class="nav-link">Journey</a></li>
                 <li class="nav-item"><a href="culture.html" class="nav-link active">My Canvas</a></li>
                 <li class="nav-item"><a href="index.html#skills" class="nav-link">Skills</a></li>
@@ -654,7 +659,7 @@
                 <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <a href="https://drive.google.com/file/d/1Jsp2i1b77GfyOYbE5Ksh8XdJDg6PgPTm/view?usp=sharing"
+                <a href="images/AishwaryaMBhanage_Resume.pdf"
                     target="_blank" class="resume-btn">
                     <i class="fas fa-download"></i>
                     Resume
@@ -672,17 +677,21 @@
     <section class="canvas-hero">
         <div class="intro-section">
             <div class="profile-image-container">
-                <div class="profile-image">
-                    AB
+                <div class="profile-image" aria-label="Aishwarya Bhanage's profile photo">
                 </div>
             </div>
             <div class="who-am-i">
                 <h1 class="canvas-title">Who Am I?</h1>
                 <p class="canvas-subtitle">Beyond the data and algorithms</p>
                 <div class="personal-description">
-                    <p>I'm Aishwarya Bhanage - a passionate and free spirited happy soul who finds beauty in both data patterns and life's rhythms. While my professional world revolves around artificial intelligence and machine learning, my heart beats to the rhythm of dance, cultural expression, and human connection.</p>
+                    <p>I'm Aishwarya Bhanage - a passionate and free spirited happy soul who finds beauty in both data
+                        patterns and life's rhythms. While my professional world revolves around artificial intelligence
+                        and machine learning, my heart beats to the rhythm of dance, cultural expression, and human
+                        connection.</p>
 
-                    <p>I believe in living life with purpose, embracing challenges with a smile, and finding joy in every small victory. Whether I'm debugging code at 2 AM or performing on stage, I bring the same energy, dedication, and love for what I do.</p>
+                    <p>I believe in living life with purpose, embracing challenges with a smile, and finding joy in
+                        every small victory. Whether I'm debugging code at 2 AM or performing on stage, I bring the same
+                        energy, dedication, and love for what I do.</p>
                 </div>
                 <div class="personality-traits">
                     <span class="trait-tag">🌟 Optimistic</span>
@@ -781,7 +790,7 @@
                     <div class="mosaic-caption">Nature's Symphony 🌊<br>Finding peace in flowing waters</div>
                 </div>
             </div>
-            
+
             <!-- Wide Landscape - City Skyline -->
             <div class="mosaic-tile wide-landscape">
                 <img src="assets/images/personal/1.jpg" alt="City Skyline" loading="lazy">
@@ -789,7 +798,7 @@
                     <div class="mosaic-caption">Skyline Nights 🌃<br>Urban dreams and city lights</div>
                 </div>
             </div>
-            
+
             <!-- Regular Photo - FIFA World Cup -->
             <div class="mosaic-tile regular-photo">
                 <img src="assets/images/personal/1000292859.jpg" alt="FIFA World Cup Journey" loading="lazy">
@@ -797,7 +806,7 @@
                     <div class="mosaic-caption">FIFA World Cup 2022 🇮🇳<br>Representing India with pride</div>
                 </div>
             </div>
-            
+
             <!-- Highlight Block - Sunset (Featured) -->
             <div class="mosaic-tile highlight-block">
                 <img src="assets/images/personal/2.jpg" alt="Sunset Cityscape" loading="lazy">
@@ -805,7 +814,7 @@
                     <div class="mosaic-caption">Sunset Lover 🌅<br>Golden hour magic over the city</div>
                 </div>
             </div>
-            
+
             <!-- Tall Vertical - Dance Performance -->
             <div class="mosaic-tile tall-vertical">
                 <img src="assets/images/personal/1000275530.jpg" alt="Dance Performance" loading="lazy">
@@ -813,7 +822,7 @@
                     <div class="mosaic-caption">Dance Journey 💃<br>Classical Bharatanatyam expressions</div>
                 </div>
             </div>
-            
+
             <!-- Regular Photo - Adventure -->
             <div class="mosaic-tile regular-photo">
                 <img src="assets/images/personal/1000295801.jpg" alt="Adventure & Travel" loading="lazy">
@@ -821,7 +830,7 @@
                     <div class="mosaic-caption">Adventure Calls 🏔️<br>Exploring new horizons</div>
                 </div>
             </div>
-            
+
             <!-- Highlight Block - Starry Sky (Featured) -->
             <div class="mosaic-tile highlight-block">
                 <img src="assets/images/personal/3.jpg" alt="Starry Night" loading="lazy">
@@ -829,7 +838,7 @@
                     <div class="mosaic-caption">Starry Dreams ⭐<br>Lost in the cosmic beauty</div>
                 </div>
             </div>
-            
+
             <!-- Regular Photo - Community -->
             <div class="mosaic-tile regular-photo">
                 <img src="assets/images/personal/IMG20250808202859.jpg" alt="Community & Events" loading="lazy">
@@ -837,7 +846,7 @@
                     <div class="mosaic-caption">Community Spirit 🤝<br>Celebrating together</div>
                 </div>
             </div>
-            
+
             <!-- Tall Vertical - Stage Performance -->
             <div class="mosaic-tile tall-vertical">
                 <img src="assets/images/personal/1000295243.jpg" alt="Stage Performance" loading="lazy">
@@ -845,7 +854,7 @@
                     <div class="mosaic-caption">Stage Magic 🎭<br>Live performance energy</div>
                 </div>
             </div>
-            
+
             <!-- Wide Landscape - Cultural Heritage -->
             <div class="mosaic-tile wide-landscape">
                 <img src="assets/images/personal/4.jpg" alt="Cultural Moment" loading="lazy">
@@ -853,7 +862,7 @@
                     <div class="mosaic-caption">Cultural Roots 🏛️<br>Heritage and traditions</div>
                 </div>
             </div>
-            
+
             <!-- Regular Photo - Travel Memories -->
             <div class="mosaic-tile regular-photo">
                 <img src="assets/images/personal/5.jpg" alt="Travel Memory" loading="lazy">
