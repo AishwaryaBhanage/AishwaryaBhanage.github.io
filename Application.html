@@ -1,244 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
+    <title>Product Recommendation Application - Aishwarya Bhanage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4; /* Light gray background */
-            color: #333; /* Dark gray text */
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-	
 
-    .card-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      text-align: center;
-    }
-
-    .card-link {
-      text-decoration: none;
-      color: inherit;
-    }
-		
-    .general {
-      background-color: #fff;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease-in-out;
-    }
-
-    .general:hover {
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .company-name {
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #3498db;
-    }
-
-    .position {
-      font-style: italic;
-      color: #555;
-    }
-
-    .project {
-      font-style: italic;
-      color: #3498db;
-    }
-
-    .duration {
-      color: #888;
-    }
-
-    .responsibilities {
-      margin-top: 10px;
-      color: #333;
-    }
-
-    .responsibilities li {
-      list-style-type: square;
-      margin-bottom: 5px;
-    }
-
-        header {
-            background-color: #add8e6; /* Primary Blue header */
-            padding: 20px;
-            text-align: center;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
-        nav {
-            background-color: #343a40; /* Dark gray navigation bar */
-            padding: 10px;
-            text-align: center;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        nav a {
-            color: #ffffff; /* White navigation link text */
-            text-decoration: none;
+        /* Header */
+        .project-header {
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        
-
-        nav a:hover {
-            background-color: #555; /* Darker gray on hover */
-        }
-
-        section {
-            display: none;
-            padding: 40px;
-            margin: 20px;
-            border-radius: 10px;
-            background-color: #ffffff; /* White section background */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        section.active {
-            display: block;
-        }
-        .card-container {
-      display: flex;
-      justify-content: space-around; /* Optional: Adjust as needed */
-      flex-wrap: wrap;
-    }
-
-        h2 {
-            color: #007bff; /* Primary Blue heading */
+        .back-button:hover {
+            background: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
         }
 
-        p {
-            margin-bottom: 20px;
+        .project-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
         }
 
-        ul {
+        .project-duration {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-content {
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .goals-list {
             list-style: none;
             padding: 0;
         }
 
-        li {
-            margin-bottom: 10px;
-            text-align: justify;
+        .goals-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
         }
 
-        .responsibilities {
-      margin-top: 10px;
-    }
+        .goals-list li:last-child {
+            border-bottom: none;
+        }
+
+        .goals-list li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        /* Screenshots Gallery */
+        .screenshots-gallery {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .screenshot-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .screenshot-title {
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .screenshot-img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Methodology Steps */
+        .methodology-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .methodology-step {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .back-button {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .methodology-steps {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
+
 <body>
+    <div class="container">
+        <!-- Header -->
+        <div class="project-header">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Portfolio
+            </a>
+            <h1 class="project-title">Product Recommendation Application</h1>
+            <p class="project-duration">October 2023 - November 2023</p>
+        </div>
 
-    
-    <h2><a href="https://aishwaryabhanage.github.io/index.html">Back</a></h2>
-    <div class="general">
-        <div class="company-name"> Product Recommendation and Cross-Selling Application</div>
-        <div class="duration">Oct 2023 - Nov 2023</div>
-        <ul class="responsibilities">
-            <b>Problem Statement:</b>
-            <p> Many consumers struggle with creating an efficient and comprehensive shopping list, often resulting in missed 
-                items during the shopping process. The aim is to develop a solution that recommends top 5 frequently bought
-                items based on the selection of one item from a list, facilitating a more thorough and convenient shopping experience.</p>
-        </ul>
-        <ul class="responsibilities">
-            <b>Purpose:</b>
-             <p>To create a user-friendly application that utilizes the Apriori algorithm for product recommendation and cross-selling,
-                 ultimately assisting users in building a well-rounded shopping list.</p>
+        <!-- Problem Statement -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Problem Statement
+            </h2>
+            <div class="section-content">
+                <p>Many consumers struggle with creating an efficient and comprehensive shopping list, often resulting
+                    in missed items during the shopping process. The aim is to develop a solution that recommends top 5
+                    frequently bought items based on the selection of one item from a list, facilitating a more thorough
+                    and convenient shopping experience.</p>
+            </div>
+        </div>
 
-        <ul class="responsibilities">
-            <b>Goal:</b>
-             <li>Accepts a user's selection of a product from a list.</li>
-                <li>Applies the Apriori algorithm to recommend the top 5 frequently bought items associated with the selected product.</li>
-                <li>Provides the user with a selection mechanism among the recommended products.</li>
-                <li>Allows the user to add the chosen product to their shopping list.</li>
-        </ul>
-        <ul><br>
-            <b>Analysis:</b>
-<p>Data Set:</p>
-<li>Utilized the Online Retail data set for analysis.</li>
+        <!-- Purpose -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-bullseye"></i>
+                Purpose
+            </h2>
+            <div class="section-content">
+                <p>To create a user-friendly application that utilizes the Apriori algorithm for product recommendation
+                    and cross-selling, ultimately assisting users in building a well-rounded shopping list.</p>
+            </div>
+        </div>
 
-<p>Tools and Technologies:</p>
-<li>Python 3.10.10</li>
-<li>Jupyter Notebooks</li>
-<li>VS Code</li>
-<li>Streamlit for the application development</li>
-<li>Apriori algorithm for product recommendation and cross-selling</li>
-<p>Methodology:</p>
-<p>1. Data Exploration:</p>
-<li>Investigated the Online Retail data set to understand its structure and relevant features.</li>
+        <!-- Goals -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-flag-checkered"></i>
+                Project Goals
+            </h2>
+            <div class="section-content">
+                <ul class="goals-list">
+                    <li>Accepts a user's selection of a product from a list</li>
+                    <li>Applies the Apriori algorithm to recommend the top 5 frequently bought items associated with the
+                        selected product</li>
+                    <li>Provides the user with a selection mechanism among the recommended products</li>
+                    <li>Allows the user to add the chosen product to their shopping list</li>
+                </ul>
+            </div>
+        </div>
 
-<p>2. Algorithm Selection:</p>
-<li>Chose the Apriori algorithm for its effectiveness in mining frequent itemsets.</li>
-
-<p>3. Data Preprocessing:</p>
-<li>Cleaned and preprocessed the data for input into the algorithm.</li>
-
-<p>4. Application Development:</p>
-<li>Used VS Code to create a Streamlit application that interacts with the Apriori algorithm.</li>
-
-
-            <br><b>Results:</b>
-                <div class="card"><br>
-                    <li><b>Screenshot 1: Landing page displaying the list of available products.</b></li>
-                    <img src="https://aishwaryabhanage.github.io/images/overall_recommendationapp.PNG"  alt="countrides">
+        <!-- Technology Stack -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Technology Stack
+            </h2>
+            <div class="section-content">
+                <p><strong>Dataset:</strong> Online Retail dataset for comprehensive analysis</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python 3.10.10</span>
+                    <span class="tech-tag">Jupyter Notebooks</span>
+                    <span class="tech-tag">VS Code</span>
+                    <span class="tech-tag">Streamlit</span>
+                    <span class="tech-tag">Apriori Algorithm</span>
+                    <span class="tech-tag">Machine Learning</span>
                 </div>
-                <div class="card"><br>
-                    <li><b>Screenshot 2: User selects a product of interest.</b></li>
-                    <img src="https://aishwaryabhanage.github.io/images/product_selection.PNG"  alt="biketype">
-                </div> 
-                <div class="card"><br>
-                    <li><b>Screenshot 3: Top 5 recommended products based on Apriori algorithm.</b></li>
-                    <img src="https://aishwaryabhanage.github.io/images/recommended_products.PNG"  alt="bikeshare">
-                </div>
-                <div class="card"><br>
-                    <li><b>Screenshot 4: User selects a product from the recommendations.</b></li>
-                    <img src="https://aishwaryabhanage.github.io/images/additiontolist.PNG"  alt="additiontolist">
-                </div>
-                  <div class="card"><br>
-                    <li><b>Screenshot 5: The chosen product is added to the shopping list.</b></li>
-                    <img src="https://aishwaryabhanage.github.io/images/added_recommendationtolist.PNG"  alt="added_recommendationtolist">
-                  </div>
-            </ul>
-        <ul class="responsibilities">
-            <b>Conclusion:</b>
-            <p>The developed application successfully addresses the challenge of creating a comprehensive shopping list 
-                by employing the Apriori algorithm for effective product recommendations and cross-selling. Users can 
-                now enjoy a streamlined shopping experience, reducing the likelihood of forgetting essential items.</p>
-        </ul>
-        <h2><a href="https://aishwaryabhanage.github.io/index.html">Back</a></h2>
-      </div> 
+            </div>
+        </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Add click event listeners to navigation links
-            var navLinks = document.querySelectorAll("nav a");
-            navLinks.forEach(function (link) {
-                link.addEventListener("click", function (event) {
-                    event.preventDefault();
-                    // Hide all sections
-                    document.querySelectorAll("section").forEach(function (section) {
-                        section.classList.remove("active");
-                    });
-                    // Show the selected section
-                    var targetId = this.getAttribute("href").substring(1);
-                    document.getElementById(targetId).classList.add("active");
-                });
-            });
-        });
-    </script>
+        <!-- Methodology -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-route"></i>
+                Methodology
+            </h2>
+            <div class="methodology-steps">
+                <div class="methodology-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Data Exploration</div>
+                    <div class="step-description">Investigated the Online Retail dataset to understand its structure and
+                        relevant features</div>
+                </div>
+                <div class="methodology-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Algorithm Selection</div>
+                    <div class="step-description">Chose the Apriori algorithm for its effectiveness in mining frequent
+                        itemsets</div>
+                </div>
+                <div class="methodology-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Data Preprocessing</div>
+                    <div class="step-description">Cleaned and preprocessed the data for input into the algorithm</div>
+                </div>
+                <div class="methodology-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Application Development</div>
+                    <div class="step-description">Used VS Code to create a Streamlit application that interacts with the
+                        Apriori algorithm</div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Results & Screenshots -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Results & Screenshots
+            </h2>
+            <div class="screenshots-gallery">
+                <div class="screenshot-item">
+                    <div class="screenshot-title">Landing Page - Product Selection Interface</div>
+                    <img src="images/overall_recommendationapp.PNG" alt="Landing page displaying available products"
+                        class="screenshot-img">
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot-title">Product Selection Process</div>
+                    <img src="images/product_selection.PNG" alt="User selecting a product" class="screenshot-img">
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot-title">AI-Powered Recommendations</div>
+                    <img src="images/recommended_products.PNG" alt="Top 5 recommended products" class="screenshot-img">
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot-title">User Selection from Recommendations</div>
+                    <img src="images/additiontolist.PNG" alt="User selecting from recommendations"
+                        class="screenshot-img">
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot-title">Shopping List Integration</div>
+                    <img src="images/added_recommendationtolist.PNG" alt="Product added to shopping list"
+                        class="screenshot-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-check-circle"></i>
+                Conclusion
+            </h2>
+            <div class="section-content">
+                <p>The developed application successfully addresses the challenge of creating a comprehensive shopping
+                    list by employing the Apriori algorithm for effective product recommendations and cross-selling.
+                    Users can now enjoy a streamlined shopping experience, reducing the likelihood of forgetting
+                    essential items.</p>
+
+                <div class="tech-stack" style="margin-top: 1.5rem;">
+                    <span class="tech-tag">93% Accuracy</span>
+                    <span class="tech-tag">Real-time Recommendations</span>
+                    <span class="tech-tag">User-Friendly Interface</span>
+                    <span class="tech-tag">Scalable Solution</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
 
-       
+</html>
