@@ -75,59 +75,86 @@ export default function ZoomIntro({ lines = ['AISHWARYA', 'BHANAGE'], enabled = 
 
   /* --- 2. size the lines, then locate the A -------------------------------- */
   /* Split from step 1 deliberately: the <svg> only renders once box.w is known,
-     so the text nodes do not exist on the first pass and cannot be measured. */
+     so the text nodes do not exist on the first pass and cannot be measured.
+
+     Fitting the name is done by watching rather than by listening. The obvious
+     approach, measuring once document.fonts.ready resolves, is a race: that
+     promise reports the font system currently idle, and at first paint the
+     cross-origin Google Fonts stylesheet has often not been parsed yet, so
+     nothing is pending and it resolves before Sora has even been asked for.
+     The name then stays sized to the fallback face, whose glyphs are narrower,
+     and the real font runs off both edges of the window. So instead the fit is
+     re-checked each frame for the first few seconds and corrected whenever the
+     measured width drifts — whenever the font actually lands, and however it
+     gets there. */
   useLayoutEffect(() => {
     if (!on || !box.w) return
     let live = true
+    let raf = 0
+    const deadline = performance.now() + 4000
 
-    const measure = () => {
-    if (!live) return
-    const next = lines.map((line, i) => {
+    // Rather than filling the window edge to edge, leave a clear margin: the
+    // name should look placed, not crammed.
+    const FILL = 0.86
+    const TALLEST = 0.38   // of the window, per line
+
+    /* Measure at whatever size the node is already showing, then scale that
+       reading to the target width. The obvious version — write a rough guess,
+       measure it, solve — is wrong: getComputedTextLength() read straight after
+       writing font-size can still report the previous layout, so the solve uses
+       a length that belongs to a different size and settles about 10% too big.
+       Reading first and writing after means the length always belongs to the
+       size it was taken at, and the correction is exact. */
+    const fit = () => lines.map((line, i) => {
       const t = textRefs.current[i]
       if (!t) return 0
-      const guess = box.w / (line.length * 0.62)
-      t.setAttribute('font-size', String(guess))
-      const len = t.getComputedTextLength() || 1
-      // Fit the width, but never so tall that the two lines run off the top
-      // and bottom of a short window.
-      return Math.min(guess * ((box.w * 0.94) / len), box.h * 0.42)
+      const cur = parseFloat(t.getAttribute('font-size')) || 10
+      const len = t.getComputedTextLength()
+      if (!len) return 0
+      const size = Math.min(cur * ((box.w * FILL) / len), box.h * TALLEST)
+      t.setAttribute('font-size', String(size))
+      return size
     })
-    if (next.every((n) => !n)) return
-    setSizes(next)
 
-    // Locating the A is the whole trick: everything zooms about this point, so a
-    // wrong answer magnifies blank ground instead of the letter. Keep asking
-    // until the glyph reports a real position rather than committing a guess.
-    let tries = 0
-    const locate = () => {
+    // Everything zooms about the counter of the A, so a wrong point magnifies
+    // blank ground instead of the letter. Ask until the glyph answers.
+    const locate = (sized) => {
       const t = textRefs.current[FOCUS_LINE]
       if (!t) return
-      let at = null
       try {
         const a = t.getStartPositionOfChar(FOCUS_CHAR)
         const b = t.getEndPositionOfChar(FOCUS_CHAR)
-        // The counter of a capital A is a triangle sitting high in the glyph.
-        if (b.x > a.x) at = { x: (a.x + b.x) / 2, y: a.y - next[FOCUS_LINE] * 0.26 }
+        if (b.x > a.x) {
+          focus.current = { x: (a.x + b.x) / 2, y: a.y - sized[FOCUS_LINE] * 0.26 }
+          return
+        }
       } catch { /* not laid out yet */ }
-
-      if (at) focus.current = at
-      else if (tries++ < 20) return requestAnimationFrame(locate)
       // Last resort: the left of the first line, where the A lives. Never the
       // middle of the card, which is the gap between the two lines.
-      else if (!focus.current.x) focus.current = { x: box.w * 0.07, y: box.h * 0.42 }
-
-      paint()
-    }
-    requestAnimationFrame(locate)
+      if (!focus.current.x) focus.current = { x: box.w * 0.07, y: box.h * 0.42 }
     }
 
-    measure()
-    // Measure again once Sora has actually arrived. The first pass runs against
-    // the fallback face, whose glyphs are narrower — size the name to that and
-    // the real font overflows the window on both sides.
-    if (document.fonts?.ready) document.fonts.ready.then(measure)
+    let applied = [0, 0]
+    const tick = () => {
+      if (!live) return
+      const next = fit()
+      if (next && next.some(Boolean)) {
+        // Only disturb React when the answer has actually moved.
+        const moved = next.some((n, i) => Math.abs(n - applied[i]) > applied[i] * 0.004 + 0.5)
+        if (moved) {
+          applied = next
+          setSizes(next)
+          requestAnimationFrame(() => { locate(next); paint() })
+        } else {
+          // Sizes are settled but the glyph may still be unmeasured.
+          if (!focus.current.x) { locate(next); paint() }
+        }
+      }
+      if (performance.now() < deadline) raf = requestAnimationFrame(tick)
+    }
+    tick()
 
-    return () => { live = false }
+    return () => { live = false; cancelAnimationFrame(raf) }
   }, [on, box.w, box.h, lines.join('|')]) // eslint-disable-line react-hooks/exhaustive-deps
 
   /* --- drive it from scroll ------------------------------------------------ */
@@ -205,10 +232,16 @@ export default function ZoomIntro({ lines = ['AISHWARYA', 'BHANAGE'], enabled = 
       const top = runwayTop()
       const total = STEPS * stepPx()
       const stride = dir > 0 ? stepPx() : total / OUT_STEPS
-      const at = (window.scrollY - top) / stride
+      // Smooth scrolling settles on whole pixels, so a step of 185.33px leaves
+      // you at 185 — a hair short of the stop. Without a real tolerance the
+      // next gesture floors back to the stop you are already standing on and
+      // the gate refuses to move at all.
+      const raw = (window.scrollY - top) / stride
+      const near = Math.round(raw)
+      const at = Math.abs(raw - near) < 0.05 ? near : raw
       const next = dir > 0
-        ? (Math.floor(at + 0.001) + 1) * stride
-        : (Math.ceil(at - 0.001) - 1) * stride
+        ? (Math.floor(at) + 1) * stride
+        : (Math.ceil(at) - 1) * stride
       const target = Math.max(0, Math.min(total, next))
       busy = true
       window.scrollTo({ top: top + target, behavior: 'smooth' })
